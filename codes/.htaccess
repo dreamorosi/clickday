@@ -1,0 +1,6 @@
+Options -Indexes
+
+<FilesMatch "\.(?i:txt)$">
+  ForceType application/octet-stream
+  Header set Content-Disposition attachment
+</FilesMatch>
