@@ -1,6 +1,6 @@
 
 Options +FollowSymlinks
 RewriteEngine On
-RewriteCond %{HTTP_REFERER} !^http://(www\.)?clickdayats\.it/ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?clickday/ [NC]
 RewriteCond %{REQUEST_URI} !hotlink\.(gif|png|jpg|doc|xls|pdf|html|htm|xlsx|docx|js|css) [NC]
-RewriteRule .*\.(gif|png|jpg|doc|xls|pdf|html|htm|xlsx|docx|js|css)$ http://clickdayats.it/denied [NC]
+RewriteRule .*\.(gif|png|jpg|doc|xls|pdf|html|htm|xlsx|docx|js|css)$ http://clickday/denied [NC]
