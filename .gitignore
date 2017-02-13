@@ -1,8 +1,7 @@
 Click Day - tutorial - v2.mp4
 assets/uploads/
-assets/.htaccess
 .DS_STORE
 .ftpconfig
 .ftpignore
 application/logs/
-application/config/config.php
+application/config/*
