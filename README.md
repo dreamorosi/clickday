@@ -11,7 +11,7 @@ Impostare DB come indicato da `application/config/database.php` usando `yellowun
 Il sito è hostato [http://www.responsive-bootstrap.xyz](http://www.responsive-bootstrap.xyz).
 Aggiungere la seguente repo per caricare gli ultimi cambiamenti.
 ```sh
-git add remote server ssh://git@vps318060.ovh.net:1901/var/repo/clickday.git
+git remote add server ssh://git@vps318060.ovh.net:1901/var/repo/clickday.git
 ```
 Per poter utilizzare questa repo è necessario aver fornito la chiave pubblica.
 

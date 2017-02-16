@@ -3,6 +3,7 @@ assets/uploads/
 .DS_STORE
 .ftpconfig
 .ftpignore
+.htaccess
 application/logs/
 application/config/config.php
 application/config/database.php
