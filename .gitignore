@@ -4,4 +4,5 @@ assets/uploads/
 .ftpconfig
 .ftpignore
 application/logs/
-application/config/*
+application/config/config.php
+application/config/database.php
