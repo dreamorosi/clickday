@@ -53,6 +53,7 @@ $route['default_controller'] = 'Index';
 $route['signup'] = "users/signup";
 $route['bando'] = "index/bando";
 $route['chisiamo'] = "index/chisiamo";
+$route['soloclick'] = "index/soloclick";
 $route['faq'] = "index/faq";
 $route['experience'] = "index/experience";
 $route['signup/(:any)'] = "users/signup/$1";

@@ -52,6 +52,11 @@ class Index extends CI_Controller {
 		$this->load->view('faq', $this->data);
 	}
 
+	public function soloclick()
+	{
+		$this->load->view('soloclick/index', $this->data);
+	}
+
 	public function denied()
 	{
 		$this->load->view('error_401');
