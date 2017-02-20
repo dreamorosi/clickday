@@ -69,7 +69,8 @@ class Dashboard extends CI_Controller {
 				}
 				$this->data['rawUsers'] = $this->dashboard_model->paginateUsers($users);
 
-				$this->data["files"] = $this->dashboard_model->getFiles();
+				$this->data["projects_classic"] = $this->dashboard_model->getProjectsClassic();
+				$this->data["projects_sc"] = $this->dashboard_model->getProjectsSC();
 				$this->data['users'] = json_encode($this->data['rawUsers']);
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
 				$this->data['pageSpan'] = 30;

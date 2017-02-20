@@ -1,76 +1,98 @@
 $(document).ready(function(){
 	role = window.role;
-	user = window.users;
+	users_mnpl = window.users;
 	pageSpan = window.pageSpan;
 	maxOffset = window.maxOffset;
-	files = window.files;
+	projects_classic = window.projects_classic;
 	fixcode = window.fixcode;
 	current = 0;
+	old_filter = '';
 	var destID;
-	console.log(users)
 
 
 	$("#search").keyup(function(){
         $('tbody').empty()
         // Retrieve the input field text and reset the count to zero
         var filter = $.trim($(this).val());
-        if(filter==''){
+        if(filter.length<=3){
+        	if (users_mnpl.length != window.users) {
+        		users_mnpl = window.users;
+        		pages = Math.ceil(users_mnpl.length/pageSpan);
+				maxOffset = pageSpan * (pages-1);
+				el = $('#usrPages .active');
+				ofst = el.data('offset');
+				if(ofst>maxOffset)
+					ofst=maxOffset;
+				updatePaginator(ofst);
+				showPage(ofst);
+        	}
 			for(i=current;i<pageSpan+current;i++){
 				region = "";
 				sent = "";
-				if(user[i].code_rec=="No")
-					select_files = "<select id='select" + user[i].ID + "' class='select_code'><option value='Progetto'>Progetto</option>";
+				if(users_mnpl[i].code_rec=="No")
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 				else{
-					select_files = "<select id='select" + user[i].ID + "' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 					sent = "sent";
 				}
-				for(k=0; k<files.length; k++){
-					if(user[i].code!=files[k].file){
-						select_files = select_files + "<option value='"+ files[k].region +"'>"+ files[k].file +"</option>";
+				for(k=0; k<projects_classic.length; k++){
+					if(users_mnpl[i].code!=projects_classic[k].file){
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
 					}
 					else{
-						select_files = select_files + "<option value='"+ files[k].region +"' selected>"+ files[k].file +"</option>";
-						region = user[i].region;
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+						region = users_mnpl[i].region;
 					}
 				}
-				select_files = select_files + "</select>";
-				$('tbody').append('<tr class="user-line" data-id="'+user[i].ID+'" data-name="'+user[i].name+'"><td><div class="status-circle status'+user[i].status+'"></div></td><td class="cName"><b>'+user[i].name+'</b></td><td>'+user[i].join+'</td><td>'+user[i].clickM+'</td><td>'+user[i].approved+'</td><td>'+user[i].code_rec+'</td><td>'+user[i].screen+'</td><td>'+user[i].contract+'</td><td '+fixcode+' class="select_td">'+select_files+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+				select_projects_classic = select_projects_classic + "</select>";
+				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td '+fixcode+' class="select_td">'+select_projects_classic+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
 			}
           return;
         }
         $c = 0;
-        $.each(user, function(i){
-            if (user[i].name.search(new RegExp(filter, "i")) < 0) {
-                return;
-    		} else {
+        if(filter.length>old_filter.length)
+        	users_mnpl = jlinq.from(users_mnpl).starts('name', filter).or().starts('inverted_name',filter).select();
+        else
+    		users_mnpl = jlinq.from(window.users).starts('name', filter).or().starts('inverted_name',filter).select();
+    	$.each(users_mnpl,  function(i) {
 				region = "";
 				sent = "";
-				if(user[i].code_rec=="No")
-					select_files = "<select id='select" + user[i].ID + "' class='select_code'><option value='Progetto'>Progetto</option>";
+				if(users_mnpl[i].code_rec=="No")
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 				else{
-					select_files = "<select id='select" + user[i].ID + "' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 					sent = "sent";
 				}
-				for(k=0; k<files.length; k++){
-					if(user[i].code!=files[k].file){
-						select_files = select_files + "<option value='"+ files[k].region +"'>"+ files[k].file +"</option>";
+				for(k=0; k<projects_classic.length; k++){
+					if(users_mnpl[i].code!=projects_classic[k].file){
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
 					}
 					else{
-						select_files = select_files + "<option value='"+ files[k].region +"' selected>"+ files[k].file +"</option>";
-						region = user[i].region;
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+						region = users_mnpl[i].region;
 					}
 				}
-				select_files = select_files + "</select>";
-				$('tbody').append('<tr class="user-line" data-id="'+user[i].ID+'" data-name="'+user[i].name+'"><td><div class="status-circle status'+user[i].status+'"></div></td><td class="cName"><b>'+user[i].name+'</b></td><td>'+user[i].join+'</td><td>'+user[i].clickM+'</td><td>'+user[i].approved+'</td><td>'+user[i].code_rec+'</td><td>'+user[i].screen+'</td><td>'+user[i].contract+'</td><td class="select_td">'+select_files+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+				select_projects_classic = select_projects_classic + "</select>";
+				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
                 $c++;
-            }
         });
         if($c==0){
         	$('tbody').append('<tr class="user-line"><td>Nessun Risultato</td></tr>');
         }
+        old_filter = filter
+        pages = Math.ceil(users_mnpl.length/pageSpan);
+		maxOffset = pageSpan * (pages-1);
+		el = $('#usrPages .active');
+		ofst = el.data('offset');
+		if(ofst>maxOffset)
+			ofst=maxOffset;
+		updatePaginator(ofst);
+		showPage(ofst);
     });
 
 	function showPage(offset){
+		if(users_mnpl.length==0)
+			return;
 		offset = parseInt(offset);
 		$('.prev, .next').removeClass('disabled');
 		if(offset==0)$('.prev').addClass('disabled');
@@ -80,46 +102,46 @@ $(document).ready(function(){
 			for(var i = offset; i < offset+pageSpan; i++){
 				region = "";
 				sent = "";
-				if(user[i].code_rec=="No")
-					select_files = "<select id='select" + user[i].ID + "' class='select_code'><option value='Progetto'>Progetto</option>";
+				if(users_mnpl[i].code_rec=="No")
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 				else{
-					select_files = "<select id='select" + user[i].ID + "' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 					sent = "sent";
 				}
-				for(k=0; k<files.length; k++){
-					if(user[i].code!=files[k].file){
-						select_files = select_files + "<option value='"+ files[k].region +"'>"+ files[k].file +"</option>";
+				for(k=0; k<projects_classic.length; k++){
+					if(users_mnpl[i].code!=projects_classic[k].file){
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
 					}
 					else{
-						select_files = select_files + "<option value='"+ files[k].region +"' selected>"+ files[k].file +"</option>";
-						region = user[i].region;
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+						region = users_mnpl[i].region;
 					}
 				}
-				select_files = select_files + "</select>";
-				$('.table-striped tbody').append('<tr class="user-line" data-id="'+user[i].ID+'" data-name="'+user[i].name+'"><td><div class="status-circle status'+user[i].status+'"></div></td><td class="cName"><b>'+user[i].name+'</b></td><td>'+user[i].join+'</td><td>'+user[i].clickM+'</td><td>'+user[i].approved+'</td><td>'+user[i].code_rec+'</td><td>'+user[i].screen+'</td><td>'+user[i].contract+'</td><td class="select_td">'+select_files+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+				select_projects_classic = select_projects_classic + "</select>";
+				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
 			};
 		}else{
 			$('.table-striped tbody').empty()
-			for(var i = offset; i < user.length; i++){
+			for(var i = offset; i < users_mnpl.length; i++){
 				region = "";
 				sent = "";
-				if(user[i].code_rec=="No")
-					select_files = "<select id='select" + user[i].ID + "' class='select_code'><option value='Progetto'>Progetto</option>";
+				if(users_mnpl[i].code_rec=="No")
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 				else{
-					select_files = "<select id='select" + user[i].ID + "' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 					sent = "sent";
 				}
-				for(k=0; k<files.length; k++){
-					if(user[i].code!=files[k].file){
-						select_files = select_files + "<option value='"+ files[k].region +"'>"+ files[k].file +"</option>";
+				for(k=0; k<projects_classic.length; k++){
+					if(users_mnpl[i].code!=projects_classic[k].file){
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
 					}
 					else{
-						select_files = select_files + "<option value='"+ files[k].region +"' selected>"+ files[k].file +"</option>";
-						region = user[i].region;
+						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+						region = users_mnpl[i].region;
 					}
 				}
-				select_files = select_files + "</select>";
-				$('.table-striped tbody').append('<tr class="user-line" data-id="'+user[i].ID+'" data-name="'+user[i].name+'"><td><div class="status-circle status'+user[i].status+'"></div></td><td class="cName"><b>'+user[i].name+'</b></td><td>'+user[i].join+'</td><td>'+user[i].clickM+'</td><td>'+user[i].approved+'</td><td>'+user[i].code_rec+'</td><td>'+user[i].screen+'</td><td>'+user[i].contract+'</td><td class="select_td">'+select_files+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+				select_projects_classic = select_projects_classic + "</select>";
+				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
 			};
 		}
 		current = offset;
@@ -182,8 +204,8 @@ $(document).ready(function(){
 		}, 5000);
 	});
 
-	$('body').on('change', '.select_code', function(e){
-		if($(this).val()!="Progetto") {
+	$('body').on('change', '.select_code_classic', function(e){
+		if($(this).val()!="Progetto CL") {
 			$(this).parent().parent().find(".select_region").html($(this).val());
 			$(this).parent().parent().find(".sendcode").addClass("sendready");
 		}
@@ -210,7 +232,7 @@ $(document).ready(function(){
 			selected = $("#select"+ID+" option:selected" ).text();
 			region = $("#select"+ID+" option:selected" ).val();
 			btn = $(this);
-			if(selected!="Progetto") {
+			if(selected!="Progetto CL") {
 				$.ajax({
 					method: 'POST',
 					dataType: 'json',
@@ -248,7 +270,7 @@ $(document).ready(function(){
 				$('.confirm2 .modal-footer .btn-primary').button('reset');
 				$('.confirm2').modal('hide');
 				$("#select"+chosen2).prop('disabled', false);
-				//$("#select"+chosen2).val('Progetto');
+				//$("#select"+chosen2).val('Progetto CL');
 				//btn.parent().find('.select_region').html("");
 				btn.removeClass("sent");
 
@@ -363,11 +385,11 @@ $(document).ready(function(){
 
 	function rebuild(chosen){
 		var tmp = [];
-		for(i=0; i<user.length; i++){
-			if(user[i].ID!=chosen)
-				tmp.push(user[i]);
+		for(i=0; i<users_mnpl.length; i++){
+			if(users_mnpl[i].ID!=chosen)
+				tmp.push(users_mnpl[i]);
 		}
-		user = tmp;
+		users_mnpl = tmp;
 	}
 
 	$('.confirm').on('click', '.del', function(){
@@ -385,7 +407,7 @@ $(document).ready(function(){
 				rebuild(chosen);
 				$rowEl.fadeOut('750', function(){
 					$(this).remove();
-					pages = Math.ceil(user.length/pageSpan);
+					pages = Math.ceil(users_mnpl.length/pageSpan);
 					maxOffset = pageSpan * (pages-1);
 					el = $('#usrPages .active');
 					ofst = el.data('offset');

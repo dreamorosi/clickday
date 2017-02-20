@@ -74,6 +74,7 @@ class Dashboard_model extends CI_Model
 			$obj['ID'] = $user->ID;
 			$obj['status'] = $this->getStatus($user->ID);
 			$obj['name'] = $user->name .' '. $user->surname;
+			$obj['inverted_name'] = $user->surname .' '.$user->name ;
 			$obj['email'] = $user->email;
 			$obj['code'] = $user->code;
 			$obj['region'] = $user->region;
@@ -728,9 +729,15 @@ class Dashboard_model extends CI_Model
 		$this->session->set_userdata('lastSeen', $now);
 	}
 
-	public function getFiles()
+	public function getProjectsClassic()
 	{
-		$query = $this->db->get('files');
+		$query = $this->db->get('projects_classic');
+		return $query->result_array();
+	}
+
+	public function getProjectsSC()
+	{
+		$query = $this->db->get('projects_sc');
 		return $query->result_array();
 	}
 

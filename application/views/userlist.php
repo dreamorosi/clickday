@@ -33,7 +33,8 @@
 	echo "<script>window.users = " . $users . ";</script>";
 	echo "<script>window.pageSpan = " . $pageSpan . ";</script>";
 	echo "<script>window.maxOffset = " . $maxOffset . ";</script>";
-	echo "<script>window.files = " . json_encode($files) . ";</script>";
+	echo "<script>window.projects_classic = " . json_encode($projects_classic) . ";</script>";
+	echo "<script>window.projects_sc = " . json_encode($projects_sc) . ";</script>";
 	echo "<script>window.fixcode = " . $fixcode . ";</script>";
 
 	include_once 'message_modals.php';
@@ -123,22 +124,22 @@
 										$region = "";
 										$sent = "";
 										if($rawUsers[$k]['code_rec']=="No")
-											$select_files = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code'><option value='Progetto'>Progetto</option>";
+											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 										else {
-											$select_files = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 											$sent = "sent";
 										}
-										foreach($files as $file) {
+										foreach($projects_classic as $file) {
 											if($rawUsers[$k]['code']!=$file["file"])
-												$select_files .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+												$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
 											else {
-												$select_files .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+												$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
 												$region = $rawUsers[$k]['region'];
 											}
 										}
-										$select_files .= "</select>";
+										$select_projects_classic .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td '.$fixcode.' class="select_td">'.$select_files.'</td><td '.$fixcode.' class="select_region">'. $region .'<td '.$fixcode.' class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td '.$fixcode.' class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_region">'. $region .'<td '.$fixcode.' class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
 										$k++;
 									endwhile;
 								?>
@@ -200,22 +201,22 @@
 										$region = "";
 										$sent = "";
 										if($rawUsers[$k]['code_rec']=="No")
-											$select_files = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code'><option value='Progetto'>Progetto</option>";
+											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
 										else {
-											$select_files = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code' disabled><option value='Progetto'>Progetto</option>";
+											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
 											$sent = "sent";
 										}
-										foreach($files as $file) {
+										foreach($projects_classic as $file) {
 											if($rawUsers[$k]['code']!=$file["file"])
-												$select_files .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+												$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
 											else {
-												$select_files .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+												$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
 												$region = $rawUsers[$k]['region'];
 											}
 										}
-										$select_files .= "</select>";
+										$select_projects_classic .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td class="select_td">'.$select_files.'</td><td class="select_region">'. $region .'<td class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td class="select_td">'.$select_projects_classic.'</td><td class="select_region">'. $region .'<td class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
 										$k++;
 									endwhile;
 								?>
@@ -321,6 +322,7 @@
 	include_once 'footer_dash.php';
 	echo '</div>';
 ?>
+	<script src="<? echo base_url('assets/js/jlinq.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/userlist.js'); ?>"></script>
 
 </body>
