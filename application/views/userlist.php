@@ -111,8 +111,8 @@
 									<th>Codice ricevuto</th>
 									<th>Screenshot</th>
 									<th>Contratto</th>
-									<th></th>
-									<th></th>
+									<th>Progetto classico</th>
+									<th>Progetto solo click</th>
 									<th></th>
 									<th></th>
 								</tr>
@@ -123,10 +123,15 @@
 									while(($k < $pageSpan)&&($k <count($rawUsers))) :
 										$region = "";
 										$sent = "";
-										if($rawUsers[$k]['code_rec']=="No")
-											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
-										else {
-											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
+										if($rawUsers[$k]['code_rec']=="No") {
+											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
+
+											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
+										} else {
+											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
+
+											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
+
 											$sent = "sent";
 										}
 										foreach($projects_classic as $file) {
@@ -139,7 +144,17 @@
 										}
 										$select_projects_classic .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td '.$fixcode.' class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_region">'. $region .'<td '.$fixcode.' class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										foreach($projects_sc as $file) {
+											if($rawUsers[$k]['code']!=$file["file"])
+												$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+											else {
+												$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+												$region = $rawUsers[$k]['region'];
+											}
+										}
+										$select_projects_sc .= "</select>";
+
+										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td '.$fixcode.' class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_td">'.$select_projects_sc.'</td><td '.$fixcode.' class="select_region">'. $region .'<td '.$fixcode.' class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
 										$k++;
 									endwhile;
 								?>
@@ -188,8 +203,8 @@
 									<th>Codice ricevuto</th>
 									<th>Screenshot</th>
 									<th>Contratto</th>
-									<th></th>
-									<th></th>
+									<th>Progetto classico</th>
+									<th>Progetto solo click</th>
 									<th></th>
 									<th></th>
 								</tr>
@@ -200,10 +215,15 @@
 									while(($k < $pageSpan)&&($k <count($rawUsers))) :
 										$region = "";
 										$sent = "";
-										if($rawUsers[$k]['code_rec']=="No")
-											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
-										else {
-											$select_projects_classic = "<select id='select". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
+										if($rawUsers[$k]['code_rec']=="No") {
+											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
+
+											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
+										} else {
+											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
+
+											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
+
 											$sent = "sent";
 										}
 										foreach($projects_classic as $file) {
@@ -216,7 +236,17 @@
 										}
 										$select_projects_classic .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td class="select_td">'.$select_projects_classic.'</td><td class="select_region">'. $region .'<td class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										foreach($projects_sc as $file) {
+											if($rawUsers[$k]['code']!=$file["file"])
+												$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+											else {
+												$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+												$region = $rawUsers[$k]['region'];
+											}
+										}
+										$select_projects_sc .= "</select>";
+
+										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_td">'.$select_projects_sc.'</td><td class="select_region">'. $region .'<td class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
 										$k++;
 									endwhile;
 								?>

@@ -73,7 +73,20 @@ class Dashboard_model extends CI_Model
 			$obj = array();
 			$obj['ID'] = $user->ID;
 			$obj['status'] = $this->getStatus($user->ID);
-			$obj['name'] = $user->name .' '. $user->surname;
+
+			$complete_name = '';
+			$name = explode(' ', $user->name);
+			$surname = explode(' ', $user->surname);
+
+			for($i=0;$i<count($name);$i++)
+				$name[$i] = ucfirst(strtolower($name[$i]));
+			
+			for($i=0;$i<count($surname);$i++)
+				$surname[$i] = ucfirst(strtolower($surname[$i]));
+			
+
+			$obj['name'] = implode(' ', $name) .' '. implode(' ', $surname);
+
 			$obj['inverted_name'] = $user->surname .' '.$user->name ;
 			$obj['email'] = $user->email;
 			$obj['code'] = $user->code;
@@ -84,7 +97,8 @@ class Dashboard_model extends CI_Model
 			else
 				$obj['clickM'] = 'Nessuno';
 			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
-			if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
+			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
+			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
 			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = '-';
 			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = '-';
 			$data[] = $obj;
@@ -761,11 +775,11 @@ class Dashboard_model extends CI_Model
 		$this->load->helper('url');
 		//$config['protocol'] = 'sendmail';
 		$config['protocol']    = 'smtp';
-    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port']    = '25';
-    $config['smtp_timeout'] = '7';
-    $config['smtp_user']    = 'notification@clickdayats.it';
-    $config['smtp_pass']    = 'Clickday1';
+	    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+	    $config['smtp_port']    = '25';
+	    $config['smtp_timeout'] = '7';
+	    $config['smtp_user']    = 'notification@clickdayats.it';
+	    $config['smtp_pass']    = 'Clickday1';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -775,6 +789,9 @@ class Dashboard_model extends CI_Model
 		$content = $this->load->view('emails/codemail', $data, TRUE);
 		$this->email->message($content);
 		$this->email->send();
+
+		$this->db->set('code_received', 1)->where('ID', $id)->update('users');
+
 	}
 
 }

@@ -163,8 +163,8 @@ textarea{
 }
 .recentWidget .table>tbody>tr>td, .userlistWidget .table>tbody>tr>td, .cmlistWidget .table>tbody>tr>td {
 	color: #525868;
-	font-size: 15px;
-	line-height: 55px;
+	font-size: 12px;
+	line-height: 17px;
 }
 
 .user-line {
@@ -541,7 +541,7 @@ tr.user-line, li.list-group-item.no-border{
 	}
 
 	.recentWidget .table>tbody>tr>td:nth-child(2), .userlistWidget .table>tbody>tr>td:nth-child(2){
-		width: 200px;
+		width: 155px;
 	}
 
 	.messageWidget .right-section{

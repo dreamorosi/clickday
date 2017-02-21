@@ -426,12 +426,22 @@ class Dashboard extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function sendcode()
+	public function setcode()
 	{
 		$id = $this->input->post('ID');
 		$code = $this->input->post('code');
 		$region = $this->input->post('region');
 		$this->dashboard_model->setcode($id, $code, $region);
+		//$this->dashboard_model->sendCodeMail($id, $code);
+		echo json_encode(TRUE);
+	}
+
+	public function sendcode()
+	{
+		$id = $this->input->post('ID');
+		$code = $this->input->post('code');
+		$region = $this->input->post('region');
+		//$this->dashboard_model->setcode($id, $code, $region);
 		$this->dashboard_model->sendCodeMail($id, $code);
 		echo json_encode(TRUE);
 	}

@@ -4,6 +4,7 @@ $(document).ready(function(){
 	pageSpan = window.pageSpan;
 	maxOffset = window.maxOffset;
 	projects_classic = window.projects_classic;
+	projects_sc = window.projects_sc;
 	fixcode = window.fixcode;
 	current = 0;
 	old_filter = '';
@@ -25,30 +26,52 @@ $(document).ready(function(){
 					ofst=maxOffset;
 				updatePaginator(ofst);
 				showPage(ofst);
-        	}
-			for(i=current;i<pageSpan+current;i++){
-				region = "";
-				sent = "";
-				if(users_mnpl[i].code_rec=="No")
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
-				else{
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
-					sent = "sent";
-				}
-				for(k=0; k<projects_classic.length; k++){
-					if(users_mnpl[i].code!=projects_classic[k].file){
-						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
+				/*
+				for(i=current;i<pageSpan+current;i++){
+					region = "";
+					sent = "";
+					if(users_mnpl[i].code_rec=="No") {
+						select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
+
+						select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
+					} else{
+						select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
+
+						select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
+
+						sent = "sent";
 					}
-					else{
-						select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
-						region = users_mnpl[i].region;
+					for(k=0; k<projects_classic.length; k++){
+						if(users_mnpl[i].code!=projects_classic[k].file){
+							select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
+						}
+						else{
+							select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+							region = users_mnpl[i].region;
+						}
 					}
-				}
-				select_projects_classic = select_projects_classic + "</select>";
-				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td '+fixcode+' class="select_td">'+select_projects_classic+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
-			}
-          return;
-        }
+					select_projects_classic = select_projects_classic + "</select>";
+
+					for(k=0; k<projects_sc.length; k++){
+						if(users_mnpl[i].code!=projects_sc[k].file){
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
+						}
+						else{
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
+							region = users_mnpl[i].region;
+						}
+					}
+					select_projects_sc = select_projects_sc + "</select>";
+
+					$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td '+fixcode+' class="select_td">'+select_projects_classic+'</td><td '+fixcode+' class="select_td">'+select_projects_sc+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+				*/
+				//}
+	        	return;
+	        }
+	    }
+	    console.log(filter)
+	    console.log(users_mnpl)
+
         $c = 0;
         if(filter.length>old_filter.length)
         	users_mnpl = jlinq.from(users_mnpl).starts('name', filter).or().starts('inverted_name',filter).select();
@@ -57,10 +80,16 @@ $(document).ready(function(){
     	$.each(users_mnpl,  function(i) {
 				region = "";
 				sent = "";
-				if(users_mnpl[i].code_rec=="No")
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
-				else{
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
+				/*
+				if(users_mnpl[i].code_rec=="No") { 
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
+					
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
+				} else {
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
+					
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
+
 					sent = "sent";
 				}
 				for(k=0; k<projects_classic.length; k++){
@@ -73,7 +102,21 @@ $(document).ready(function(){
 					}
 				}
 				select_projects_classic = select_projects_classic + "</select>";
-				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+
+				for(k=0; k<projects_sc.length; k++){
+						if(users_mnpl[i].code!=projects_sc[k].file){
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
+						}
+						else{
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
+							region = users_mnpl[i].region;
+						}
+					}
+					select_projects_sc = select_projects_sc + "</select>";
+
+				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_td">'+select_projects_sc+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+                
+                */
                 $c++;
         });
         if($c==0){
@@ -84,8 +127,11 @@ $(document).ready(function(){
 		maxOffset = pageSpan * (pages-1);
 		el = $('#usrPages .active');
 		ofst = el.data('offset');
+		if(typeof ofst == 'undefined')
+			ofst = 0
 		if(ofst>maxOffset)
 			ofst=maxOffset;
+		console.log(ofst)
 		updatePaginator(ofst);
 		showPage(ofst);
     });
@@ -102,10 +148,16 @@ $(document).ready(function(){
 			for(var i = offset; i < offset+pageSpan; i++){
 				region = "";
 				sent = "";
-				if(users_mnpl[i].code_rec=="No")
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
+				if(users_mnpl[i].code_rec=="No") {
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
+				
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
+				}
 				else{
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
+					
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
+
 					sent = "sent";
 				}
 				for(k=0; k<projects_classic.length; k++){
@@ -118,17 +170,35 @@ $(document).ready(function(){
 					}
 				}
 				select_projects_classic = select_projects_classic + "</select>";
-				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+
+				for(k=0; k<projects_sc.length; k++){
+						if(users_mnpl[i].code!=projects_sc[k].file){
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
+						}
+						else{
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
+							region = users_mnpl[i].region;
+						}
+					}
+				select_projects_sc = select_projects_sc + "</select>";
+
+				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_td">'+select_projects_sc+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
 			};
 		}else{
 			$('.table-striped tbody').empty()
 			for(var i = offset; i < users_mnpl.length; i++){
 				region = "";
 				sent = "";
-				if(users_mnpl[i].code_rec=="No")
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic'><option value='Progetto CL'>Progetto CL</option>";
+				if(users_mnpl[i].code_rec=="No") {
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
+				
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
+				}
 				else{
-					select_projects_classic = "<select id='select" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='Progetto CL'>Progetto CL</option>";
+					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
+					
+					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
+
 					sent = "sent";
 				}
 				for(k=0; k<projects_classic.length; k++){
@@ -141,7 +211,19 @@ $(document).ready(function(){
 					}
 				}
 				select_projects_classic = select_projects_classic + "</select>";
-				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+
+				for(k=0; k<projects_sc.length; k++){
+						if(users_mnpl[i].code!=projects_sc[k].file){
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
+						}
+						else{
+							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
+							region = users_mnpl[i].region;
+						}
+					}
+				select_projects_sc = select_projects_sc + "</select>";
+
+				$('.table-striped tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_td">'+select_projects_sc+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
 			};
 		}
 		current = offset;
@@ -205,16 +287,54 @@ $(document).ready(function(){
 	});
 
 	$('body').on('change', '.select_code_classic', function(e){
-		if($(this).val()!="Progetto CL") {
+		if($(this).val()!="---") {
 			$(this).parent().parent().find(".select_region").html($(this).val());
+
+			$(this).parent().parent().find(".select_td > .select_code_sc").val('---')
+
+			ID = $(this).parent().parent().data('id');
+			selected = $("#select_classic"+ID+" option:selected" ).text();
+			region = $("#select_classic"+ID+" option:selected" ).val();
+			setcode(ID, selected, region);
 			$(this).parent().parent().find(".sendcode").addClass("sendready");
 		}
 		else {
+			setcode(ID, '', '');
 			$(this).parent().parent().find(".select_region").html("");
 			$(this).parent().parent().find(".sendcode").removeClass("sendready");
 		}
 	});
 
+	$('body').on('change', '.select_code_sc', function(e){
+		if($(this).val()!="---") {
+			$(this).parent().parent().find(".select_region").html($(this).val());
+
+			$(this).parent().parent().find(".select_td > .select_code_classic").val('---')
+
+			ID = $(this).parent().parent().data('id');
+			selected = $("#select_sc"+ID+" option:selected" ).text();
+			region = $("#select_sc"+ID+" option:selected" ).val();
+			setcode(ID, selected, region);
+			$(this).parent().parent().find(".sendcode").addClass("sendready");
+		}
+		else {
+			setcode(ID, '', '');
+			$(this).parent().parent().find(".select_region").html("");
+			$(this).parent().parent().find(".sendcode").removeClass("sendready");
+		}
+	});
+
+	function setcode(ID, selected, region){
+		$.ajax({
+			method: 'POST',
+			dataType: 'json',
+			url: window.base_url + 'dashboard/setcode/',
+			data: 'ID='+ID+'&code='+selected+"&region="+region,
+			success: function(data){
+			}
+		});
+		
+	}
 
 	$('body').on('click', '.setsendmessage2', function(){
 		$('#messDest').html($(this).parent().data('name'));
@@ -229,10 +349,22 @@ $(document).ready(function(){
 	$('body').on('click', '.sendcode', function(){
 		if(!($(this).hasClass("sent"))){
 			ID = $(this).parent().data('id');
-			selected = $("#select"+ID+" option:selected" ).text();
-			region = $("#select"+ID+" option:selected" ).val();
+			selected = $("#select_classic"+ID+" option:selected" ).text();
+			if(selected == "---") {
+				selected = $("#select_sc"+ID+" option:selected" ).text();
+				if(selected == "---") {
+					return;
+				}
+				else {
+					region = $("#select_sc"+ID+" option:selected" ).val();
+				}
+			}
+			else {
+				region = $("#select_classic"+ID+" option:selected" ).val();
+			}
+
 			btn = $(this);
-			if(selected!="Progetto CL") {
+			if(selected!="") {
 				$.ajax({
 					method: 'POST',
 					dataType: 'json',
@@ -241,7 +373,8 @@ $(document).ready(function(){
 					success: function(data){
 						btn.removeClass("sendready");
 						btn.addClass("sent");
-						$("#select"+ID).prop('disabled', true);
+						$("#select_classic"+ID).prop('disabled', true);
+						$("#select_sc"+ID).prop('disabled', true);
 					}
 				});
 			}
@@ -270,7 +403,7 @@ $(document).ready(function(){
 				$('.confirm2 .modal-footer .btn-primary').button('reset');
 				$('.confirm2').modal('hide');
 				$("#select"+chosen2).prop('disabled', false);
-				//$("#select"+chosen2).val('Progetto CL');
+				//$("#select"+chosen2).val('---');
 				//btn.parent().find('.select_region').html("");
 				btn.removeClass("sent");
 
