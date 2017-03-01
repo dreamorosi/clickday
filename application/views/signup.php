@@ -261,7 +261,7 @@
 							<div class="col-md-12">
 								<div class="checkbox checkbox-circle checkbox-orange">
 									<input id="check" type="checkbox" class="accept" tabindex="20" />
-									<label for="check">Acconsento al <a target="_blank" href="<? echo base_url('assets/Privacy_Policy_CLICKDAYATS_2016.pdf'); ?>">trattamento dei dati personali</a></label>
+									<label for="check">Acconsento al <a target="_blank" href="<? echo base_url('assets/Privacy_Policy_CLICKDAYATS_2017.pdf'); ?>">trattamento dei dati personali</a></label>
 								</div>
 							</div>
 						</div>
