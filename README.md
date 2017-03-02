@@ -18,6 +18,9 @@ Per poter utilizzare questa repo è necessario aver fornito la chiave pubblica.
 ##Phpmyadmin
 Per visualizzare PhpMyAdmin andare a [http://vps318060.ovh.net/phpmyadmin/](http://vps318060.ovh.net/phpmyadmin/) e inserire inserire le credenziali `root:root`
 
+##Doc stato lavori
+[Qui](https://docs.google.com/document/d/1DPkS1ALwIgNXrIA7gCIhvZrB-2YbT5DRWCeLm8sZSKA/edit?usp=sharing).
+
 ##Cpanel sito production
 Url: [https://cpanel.clickdayats.it](https://cpanel.clickdayats.it)
 User: yellowunicorns
