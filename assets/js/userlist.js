@@ -22,10 +22,13 @@ $(document).ready(function(){
 				maxOffset = pageSpan * (pages-1);
 				el = $('#usrPages .active');
 				ofst = el.data('offset');
+				if (typeof ofst == 'undefined')
+					ofst = 0;
 				if(ofst>maxOffset)
 					ofst=maxOffset;
 				updatePaginator(ofst);
 				showPage(ofst);
+
 				/*
 				for(i=current;i<pageSpan+current;i++){
 					region = "";
