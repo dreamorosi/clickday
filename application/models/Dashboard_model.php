@@ -99,8 +99,8 @@ class Dashboard_model extends CI_Model
 			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
 			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
 			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
-			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = '-';
-			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = '-';
+			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
+			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
 			$data[] = $obj;
 		}
 		return $data;
@@ -755,10 +755,10 @@ class Dashboard_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function setcode($id, $code, $region)
+	public function setcode($id, $code, $region, $assigned)
 	{
-		$this->db->set('code', $code)->where('ID', $id)->update('users');
-		$this->db->set('region', $region)->where('ID', $id)->update('users');
+		$this->db->set(array('code' => $code, 'region' => $region, 'code_assigned' => $assigned))->where('ID', $id)->update('users');
+		//$this->db->set('region', $region)->where('ID', $id)->update('users');
 		if ($this->db->affected_rows() > 0){
 			return TRUE;
 		}else{
