@@ -4,16 +4,16 @@
 </script>
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
-	
+
 	include_once 'head_dash.php';
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/magnifier.css') . '"/>';
 	echo '</head>';
-	
+
 	if($role=='admin'):
 		$name = 'Admin '. $name;
 	endif;
-	
+
 	include_once 'header_dash.php';
 	echo '<div class="container-fluid"><div class="row"><div class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar noHover">
 			<li><a href="' . base_url('dashboard') . '">' . $name . ' ' . $surname;
@@ -23,13 +23,14 @@
 		echo '<li><a href="' . base_url('dashboard') . '">Home</a></li>';
 		if($role == 'admin') echo '<li><a href="'. base_url('dashboard/managecm') .'">ClickMasters</a></li>';
 		echo '<li><a href="'. base_url('dashboard/userlist') .'">Liste Utenti</a></li>
-			  <li><a href="'. base_url('dashboard/screens') .'">Screenshots</a></li>';
+	  <li><a href="'. base_url('dashboard/screens') .'">Screenshots</a></li>';
+		echo '<li><a href="' . base_url('dashboard/projects') . '">Elenco Progetti</a></li>';
 		if($role == 'clickMaster') echo '<li class="active"><a href="'.base_url('dashboard/codes').'">Assegna Codici</a></li>';
 	endif;
 	echo '<li><a href="' . base_url('login/signout/') . '">Logout</a></li>
 			</ul>
 			</div>';
-	
+
 	if($role=='clickMaster'):
 ?>
 
@@ -65,12 +66,12 @@
 				</div>
 			</div>
 		</div>
-	
+
 <?
 	//Admin section
 	else:
 ?>
-	
+
 
 <?
 	endif;
@@ -78,6 +79,6 @@
 	echo '</div>';
 ?>
 	<script src="<? echo base_url('assets/js/codes.js'); ?>"></script>
-	
+
 </body>
 </html>

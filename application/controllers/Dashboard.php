@@ -161,6 +161,20 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function projects()
+	{
+		if($this->data['isLogged']){
+			if($this->data['role']=='admin'){
+				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+				$this->load->view('projects', $this->data);
+			}else{
+				redirect(base_url('dashboard'));
+			}
+		}else{
+			redirect(base_url('signup'));
+		}
+	}
+
 	public function notify($code = NULL)
 	{
 		if($this->data['isLogged']){

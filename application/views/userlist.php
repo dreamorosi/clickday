@@ -23,6 +23,7 @@
 		if($role == 'admin') echo '<li><a href="'. base_url('dashboard/managecm') .'">ClickMasters</a></li>';
 		echo '<li class="active"><a href="'. base_url('dashboard/userlist') .'">Liste Utenti</a></li>
 			  <li><a href="'. base_url('dashboard/screens') .'">Screenshots</a></li>';
+		echo '<li><a href="' . base_url('dashboard/projects') . '">Elenco Progetti</a></li>';
 		if($role == 'clickMaster') echo '<li><a href="'.base_url('dashboard/codes').'">Assegna Codici</a></li>';
 	endif;
 	echo '<li><a href="#"  data-toggle="modal" data-target=".winners">Lista Cliccatori vincenti</a></li>';
