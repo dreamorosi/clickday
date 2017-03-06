@@ -1,96 +1,95 @@
-$(document).ready(function(){
-	role = window.role;
-	users_mnpl = window.users;
-	pageSpan = window.pageSpan;
-	maxOffset = window.maxOffset;
-	projects_classic = window.projects_classic;
-	projects_sc = window.projects_sc;
-	fixcode = window.fixcode;
-	current = 0;
-	old_filter = '';
-	var destID;
+var $ = window.$
+var jlinq = window.jlinq
 
+$(document).ready(function () {
+  var role = window.role
+  var users_mnpl = window.users
+  var pageSpan = window.pageSpan
+  var maxOffset = window.maxOffset
+  var projects_classic = window.projects_classic
+  var projects_sc = window.projects_sc
+  var fixcode = window.fixcode
+  var current = 0
+  var old_filter = ''
+  var destID
 
-	$("#search").keyup(function(){
-        $('tbody').empty()
-        // Retrieve the input field text and reset the count to zero
-        var filter = $.trim($(this).val());
-        if(filter.length<=3){
-        	if (users_mnpl.length != window.users) {
-        		users_mnpl = window.users;
-        		pages = Math.ceil(users_mnpl.length/pageSpan);
-				maxOffset = pageSpan * (pages-1);
-				el = $('#usrPages .active');
-				ofst = el.data('offset');
-				if (typeof ofst == 'undefined')
-					ofst = 0;
-				if(ofst>maxOffset)
-					ofst=maxOffset;
-				updatePaginator(ofst);
-				showPage(ofst);
+  $('#search').keyup(function () {
+    $('tbody').empty()
+    // Retrieve the input field text and reset the count to zero
+    var filter = $.trim($(this).val())
+    if (filter.length <= 3) {
+      if (users_mnpl.length !== window.users) {
+    		users_mnpl = window.users
+        var pages = Math.ceil(users_mnpl.length / pageSpan)
+        maxOffset = pageSpan * (pages - 1)
+        var el = $('#usrPages .active')
+        var ofst = el.data('offset')
+        if (typeof ofst === 'undefined') ofst = 0
+        if (ofst > maxOffset) ofst = maxOffset
+        updatePaginator(ofst)
+        showPage(ofst)
 
-				/*
-				for(i=current;i<pageSpan+current;i++){
-					region = "";
-					sent = "";
-					if(users_mnpl[i].code_rec=="No") {
-						select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
+        /*
+        for (i=current; i < pageSpan + current; i++) {
+        region = ''
+        sent = ''
+        if (users_mnpl[i].code_rec=="No") {
+          select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
 
-						select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
-					} else{
-						select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
+          select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
+        } else {
+          select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
 
-						select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
+          select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
 
-						sent = "sent";
-					}
-					for(k=0; k<projects_classic.length; k++){
-						if(users_mnpl[i].code!=projects_classic[k].file){
-							select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
-						}
-						else{
-							select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
-							region = users_mnpl[i].region;
-						}
-					}
-					select_projects_classic = select_projects_classic + "</select>";
+          sent = "sent";
+        }
+        for(k=0; k<projects_classic.length; k++){
+          if(users_mnpl[i].code!=projects_classic[k].file){
+            select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"'>"+ projects_classic[k].file +"</option>";
+          } else {
+            select_projects_classic = select_projects_classic + "<option value='"+ projects_classic[k].region +"' selected>"+ projects_classic[k].file +"</option>";
+            region = users_mnpl[i].region;
+          }
+        }
+        select_projects_classic = select_projects_classic + "</select>";
 
-					for(k=0; k<projects_sc.length; k++){
-						if(users_mnpl[i].code!=projects_sc[k].file){
-							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
-						}
-						else{
-							select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
-							region = users_mnpl[i].region;
-						}
-					}
-					select_projects_sc = select_projects_sc + "</select>";
+        for(k=0; k<projects_sc.length; k++){
+          if(users_mnpl[i].code!=projects_sc[k].file){
+            select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"'>"+ projects_sc[k].file +"</option>";
+          } else {
+            select_projects_sc = select_projects_sc + "<option value='"+ projects_sc[k].region +"' selected>"+ projects_sc[k].file +"</option>";
+            region = users_mnpl[i].region;
+          }
+        }
+        select_projects_sc = select_projects_sc + "</select>";
 
-					$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td '+fixcode+' class="select_td">'+select_projects_classic+'</td><td '+fixcode+' class="select_td">'+select_projects_sc+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
-				*/
-				//}
-	        	return;
-	        }
-	    }
-	    console.log(filter)
-	    console.log(users_mnpl)
+        $('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td '+fixcode+' class="select_td">'+select_projects_classic+'</td><td '+fixcode+' class="select_td">'+select_projects_sc+'</td><td '+fixcode+' class="select_region">'+region+'<td '+fixcode+' class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
+      }
+        */
+        return
+      }
+    }
 
-        $c = 0;
-        if(filter.length>old_filter.length)
-        	users_mnpl = jlinq.from(users_mnpl).starts('name', filter).or().starts('inverted_name',filter).select();
+    console.log(filter)
+    console.log(users_mnpl)
+
+    var $c = 0
+    if (filter.length > old_filter.length)
+      users_mnpl = jlinq.from(users_mnpl).starts('name', filter).or().starts('inverted_name', filter).select()
         else
     		users_mnpl = jlinq.from(window.users).starts('name', filter).or().starts('inverted_name',filter).select();
-    	$.each(users_mnpl,  function(i) {
-				region = "";
-				sent = "";
+    	$.each(users_mnpl, function (i) {
+				region = ''
+				sent = ''
 				/*
-				if(users_mnpl[i].code_rec=="No") { 
+				if(users_mnpl[i].code_rec=="No") {
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
-					
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
 				} else {
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
-					
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
 
 					sent = "sent";
@@ -118,7 +117,7 @@ $(document).ready(function(){
 					select_projects_sc = select_projects_sc + "</select>";
 
 				$('tbody').append('<tr class="user-line" data-id="'+users_mnpl[i].ID+'" data-name="'+users_mnpl[i].name+'"><td><div class="status-circle status'+users_mnpl[i].status+'"></div></td><td class="cName"><b>'+users_mnpl[i].name+'</b></td><td>'+users_mnpl[i].join+'</td><td>'+users_mnpl[i].clickM+'</td><td>'+users_mnpl[i].approved+'</td><td>'+users_mnpl[i].code_rec+'</td><td>'+users_mnpl[i].screen+'</td><td>'+users_mnpl[i].contract+'</td><td class="select_td">'+select_projects_classic+'</td><td class="select_td">'+select_projects_sc+'</td><td class="select_region">'+region+'<td class="sendcode '+sent+'"><span class="glyphicon glyphicon-arrow-right"></span></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
-                
+
                 */
                 $c++;
         });
@@ -153,12 +152,12 @@ $(document).ready(function(){
 				sent = "";
 				if(users_mnpl[i].code_rec=="No") {
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
-				
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
 				}
 				else{
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
-					
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
 
 					sent = "sent";
@@ -194,12 +193,12 @@ $(document).ready(function(){
 				sent = "";
 				if(users_mnpl[i].code_rec=="No") {
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic'><option value='---'>---</option>";
-				
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc'><option value='---'>---</option>";
 				}
 				else{
 					select_projects_classic = "<select id='select_classic" + users_mnpl[i].ID + "' class='select_code_classic' disabled><option value='---'>---</option>";
-					
+
 					select_projects_sc = "<select id='select_sc" + users_mnpl[i].ID + "' class='select_code_sc' disabled><option value='---'>---</option>";
 
 					sent = "sent";
@@ -336,7 +335,7 @@ $(document).ready(function(){
 			success: function(data){
 			}
 		});
-		
+
 	}
 
 	$('body').on('click', '.setsendmessage2', function(){
@@ -378,6 +377,7 @@ $(document).ready(function(){
 						btn.addClass("sent");
 						$("#select_classic"+ID).prop('disabled', true);
 						$("#select_sc"+ID).prop('disabled', true);
+            console.log(data)
 					}
 				});
 			}
@@ -553,11 +553,10 @@ $(document).ready(function(){
 					showPage(ofst);
 				});
 			},
-			error: function(data){
-				$('.confirm .modal-footer .btn-primary').button('reset');
-				$(this).find('.modal-body p').html('<span class="text-danger">Si è verificato un errore, riprovare più tardi.</span>');
+			error: function (data) {
+				$('.confirm .modal-footer .btn-primary').button('reset')
+				$(this).find('.modal-body p').html('<span class="text-danger">Si è verificato un errore, riprovare più tardi.</span>')
 			}
-		});
-	});
-
-});
+})
+})
+})

@@ -80,10 +80,10 @@ class Dashboard_model extends CI_Model
 
 			for($i=0;$i<count($name);$i++)
 				$name[$i] = ucfirst(strtolower($name[$i]));
-			
+
 			for($i=0;$i<count($surname);$i++)
 				$surname[$i] = ucfirst(strtolower($surname[$i]));
-			
+
 
 			$obj['name'] = implode(' ', $name) .' '. implode(' ', $surname);
 
@@ -775,11 +775,11 @@ class Dashboard_model extends CI_Model
 		$this->load->helper('url');
 		//$config['protocol'] = 'sendmail';
 		$config['protocol']    = 'smtp';
-	    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-	    $config['smtp_port']    = '25';
-	    $config['smtp_timeout'] = '7';
-	    $config['smtp_user']    = 'notification@clickdayats.it';
-	    $config['smtp_pass']    = 'Clickday1';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'notification@clickdayats.it';
+    $config['smtp_pass']    = 'Clickday1';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -788,10 +788,10 @@ class Dashboard_model extends CI_Model
 		$this->email->subject('Codice progetto Click Day 2016');
 		$content = $this->load->view('emails/codemail', $data, TRUE);
 		$this->email->message($content);
-		$this->email->send();
+		$sent = $this->email->send();
 
 		$this->db->set('code_received', 1)->where('ID', $id)->update('users');
-
+    return $sent;
 	}
 
 }
