@@ -41,6 +41,7 @@ $(document).ready(function () {
   $('.projectsWidget thead').on('click', '.projectHandle', function () {
     newType = $(this).data('project')
     currentType = newType ? 1 : 0
+    currentOffset = 10
 
     $('.projectHandle.active').removeClass('active')
     $(this).addClass('active')
@@ -106,7 +107,7 @@ function initProjectList (type) {
 function loadMore (currentOffset, type) {
   var $loadButton = $('.leftCol ul li.loadMore')
   currentOffset += 10
-  $loadButton.text('Caricando..').addClass('disabled')
+  $loadButton.text('Caricando..')
 
   var projectsMarkup = ''
   if (type) {
