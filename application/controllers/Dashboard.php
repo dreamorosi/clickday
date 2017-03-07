@@ -166,6 +166,10 @@ class Dashboard extends CI_Controller {
 		if($this->data['isLogged']){
 			if($this->data['role']=='admin'){
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+
+				$this->data["projects_classic"] = $this->dashboard_model->getProjectsClassic();
+				$this->data["projects_sc"] = $this->dashboard_model->getProjectsSC();
+
 				$this->load->view('projects', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
@@ -483,6 +487,12 @@ class Dashboard extends CI_Controller {
 		if($role=='user'){
 			$ok = $this->user->setWinnerAgree($ID);
 		}
+	}
+
+	function getProjClickers($code)
+	{
+		$clickers = $this->dashboard_model->getProjectClickers($code);
+		echo json_encode(count($clickers));
 	}
 }
 

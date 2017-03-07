@@ -548,3 +548,92 @@ tr.user-line, li.list-group-item.no-border{
 		text-align: right;
 	}
 }
+
+.projectsWidget .projectHandle.active {
+	text-decoration: underline;
+	color: #333;
+}
+
+.projectsWidget .projectHandle:hover {
+	cursor: pointer;
+	color: #333
+}
+
+.projectsWidget tbody {
+	max-height: 300px !important;
+}
+
+.projectsWidget .leftCol {
+	width: 45%;
+	font-size: .9em;
+}
+
+.projectsWidget tbody .leftCol {
+	border-right: 1px solid #eee;
+	vertical-align: top !important;
+	padding: 0;
+	margin: 0;
+}
+
+.projectsWidget .leftCol ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	height: 400px;
+	overflow-y: scroll;
+}
+
+.projectsWidget .leftCol ul li {
+	padding: 10px 5px;
+}
+
+.projectsWidget .leftCol ul li:nth-of-type(odd) {
+	background-color: #F3F6FC;
+}
+
+.projectsWidget .leftCol ul li.active {
+	background-color: #e9e9e9;
+}
+
+.projectsWidget .rightCol.projectInfo {
+	height: 300px;
+	vertical-align: top !important;
+	padding: 20px;
+}
+
+.projectsWidget .rightCol.projectInfo .blankInfo {
+	margin-top: 150px;
+}
+
+.projectsWidget .rightCol.projectInfo dt {
+	float: left;
+	width: 160px;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 20px;
+}
+
+.projectsWidget .rightCol.projectInfo dd {
+	margin-left: 180px;
+	margin-bottom: 20px;
+}
+
+.projectsWidget #search {
+	max-width: 100%;
+	display: inline-block;
+	transition: all 250ms ease-in;
+}
+
+.projectsWidget #search.querying {
+	max-width: 80%;
+}
+
+.projectsWidget .resetQuery {
+	display: inline-block;
+	position: relative;
+	top: -2px
+}

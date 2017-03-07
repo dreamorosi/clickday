@@ -755,6 +755,12 @@ class Dashboard_model extends CI_Model
 		return $query->result_array();
 	}
 
+  public function getProjectClickers($code)
+  {
+    $query = $this->db->get_where('users', array('code' => $code));
+    return $query->result_array();
+  }
+
 	public function setcode($id, $code, $region, $assigned)
 	{
 		$this->db->set(array('code' => $code, 'region' => $region, 'code_assigned' => $assigned))->where('ID', $id)->update('users');

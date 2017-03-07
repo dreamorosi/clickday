@@ -29,11 +29,46 @@
 	echo '<li><a href="' . base_url('login/signout/') . '">Logout</a></li>
 			</ul>
 			</div>';
+
+  echo "<script>window.projects_classic = " . json_encode($projects_classic) . ";</script>";
+	echo "<script>window.projects_sc = " . json_encode($projects_sc) . ";</script>";
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
 			<div class="col-md-12">
-			    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="panel panel-default projectsWidget">
+					<div class="panel-heading">
+            <span>Lista Progetti</span>
+          </div>
+					<div class="panel-body table-responsive">
+            <input type="text" class="form-control" placeholder="Cerca" tabindex="1" id="search" autocomplete="off" />
+						<button class="btn btn-default resetQuery hidden">&times; Resetta ricerca</button>
+            <table class="table table-striped">
+							<thead>
+								<tr>
+									<th class='leftCol'>
+                    <span class='projectHandle active' data-project='1'>Progetti</span>
+                     |
+                    <span class='projectHandle' data-project='0'>Progetti Click</span>
+                  </th>
+									<th class='rightCol'>Info</th>
+								</tr>
+							</thead>
+							<tbody>
+                <tr>
+                  <td class='leftCol'>
+                    <ul>
+                      <li>Caricando progetti</li>
+                    </ul>
+                  </td>
+                  <td class='rightCol projectInfo'>
+                    <p class="text-center blankInfo">Seleziona un progetto per visualizzare le informazioni.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 			</div>
 		</div>
 <?
