@@ -130,7 +130,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="panel panel-default detailsClickWidget">
+				<!-- <div class="panel panel-default detailsClickWidget">
 					<div class="panel-heading">Dettagli Click Master</div>
 					<div class="panel-body table-responsive">
 						<p class="emptyDetails"><span class="glyphicon glyphicon-search"></span> Clicca su un Click Master per visualizzare i suoi utenti associati.</p>
@@ -156,7 +156,7 @@
 							</ul>
 						</nav>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

@@ -179,6 +179,26 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function clickmaster($ID = NULL)
+	{
+		if($this->data['isLogged']) {
+			if($this->data['role']=='admin'){
+				if(isset($ID)){
+					$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+
+					$this->data['users'] = $this->fetchUsersByCM($ID);
+					$this->load->view('clickmaster', $this->data);
+				}else{
+					redirect(base_url('dashboard'));
+				}
+			}else{
+				redirect(base_url('dashboard'));
+			}
+		} else {
+			redirect(base_url('signup'));
+		}
+	}
+
 	public function notify($code = NULL)
 	{
 		if($this->data['isLogged']){
@@ -314,6 +334,15 @@ class Dashboard extends CI_Controller {
 		$data['pages'] = ceil(count($data['users'])/$data['pageSpan']);
 		$data['maxOffset'] = $data['pageSpan'] * ($data['pages']-1);
 		echo json_encode($data);
+	}
+
+	function fetchUsersByCM($ID)
+	{
+		$data['users'] = $this->dashboard_model->paginateUsers($this->dashboard_model->getCMusers($ID, -1));
+		$data['pageSpan'] = 10;
+		$data['pages'] = ceil(count($data['users'])/$data['pageSpan']);
+		$data['maxOffset'] = $data['pageSpan'] * ($data['pages']-1);
+		return $data;
 	}
 
 	public function deleteCm()

@@ -23,7 +23,7 @@ $(document).ready(function(){
 		}
 		current = offset;
 	}
-	
+
 	function nextPage(el){
 		if(el.hasClass('disabled')) return;
 		else
@@ -43,7 +43,7 @@ $(document).ready(function(){
 			showPage(current+pageSpan);
 		}
 	}
-	
+
 	function updatePaginator(ac){
 		$('#cmPages').empty().append('<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
 		var c = 0;
@@ -60,8 +60,8 @@ $(document).ready(function(){
 		k = '';
 		if(pages==1) k='disabled';
 		$('#cmPages').append('<li class="'+k+' ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
-	}	
-	
+	}
+
 	$('#cmPages').on('click', 'li', function(){
 		if($(this).hasClass('active')) return;
 		else if($(this).hasClass('ext')){
@@ -73,12 +73,12 @@ $(document).ready(function(){
 			showPage($(this).attr('data-offset'));
 		}
 	});
-	
+
 	chosen = -1;
 	$rowEl = -1;
 	editing = -1;
 	$rowEle = -1
-	
+
 	$('.confirm').on('show.bs.modal', function (event) {
 		button = $(event.relatedTarget);
 		$rowEl = button.parent().parent();
@@ -91,9 +91,9 @@ $(document).ready(function(){
 			name = button.parent().siblings('.cmName').attr('prev');
 			$(this).find('.modal-body p').html("Stai per modificare le informazioni del Click Master <b>"+ name +"</b>. L'azione è irreversibile.");
 			$(this).find('.btn-primary').addClass('ed')
-		}		
+		}
 	});
-	
+
 	$('.confirm').on('hidden.bs.modal', function (event) {
 		$(this).find('.btn-primary').removeClass('del').removeClass('ed');
 		$(this).find('.modal-body p').text('');
@@ -102,7 +102,7 @@ $(document).ready(function(){
 		editing = -1;
 		$rowEle = -1
 	});
-	
+
 	function rebuild(chosen){
 		var tmp = [];
 		for(i=0; i<cms.length; i++){
@@ -111,7 +111,7 @@ $(document).ready(function(){
 		}
 		cms = tmp;
 	}
-	
+
 	$('.confirm').on('click', '.del', function(){
 		$.ajax({
 			method: 'POST',
@@ -178,7 +178,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
+
 	$('.cmT').on('click', '.label-info', function(){
 		if(!$(this).hasClass('disabled')){
 			editing = $(this).parent().parent();
@@ -189,7 +189,7 @@ $(document).ready(function(){
 				}else{
 					$(this).addClass('disabled').removeAttr('data-target');
 				}
-				
+
 			});
 			$name = $(this).parent().siblings('.cmName');
 			$name.attr('prev', $name.text());
@@ -205,7 +205,7 @@ $(document).ready(function(){
 			$(this).parent().empty().append('<span class="label label-default"><span class="glyphicon glyphicon-arrow-left"></span></span> <span data-toggle="modal" data-target=".confirm" data-action="edit" class="label label-success"><span class="glyphicon glyphicon-ok"></span></span>');
 		}
 	});
-	
+
 	$('.cmT').on('click', '.label-default', function(){
 		$name = $(this).parent().siblings('.cmName');
 		$name.empty().append('<b>'+$name.attr('prev')+'</b>');
@@ -218,13 +218,13 @@ $(document).ready(function(){
 			$(this).removeClass('disabled').attr('data-target', '.confirm');;
 		});
 	});
-	
+
 	user = [];
 	mOff = 0;
 	pgSp = 0;
 	pg = 0;
 	cr = 0;
-	
+
 	function showPageUsers(offset){
 		offset = parseInt(offset);
 		$('.detailsClickWidget .prev, .detailsClickWidget .next').removeClass('disabled');
@@ -243,7 +243,7 @@ $(document).ready(function(){
 		}
 		cr = offset;
 	}
-	
+
 	function nextPageUsers(el){
 		if(el.hasClass('disabled')) return;
 		else
@@ -263,7 +263,7 @@ $(document).ready(function(){
 			showPageUsers(cr+pgSp);
 		}
 	}
-	
+
 	$('#usrPages').on('click','li', function(){
 		if($(this).hasClass('active')) return;
 		else if($(this).hasClass('usrA')){
@@ -275,7 +275,7 @@ $(document).ready(function(){
 			showPageUsers($(this).attr('data-offset'));
 		}
 	});
-	
+
 	function createUserPages(){
 		$('.detailsClickWidget .panel-footer').removeClass('hidden');
 		$('#usrPages').empty().append('<li class="disabled usrA prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
@@ -290,42 +290,48 @@ $(document).ready(function(){
 		else d = '';
 		$('#usrPages').append('<li class="'+d+' usrA next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
 	}
-	
-	$('.table-striped').on('click', '.cmUsers', function(){
-		name = $(this).siblings('.cmName').html();
-		id = $(this).parent().attr('data-id');
-		$('.detailsClickWidget .panel-body .table').addClass('hidden')
-		$('.emptyDetails').removeClass('hidden');
-		$('.detailsClickWidget .panel-footer').addClass('hidden');
-		$.ajax({
-			method: 'POST',
-			dataType: 'json',
-			url: window.base_url + 'dashboard/getUsersByCM/',
-			data: 'ID='+id,
-			beforeSend: function(){
-				$('.emptyDetails').html('Caricamento').delay(200).html('Caricamento.').delay(200).html('Caricamento..');
-			},
-			success: function(data){
-				$('.detailsClickWidget .panel-heading').html('Dettagli Click Master: '+name);
-				if(data.users.length==0) $('.emptyDetails').html('Sembra che '+name+' non abbia ancora nessun utente associato.');
-				else{
-					$('.emptyDetails').addClass('hidden').html('<span class="glyphicon glyphicon-search"></span> Clicca su un Click Master per visualizzare i suoi utenti associati.');
-					$('.detailsClickWidget .panel-body .table').removeClass('hidden');
-					user = data.users;
-					mOff = data.maxOffset;
-					pgSp = data.pageSpan;
-					pg = data.pages;
-					if(pg>1) createUserPages();
-					showPageUsers(0);
-				}
-					
-			},
-			error: function(data){
-				console.log(data.responseText)
-			}
-		});
-	});
-	
+
+	$('.table-striped').on('click', '.user-line', function () {
+		var ID = $(this).data('id')
+		window.location.href = window.base_url + "dashboard/clickmaster/" + ID
+		console.log(ID)
+	})
+
+	// $('.table-striped').on('click', '.cmUsers', function(){
+	// 	name = $(this).siblings('.cmName').html();
+	// 	id = $(this).parent().attr('data-id');
+	// 	$('.detailsClickWidget .panel-body .table').addClass('hidden')
+	// 	$('.emptyDetails').removeClass('hidden');
+	// 	$('.detailsClickWidget .panel-footer').addClass('hidden');
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		dataType: 'json',
+	// 		url: window.base_url + 'dashboard/getUsersByCM/',
+	// 		data: 'ID='+id,
+	// 		beforeSend: function(){
+	// 			$('.emptyDetails').html('Caricamento').delay(200).html('Caricamento.').delay(200).html('Caricamento..');
+	// 		},
+	// 		success: function(data){
+	// 			$('.detailsClickWidget .panel-heading').html('Dettagli Click Master: '+name);
+	// 			if(data.users.length==0) $('.emptyDetails').html('Sembra che '+name+' non abbia ancora nessun utente associato.');
+	// 			else{
+	// 				$('.emptyDetails').addClass('hidden').html('<span class="glyphicon glyphicon-search"></span> Clicca su un Click Master per visualizzare i suoi utenti associati.');
+	// 				$('.detailsClickWidget .panel-body .table').removeClass('hidden');
+	// 				user = data.users;
+	// 				mOff = data.maxOffset;
+	// 				pgSp = data.pageSpan;
+	// 				pg = data.pages;
+	// 				if(pg>1) createUserPages();
+	// 				showPageUsers(0);
+	// 			}
+	//
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data.responseText)
+	// 		}
+	// 	});
+	// });
+
 	$('button.newCm').click(function(){
 		removeErrors();
 		valid = true;
@@ -373,12 +379,12 @@ $(document).ready(function(){
 			return
 		}
 	});
-	
+
 	$('.addCM .form-control').keypress(function (e) {
 		key = e.which;
 		if(key == 13){
 			$('button.newCm').click();
-			return;  
+			return;
 		}
 	});
 });
