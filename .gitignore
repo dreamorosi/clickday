@@ -7,3 +7,4 @@ assets/uploads/
 application/logs/
 application/config/config.php
 application/config/database.php
+application/third_party/mpdf60/tmp
