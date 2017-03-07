@@ -20,7 +20,7 @@ $(document).ready(function () {
     if (filter.length <= 3) {
       if (users_mnpl.length !== window.users) {
     		users_mnpl = window.users
-        var pages = Math.ceil(users_mnpl.length / pageSpan)
+        pages = Math.ceil(users_mnpl.length / pageSpan)
         maxOffset = pageSpan * (pages - 1)
         var el = $('#usrPages .active')
         var ofst = el.data('offset')
