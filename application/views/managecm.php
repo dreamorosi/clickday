@@ -56,7 +56,17 @@
 								<?
 									$k = 0;
 									while(($k < $pageSpan)&&($k <count($rawCMs))) :
-										echo '<tr class="user-line" data-ID="'. $rawCMs[$k]['ID'] .'"><td class="cmName"><b>'. $rawCMs[$k]['name'] .'</b></td><td class="cmCode">'. $rawCMs[$k]['code'] .'</td><td class="cmEmail">'. $rawCMs[$k]['email'] .'</td><td class="cmUsers"><span>'. $rawCMs[$k]['users'] .'</span><span class="glyphicon glyphicon-search"></span></td><td class="cmActions"><span class="label label-info"><span class="glyphicon glyphicon-pencil"></span></span> <span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										$tr = '<tr class="user-line" data-ID="'. $rawCMs[$k]['ID'] .'" title="Clicca per vedere gli utenti associati a ' . $rawCMs[$k]['name'] . '">';
+										$tr .= '<td class="cmName"><b>'. $rawCMs[$k]['name'] .'</b></td>';
+										$tr .= '<td class="cmCode">'. $rawCMs[$k]['code'] .'</td>';
+										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
+										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
+										$tr .= '<td class="cmUsers"><span>'. $rawCMs[$k]['users'] .'</span><span class="glyphicon glyphicon-search"></span></td>';
+										$tr .= '<td class="cmActions">';
+										$tr .= '<span class="label label-info" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></span> ';
+										$tr .= '<span title="Elimina ClickMaster" data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>';
+										$tr .= '</td>';
+										echo $tr;
 										$k++;
 									endwhile;
 								?>
@@ -84,7 +94,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-default">
 					<div class="panel-heading">Aggiungi Click Master</div>
 					<div class="panel-body addCM">
@@ -128,35 +138,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-6">
-				<!-- <div class="panel panel-default detailsClickWidget">
-					<div class="panel-heading">Dettagli Click Master</div>
-					<div class="panel-body table-responsive">
-						<p class="emptyDetails"><span class="glyphicon glyphicon-search"></span> Clicca su un Click Master per visualizzare i suoi utenti associati.</p>
-						<table class="table table-striped hidden">
-							<thead>
-								<tr>
-									<th></th>
-									<th>User</th>
-									<th>Data registrazione</th>
-									<th>ClickMaster Associato</th>
-									<th>Conferma registrazione</th>
-									<th>Codice ricevuto</th>
-									<th>Screenshot</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
-					<div class="panel-footer text-center hidden">
-						<nav>
-							<ul class="pagination" id="usrPages">
-							</ul>
-						</nav>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
