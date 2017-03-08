@@ -87,7 +87,7 @@
 				<div class="panel panel-default userlistWidget">
 					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a></div>
 					<div class="panel-body table-responsive">
-						<input type="text" class="form-control"   placeholder="Cerca" tabindex="1" id="search"/>
+						<input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -160,10 +160,10 @@
 
 										$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
 
-										$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+										$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
 
-										$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
-										
+										$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
+
 										$tr .= '</tr>';
 
 										echo $tr;

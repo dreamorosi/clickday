@@ -122,9 +122,9 @@ $(document).ready(function () {
 
       tr += '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>'
 
-      tr += '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>'
+      tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>'
 
-      tr += '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>'
+      tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>'
 
       tr += '</tr>'
 			$('.table-striped tbody').append(tr)
@@ -253,10 +253,10 @@ $(document).ready(function () {
 					data: 'ID=' + ID + '&code=' + selected + '&region=' + region,
 					success: function (data) {
 						btn.removeClass('sendready')
-						btn.addClass("sent")
-						$("#select_classic" + ID).prop('disabled', true)
-						$("#select_sc" + ID).prop('disabled', true)
-            console.log(data)
+            var newClass = data ? 'sent' : 'notSent'
+						$('#select_classic' + ID).prop('disabled', true)
+						$('#select_sc' + ID).prop('disabled', true)
+            console.log('codice inviato ', data)
 					}
 				})
 			}
