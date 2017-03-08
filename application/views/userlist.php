@@ -103,6 +103,8 @@
 									<th>Progetto solo click</th>
 									<th></th>
 									<th></th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody class="se">
@@ -142,7 +144,30 @@
 										}
 										$select_projects_sc .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td '.$fixcode.' class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_td">'.$select_projects_sc.'</td><td '.$fixcode.' class="select_region">'. $region .'<td '.$fixcode.' class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '" data-name="' . $rawUsers[$k]['name'] . '" >';
+
+										$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
+										$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
+										$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
+										$tr .= '<td>' .$rawUsers[$k]['contract']. '</td>';
+										$tr .= '<td ' .$fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
+										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
+										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
+
+										$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
+
+										$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+
+										$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
+										
+										$tr .= '</tr>';
+
+										echo $tr;
+
 										$k++;
 									endwhile;
 								?>
@@ -195,6 +220,8 @@
 									<th>Progetto solo click</th>
 									<th></th>
 									<th></th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -234,7 +261,30 @@
 										}
 										$select_projects_sc .= "</select>";
 
-										echo '<tr class="user-line" data-id="'. $rawUsers[$k]['ID'] .'" data-name="'. $rawUsers[$k]['name'] .'" ><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td class="cName"><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code_rec'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td><td>'.$rawUsers[$k]['contract'].'</td><td class="select_td">'.$select_projects_classic.'</td><td '.$fixcode.' class="select_td">'.$select_projects_sc.'</td><td class="select_region">'. $region .'<td class="sendcode '.$sent.'"><span class="glyphicon glyphicon-arrow-right"></span></td></td><td class="setsendmessage2"><span class="glyphicon glyphicon-envelope"></span></td><td class="noDet"><span data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td></tr>';
+										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '" data-name="' . $rawUsers[$k]['name'] . '" >';
+
+										$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
+										$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
+										$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
+										$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
+										$tr .= '<td>' .$rawUsers[$k]['contract']. '</td>';
+										$tr .= '<td ' .$fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
+										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
+										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
+
+										$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
+
+										$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+
+										$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
+
+										$tr .= '</tr>';
+
+										echo $tr;
+
 										$k++;
 									endwhile;
 								?>

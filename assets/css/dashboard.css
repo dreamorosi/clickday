@@ -178,27 +178,16 @@ textarea{
 	width: 55px;
 }
 
-.sendcode {
-	opacity: 0.5;
+.sendready .btn{
+	border-top: 3px solid #F7B73D !important;
 }
 
-.sendcode:hover {
-	cursor: default;
+.sent .btn{
+	border-top: 3px solid #43F269 !important;
 }
 
-.sendready {
-	color: #f55b63 !important;
-	opacity: 1;
-}
-
-.sent {
-	color: #57c059 !important;
-	opacity: 1;
-}
-
-.sendready:hover, .sent:hover {
-	cursor: pointer;
-
+.notSent .btn{
+	border-top: 3px solid #F7403D !important;
 }
 
 select:disabled {
