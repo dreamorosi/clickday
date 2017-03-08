@@ -6,9 +6,7 @@
 @viewport         { width: device-width; }
 
 body {
-	padding-top: 90px;
-	background: #E5ECF7;
-	color: #595E69;
+	background: #transparent;
 }
 
 .sidebar {
@@ -16,7 +14,7 @@ body {
 }
 
 .dashboardNav{
-	min-height: 90px;
+	min-height: 65px;
 	border-bottom: none;
 }
 
@@ -25,10 +23,19 @@ body {
 	position: static
 }
 
+@media (min-width: 768px) {
+	.dashboardNav .navbar-brand img{
+		width: 125px;
+	}
+}
+
 .navbar-brand{
-	background-color: transparent !important;
+	background-color: transparent;
 	border-radius: none;
-	height: 60px;
+	width: 150px;
+	height: 65px;
+	display: block;
+	margin: 0px 0 15px 35px !important;
 	box-shadow: none;
 }
 
@@ -39,11 +46,11 @@ body {
 .navcontainer{
 	padding-left: 0px;
 	padding-right: 0px;
-	min-height: 89px;
+	min-height: 65px;
 }
 
 .navbar-header, .navbar-collapse{
-	min-height: 90px;
+	min-height: 65px;
 }
 
 .winners p{
@@ -95,11 +102,6 @@ li.divider{
 	background-color: #F8A622;
 }
 
-.nav-sidebar.items{
-	border-top: 1px solid #9C4D02;
-	padding-top: 30px
-}
-
 .nav-sidebar .badge, #navbar .badge, .main .badge, .messageWidget .list-group-item.active .badge, .messageWidget .list-group-item.active:focus .badge, .messageWidget .list-group-item.active:hover .badge{
 	background: #F68720;
 	color: #fff;
@@ -143,8 +145,9 @@ textarea{
 	padding-bottom: 0px;
 }
 
-.messageWidget table {
+.messageWidget table, .screenWidget table {
 	margin-bottom: 0;
+	font-size: .9em !important;
 }
 
 .panel-default>.panel-heading {
@@ -512,32 +515,51 @@ tr.user-line, li.list-group-item.no-border{
 
 @media (min-width: 768px) {
 	.main {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		z-index: 999;
-		display: block;
-		padding: 80px;
-		overflow-x: hidden;
-		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+		margin-top: 0;
+		padding-top: 40px;
+		height: 100%;
 		padding-right: 40px;
 		padding-left: 40px;
 	}
 
 	.sidebar {
 		position: fixed;
-		top: 90px;
+		top: 0;
 		bottom: 0;
 		z-index: 1000;
 		display: block;
-		padding: 20px;
-		overflow-x: hidden;
-		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+		padding: 0 20px;
 		background-color: #F8A622;
 	}
 
+	.nav-sidebar.noHover {
+		margin-bottom: 0
+	}
+
+	.nav-sidebar.noHover li:first-child a{
+		width: 125px;
+		display: block;
+		margin: 10px auto;
+		padding: 0;
+		border: none;
+	}
+
+	.nav-sidebar.noHover li:first-child a img{
+		width: 125px;
+	}
+
+	.nav-sidebar.noHover li:nth-child(2){
+		padding: 15px 0;
+		border-top: 1px solid #9C4D02;
+		border-bottom: 1px solid #9C4D02;
+	}
+
+	.dashboardNav {
+		display: none;
+	}
+
 	#navbar{
-		background: #fff;
+		background: #transparent;
 	}
 
 	.recentWidget .table>tbody>tr>td:nth-child(2), .userlistWidget .table>tbody>tr>td:nth-child(2){
@@ -561,11 +583,11 @@ tr.user-line, li.list-group-item.no-border{
 
 .projectsWidget tbody {
 	max-height: 300px !important;
+	font-size: .9em !important;
 }
 
 .projectsWidget .leftCol {
 	width: 45%;
-	font-size: .9em;
 }
 
 .projectsWidget tbody .leftCol {

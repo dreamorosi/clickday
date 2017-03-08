@@ -10,26 +10,9 @@
 	endif;
 
 	include_once 'header_dash.php';
-	echo '<div class="container-fluid"><div class="row"><div class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar noHover">
-		<li><a href="' . base_url('dashboard') . '">' . $name . ' ' . $surname;
-	if($cnots > 0) echo '<span class="badge pull-right" id="cnots2">' . $cnots . ' <span class="glyphicon glyphicon-envelope"></span>';
-	echo '</span></a></li></ul><ul class="nav nav-sidebar items">';
-	if($role != 'user'):
-		echo '<li><a href="' . base_url('dashboard') . '">Home</a></li>';
-		if($role == 'admin') echo '<li><a href="'. base_url('dashboard/managecm') .'">ClickMasters</a></li>';
-		echo '<li><a href="'. base_url('dashboard/userlist') .'">Liste Utenti</a></li>
-			  <li><a href="#">Screenshots</a></li>';
-	endif;
-	if($role=='user'){
-		echo '<li class="active"><a href="' . base_url('dashboard/profile') .'">Modifica dati personali</a></li>';
-		if($videoLink!='#'){
-			echo '<li><a href="'.$videoLink.'" target="_blank">Video Tutorial</a></li>';
-		}
-	}
-	echo '<li><a href="#"  data-toggle="modal" data-target=".winners">Lista Cliccatori vincenti</a></li>';
-	echo '<li><a href="' . base_url('login/signout/') . '">Logout</a></li>
-			</ul>
-			</div>';
+
+	echo "<script>window.navActive = 'profile';</script>";
+	include_once 'navbar_dash.php';
 
 	if($role=='clickMaster'):
 ?>

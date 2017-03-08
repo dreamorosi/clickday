@@ -14,22 +14,9 @@
 	endif;
 
 	include_once 'header_dash.php';
-	echo '<div class="container-fluid"><div class="row"><div class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar noHover">
-			<li><a href="' . base_url('dashboard') . '">' . $name . ' ' . $surname;
-	if($cnots > 0) echo '<span class="badge pull-right" id="cnots2">' . $cnots . ' <span class="glyphicon glyphicon-envelope"></span>';
-	echo '</span></a></li></ul><ul class="nav nav-sidebar items">';
-	if($role != 'user'):
-		echo '<li><a href="' . base_url('dashboard') . '">Home</a></li>';
-		if($role == 'admin') echo '<li><a href="'. base_url('dashboard/managecm') .'">ClickMasters</a></li>';
-		echo '<li class="active"><a href="'. base_url('dashboard/userlist') .'">Liste Utenti</a></li>
-			  <li><a href="'. base_url('dashboard/screens') .'">Screenshots</a></li>';
-		echo '<li><a href="' . base_url('dashboard/projects') . '">Elenco Progetti</a></li>';
-		if($role == 'clickMaster') echo '<li><a href="'.base_url('dashboard/codes').'">Assegna Codici</a></li>';
-	endif;
-	echo '<li><a href="#"  data-toggle="modal" data-target=".winners">Lista Cliccatori vincenti</a></li>';
-	echo '<li><a href="' . base_url('login/signout/') . '">Logout</a></li>
-			</ul>
-			</div>';
+
+	echo "<script>window.navActive = 'userlist';</script>";
+	include_once 'navbar_dash.php';
 
 	echo "<script>window.users = " . $users . ";</script>";
 	echo "<script>window.pageSpan = " . $pageSpan . ";</script>";
