@@ -32,9 +32,6 @@ $(document).ready(function () {
       }
     }
 
-    console.log(filter)
-    console.log(users_mnpl)
-
     var $c = 0
     if (filter.length > old_filter.length)
       users_mnpl = jlinq.from(users_mnpl).starts('name', filter).or().starts('inverted_name', filter).select()
@@ -46,20 +43,13 @@ $(document).ready(function () {
       $c++
     })
     if ($c === 0) {
-    	$('tbody').append('<tr class="user-line text-center"><td colspan="14">Nessun Risultato</td></tr>')
+    	$('tbody').append('<tr class="user-line text-center"><td colspan="14" class="no-results">Nessun Risultato</td></tr>')
     }
     old_filter = filter
     pages = Math.ceil(users_mnpl.length/pageSpan)
 		maxOffset = pageSpan * (pages-1)
-		el = $('#usrPages .active')
-		ofst = el.data('offset')
-		if (typeof ofst === 'undefined')
-			ofst = 0
-		if (ofst > maxOffset)
-			ofst=maxOffset
-		console.log(ofst)
-		updatePaginator(ofst)
-		showPage(ofst)
+		updatePaginator(0)
+		showPage(0)
   })
 
 	function showPage (offset) {
@@ -100,7 +90,7 @@ $(document).ready(function () {
 
       projects_sc.forEach(function (project) {
         var selected = users_mnpl[i].code !== project.file ? '' : 'selected'
-        var option = "<option value'" + project.region + "' " + selected + ">" + project.file + "</option>"
+        var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>"
         select_projects_sc += option
         region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : ''
       })
@@ -191,9 +181,9 @@ $(document).ready(function () {
 		if ($(this).val() !== '---') {
 			$(this).parent().parent().find(".select_region").html($(this).val())
 
-      var idName = $this.hasClass('select_code_classic') ? '#select_classic' : '#select_sc'
-      var oppositeClass = $this.hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic'
-
+      var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc'
+      var oppositeClass = $(this).hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic'
+			console.log(oppositeClass)
 			$(this).parent().parent().find(".select_td > " + oppositeClass).val('---')
 
 			ID = $(this).parent().parent().data('id')
@@ -328,7 +318,7 @@ $(document).ready(function () {
 	})
 
 	$('.userListWidget').on('click', '.user-line td', function () {
-		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode')) {
+		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode') || $(this).hasClass('no-results')) {
 			return
 		} else {
 			$.ajax({
