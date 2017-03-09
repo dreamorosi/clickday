@@ -69,6 +69,7 @@ class Dashboard_model extends CI_Model
 	{
 		$data = array();
 		$this->load->helper('date');
+		$p = 0;
 		foreach($users as $user){
 			$obj = array();
 			$obj['ID'] = $user->ID;
@@ -99,8 +100,13 @@ class Dashboard_model extends CI_Model
 			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
 			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
 			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
+            if($user->code_assigned == 1) $obj['code_ass'] = 'Si'; else $obj['code_ass'] = 'No';
 			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
 			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
+
+			$obj['pos'] = $p;
+			$p++;
+
 			$data[] = $obj;
 		}
 		return $data;

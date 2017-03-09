@@ -6,7 +6,7 @@
 @viewport         { width: device-width; }
 
 body {
-	background: #transparent;
+	background: transparent;
 }
 
 .sidebar {
@@ -31,7 +31,7 @@ body {
 
 .navbar-brand{
 	background-color: transparent;
-	border-radius: none;
+	border-radius: 0;
 	width: 150px;
 	height: 65px;
 	display: block;
@@ -160,6 +160,48 @@ textarea{
 	background-color: #f3f6fd;
 }
 
+.letters-filter .letters a {
+	margin-top: -1px;
+	border: solid 1px #ccc;
+	display: inline-block;
+	background-color: #fff;
+	color: #525868;
+	width: 25px;
+	text-align: center;
+}
+
+#all {
+	width: 40px;
+}
+
+.letters-filter .letters a:focus {
+	text-decoration: none;
+}
+.letters-filter .letters a:hover, .letters-filter .letters .selected {
+	background-color: #F8A622;
+	border-color: #F8A622;
+	color: #fff;
+	text-decoration: none;
+}
+
+.dropdown-filters {
+	text-align: center;
+}
+
+.dropdown-filters p, .letters-filter p{
+	color: #b1b4bd;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.dropdown-filters select {
+	width: 60px;
+}
+
+.dropdown-filters select:disabled {
+	opacity: 0.6 !important;
+}
+
 .recentWidget .table>thead>tr>th, .userlistWidget .table>thead>tr>th, .cmlistWidget .table>thead>tr>th, .detailsClickWidget .table>thead>tr>th  {
 	color: #b1b4bd;
 	font-size: 14px;
@@ -190,7 +232,7 @@ textarea{
 	border-top: 3px solid #F7403D !important;
 }
 
-select:disabled {
+.select_td select:disabled {
 	color: #57c059 !important;
 }
 
@@ -548,7 +590,7 @@ tr.user-line, li.list-group-item.no-border{
 	}
 
 	#navbar{
-		background: #transparent;
+		background: transparent;
 	}
 
 	.recentWidget .table>tbody>tr>td:nth-child(2), .userlistWidget .table>tbody>tr>td:nth-child(2){

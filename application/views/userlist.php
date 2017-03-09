@@ -87,7 +87,25 @@
 				<div class="panel panel-default userlistWidget">
 					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a></div>
 					<div class="panel-body table-responsive">
-						<input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+                        </div>
+                        <div class="col-sm-2 dropdown-filters" id="code_ass">
+                            <p>Progetto assegnato:</p>
+                            <select>
+                                <option value="">Tutti</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 dropdown-filters" id="code_rec">
+                            <p>Progetto ricevuto:</p>
+                            <select>
+                                <option value="">Tutti</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -158,12 +176,10 @@
 										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
 										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-										$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
-
+                                        $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'sendready' : '';
+										$tr .= '<td class="sendcode '.$sendready.'"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
 										$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
-
 										$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
-
 										$tr .= '</tr>';
 
 										echo $tr;
@@ -204,7 +220,33 @@
 				<div class="panel panel-default userlistWidget">
 					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a><a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-picture"></span> Screenshots</a></div>
 					<div class="panel-body table-responsive">
-						<input type="text" class="form-control"   placeholder="Cerca" tabindex="1" id="search"/>
+                        <div class="col-sm-3">
+						    <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+                        </div>
+                        <div class="col-sm-5">
+                            <div id="" class="letters-filter">
+                               <!-- <p>Filtro lettere:</p> -->
+                                <div class="letters">
+                                    <a id="all" class="selected" href="#">Tutti</a><a id="a" href="#">A</a><a id="b" href="#">B</a><a id="c" href="#">C</a><a id="d" href="#">D</a><a id="e" href="#">E</a><a id="f" href="#">F</a><a id="g" href="#">G</a><a id="h" href="#">H</a><a id="i" href="#">I</a><a id="j" href="#">J</a><a id="k ln-disabled" href="#">K</a><a id="l" href="#">L</a><a id="m" href="#">M</a><a id="n" href="#">N</a><a id="o ln-disabled" href="#">O</a><a id="p" href="#">P</a><a id="q" href="#">Q</a><a id="r" href="#">R</a><a id="s" href="#">S</a><a id="t" href="#">T</a><a id="u" href="#">U</a><a id="v" href="#">V</a><a id="w" href="#">W</a><a id="x" href="#">X</a><a id="y" href="#">Y</a><a id="z ln-last" href="#">Z</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 dropdown-filters" id="code_ass">
+                            <p>Progetto assegnato:</p>
+                            <select>
+                                <option value="">Tutti</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 dropdown-filters" id="code_rec">
+                            <p>Progetto ricevuto:</p>
+                            <select>
+                                <option value="">Tutti</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -261,7 +303,10 @@
 										}
 										$select_projects_sc .= "</select>";
 
-										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '" data-name="' . $rawUsers[$k]['name'] . '" >';
+										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '"';
+										$tr .= ' data-name="' . $rawUsers[$k]['name'] . '"';
+                                        $tr .= ' data-pos="' . $rawUsers[$k]['pos'] . '"';
+                                        $tr .= ' data-pos_mnpl="' . $rawUsers[$k]['pos'] . '" >';
 
 										$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
 										$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
@@ -275,12 +320,10 @@
 										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
 										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-										$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
-
+                                        $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'sendready' : '';
+                                        $tr .= '<td class="sendcode '.$sendready.'"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
 										$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
-
 										$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
-
 										$tr .= '</tr>';
 
 										echo $tr;
