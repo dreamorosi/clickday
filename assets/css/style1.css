@@ -752,7 +752,7 @@ div.section.fp-section.active.fp-completely, .section:first-child{
 	border: 0;
 	border-radius: 0;
 	background-image: -webkit-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 135, 32) 97%);
-    background-image: -ms-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 13	5, 32) 97%);
+    background-image: -ms-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 135, 32) 97%);
 }
 
 .modalw .modal-header {
@@ -957,22 +957,27 @@ div.section.fp-section.active.fp-completely, .section:first-child{
 	}
 }
 
-@media (max-width: 1199px){
+@media (max-width: 1199px) {
 	.container-menu {
 		width: 100%;
 	}
-	#navbarItems>.nav>li>a {
-	padding: 15px 30px !important
+
+	#navbarItems > .nav > li > a {
+		padding: 15px 30px !important
 	}
-	#subNavItems>.nav>li>a {
-	padding: 7px 24px !important
+
+	#subNavItems > .nav > li > a {
+		padding: 7px 24px !important
 	}
+
 	#navbarItems .navbar-left {
-	margin-left: -16px;
+		margin-left: -16px;
 	}
+
 	#subNavItems .navbar-left {
-	margin-left: -8px;
+		margin-left: -8px;
 	}
+}
 @media (max-width: 1054px){
 	.container-menu {
 		width: 100%;
@@ -1074,7 +1079,7 @@ div.section.fp-section.active.fp-completely, .section:first-child{
 	#bg03 {
 		background-image: -moz-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 135, 32) 97%);
 		background-image: -webkit-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 135, 32) 97%);
-		background-image: -ms-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 13	5, 32) 97%);
+		background-image: -ms-linear-gradient( 0deg, rgb(245, 135, 32) 0%, rgb(247, 168, 35) 52%, rgb(245, 135, 32) 97%);
 	}
 
 	@media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -1286,6 +1291,7 @@ div.section.fp-section.active.fp-completely, .section:first-child{
 		padding: 10px;
 	}
 	.testo1{
-		padding-right: 0px;
+		padding-right: 0;
 	}
 }
+
