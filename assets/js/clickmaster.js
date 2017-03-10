@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 function createNumbers () {
   var noProject = users.users.filter(function (user) {
-    if (user.code === null) {
+    if (user.received === null) {
       return user
     }
   })
