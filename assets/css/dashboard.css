@@ -160,17 +160,22 @@ textarea{
 	background-color: #f3f6fd;
 }
 
-.letters-filter .letters a {
-	margin-top: -1px;
+.letters-filter .letters {
+	padding-top: 7.5px
+}
+
+.letters-filter .letters span{
+	margin: -1px -1px 0 -1px;
 	border: solid 1px #ccc;
 	display: inline-block;
 	background-color: #fff;
 	color: #525868;
 	width: 25px;
 	text-align: center;
+	cursor: pointer;
 }
 
-#all {
+.letters-filter .letters span:first-child {
 	width: 40px;
 }
 
@@ -188,7 +193,7 @@ textarea{
 	text-align: center;
 }
 
-.dropdown-filters p, .letters-filter p{
+.dropdown-filters label, .letters-filter label{
 	color: #b1b4bd;
 	font-size: 14px;
 	font-weight: 600;
@@ -220,15 +225,15 @@ textarea{
 	width: 55px;
 }
 
-.sendready .btn{
+.warning .btn{
 	border-top: 3px solid #F7B73D !important;
 }
 
-.sent .btn{
+.success.btn{
 	border-top: 3px solid #43F269 !important;
 }
 
-.notSent .btn{
+.error.btn{
 	border-top: 3px solid #F7403D !important;
 }
 

@@ -483,7 +483,6 @@ class Dashboard extends CI_Controller {
 		$code = $this->input->post('code');
 		$region = $this->input->post('region');
 		$this->dashboard_model->setcode($id, $code, $region, $assigned);
-		//$this->dashboard_model->sendCodeMail($id, $code);
 		echo json_encode(TRUE);
 	}
 
@@ -492,7 +491,6 @@ class Dashboard extends CI_Controller {
 		$id = $this->input->post('ID');
 		$code = $this->input->post('code');
 		$region = $this->input->post('region');
-		//$this->dashboard_model->setcode($id, $code, $region);
 		$result = $this->dashboard_model->sendCodeMail($id, $code);
 		echo json_encode($result);
 	}

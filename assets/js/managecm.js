@@ -291,46 +291,10 @@ $(document).ready(function(){
 		$('#usrPages').append('<li class="'+d+' usrA next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
 	}
 
-	$('.table-striped').on('click', '.user-line', function () {
-		var ID = $(this).data('id')
+	$('.table-striped').on('click', '.cmName, .cmCode, .cmEmail, .cmUsers', function (e) {
+		var ID = $(this).parent().data('id')
 		window.location.href = window.base_url + "dashboard/clickmaster/" + ID
-		console.log(ID)
 	})
-
-	// $('.table-striped').on('click', '.cmUsers', function(){
-	// 	name = $(this).siblings('.cmName').html();
-	// 	id = $(this).parent().attr('data-id');
-	// 	$('.detailsClickWidget .panel-body .table').addClass('hidden')
-	// 	$('.emptyDetails').removeClass('hidden');
-	// 	$('.detailsClickWidget .panel-footer').addClass('hidden');
-	// 	$.ajax({
-	// 		method: 'POST',
-	// 		dataType: 'json',
-	// 		url: window.base_url + 'dashboard/getUsersByCM/',
-	// 		data: 'ID='+id,
-	// 		beforeSend: function(){
-	// 			$('.emptyDetails').html('Caricamento').delay(200).html('Caricamento.').delay(200).html('Caricamento..');
-	// 		},
-	// 		success: function(data){
-	// 			$('.detailsClickWidget .panel-heading').html('Dettagli Click Master: '+name);
-	// 			if(data.users.length==0) $('.emptyDetails').html('Sembra che '+name+' non abbia ancora nessun utente associato.');
-	// 			else{
-	// 				$('.emptyDetails').addClass('hidden').html('<span class="glyphicon glyphicon-search"></span> Clicca su un Click Master per visualizzare i suoi utenti associati.');
-	// 				$('.detailsClickWidget .panel-body .table').removeClass('hidden');
-	// 				user = data.users;
-	// 				mOff = data.maxOffset;
-	// 				pgSp = data.pageSpan;
-	// 				pg = data.pages;
-	// 				if(pg>1) createUserPages();
-	// 				showPageUsers(0);
-	// 			}
-	//
-	// 		},
-	// 		error: function(data){
-	// 			console.log(data.responseText)
-	// 		}
-	// 	});
-	// });
 
 	$('button.newCm').click(function(){
 		removeErrors();

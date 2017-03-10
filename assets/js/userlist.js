@@ -17,66 +17,64 @@ $(document).ready(function () {
   var destID;
 
   function filtering(trigger) {
-      $('tbody').empty();
-      var filter = $.trim($('#search').val());
-      console.log(filter);
-      // Retrieve the input field text and reset the count to zero
-      switch(trigger){
-          case 'search':
-              if (filter.length <= 3) {
-                  if (users_mnpl.length !== window.users) {
-                      users_mnpl = window.users;
-                      pages = Math.ceil(users_mnpl.length / pageSpan);
-                      maxOffset = pageSpan * (pages - 1);
-                      var el = $('#usrPages .active');
-                      var ofst = el.data('offset')
-                      if (typeof ofst === 'undefined') ofst = 0;
-                      if (ofst > maxOffset) ofst = maxOffset;
-                      updatePaginator(ofst);
-                      showPage(ofst);
-                      return
-                  }
-              }
+    $('tbody').empty();
+    var filter = $.trim($('#search').val());
+    console.log(filter);
+    // Retrieve the input field text and reset the count to zero
+    switch(trigger){
+      case 'search':
+        if (filter.length <= 3) {
+          if (users_mnpl.length !== window.users) {
+            users_mnpl = window.users;
+            pages = Math.ceil(users_mnpl.length / pageSpan);
+            maxOffset = pageSpan * (pages - 1);
+            var el = $('#usrPages .active');
+            var ofst = el.data('offset')
+            if (typeof ofst === 'undefined') ofst = 0;
+            if (ofst > maxOffset) ofst = maxOffset;
+            updatePaginator(ofst);
+            showPage(ofst);
+            return
+          }
+        }
+        if (filter.length > old_filter.length)
+          users_mnpl = jlinq.from(users_mnpl).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
+        else
+          users_mnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
+        break;
+      case 'select':
+      case 'letter':
+        //users_mnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
 
-              if (filter.length > old_filter.length)
-                  users_mnpl = jlinq.from(users_mnpl).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
-              else
-                  users_mnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
-              break;
-          case 'select':
-          case 'letter':
-              //users_mnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).or().starts('inverted_name', filter).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
+        if (Object.keys(letter_filters).length==0)
+          users_mnpl = jlinq.from(window.users).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
+        else {
+          l = 0;
+          for (letter in letter_filters) {
+            users_letter_filtered = l == 0 ?  jlinq.from(window.users).starts('inverted_name', letter) : users_letter_filtered.or(letter);
+            l++;
+          }
+          users_mnpl = users_letter_filtered.select();
+          users_mnpl = jlinq.from(users_mnpl).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
+        }
+        break;
+    }
 
-              if (Object.keys(letter_filters).length==0)
-                  users_mnpl = jlinq.from(window.users).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
-              else {
-                  l = 0;
-                  for (letter in letter_filters) {
-                      users_letter_filtered = l == 0 ? jlinq.from(window.users).starts('inverted_name', letter) : users_letter_filtered.or(letter);
-                      l++;
-                  }
-                  users_mnpl = users_letter_filtered.select();
-                  users_mnpl = jlinq.from(users_mnpl).starts('code_ass', ass_filter).starts('code_rec', rec_filter).select();
-              }
-              break;
-      }
-
-      var c = 0;
-      $.each(users_mnpl, function (i) {
-          region = '';
-          sent = '';
-          c++
-      });
-      //console.log(c)
-      if (c == 0) {
-          $('tbody').append('<tr class="user-line text-center"><td colspan="14" class="no-results">Nessun Risultato</td></tr>');
-      }
-      old_filter = filter;
-      pages = Math.ceil(users_mnpl.length/pageSpan);
-      maxOffset = pageSpan * (pages-1);
-      updatePaginator(0);
-      showPage(0);
-
+    var c = 0;
+    $.each(users_mnpl, function (i) {
+      region = '';
+      sent = '';
+      c++
+    });
+    //console.log(c)
+    if (c == 0) {
+      $('tbody').append('<tr class="user-line text-center"><td colspan="14" class="no-results">Nessun Risultato</td></tr>');
+    }
+    old_filter = filter;
+    pages = Math.ceil(users_mnpl.length/pageSpan);
+    maxOffset = pageSpan * (pages-1);
+    updatePaginator(0);
+    showPage(0);
   }
 
   function update() {
@@ -87,53 +85,48 @@ $(document).ready(function () {
       filtering('search')
   });
 
-    $('.letters').on('click','a', function () {
-    	letter = $(this).attr('id');
-    	if(letter != 'all') {//Ho selezionato una lettera
-            $('#search').val('');
-    		$('#search').prop('disabled', true);//Resetto e disabilito la barra di ricerca
-    		$('#all').removeClass('selected');//Deseleziono "Tutti"
-    		if($(this).hasClass('selected')) {//Controllo se la lettera era già selezionata, se sì è una deselezione
-                $(this).removeClass('selected')
-                delete letter_filters[letter];
-                if (Object.keys(letter_filters).length==0) {//Se non ci sono più lettere selezionate, riseleziono "Tutti"
-                    $('#all').addClass('selected');
-                    $('#search').prop('disabled', false);
-                }
-            }else {//Ho selezionato una nuova lettera, l'aggiungo ai filtri
-                $(this).addClass('selected')
-                letter_filters[letter] = letter;
-            }
-		}else {//Ho selezionato "Tutti", deseleziono le lettere e resetto il filtro
-            $('#search').prop('disabled', false);
-            $('.letters a').removeClass('selected');
-            $('#all').addClass('selected');
-            letter_filters = {};
-		}
-        filtering('letter')
-	});
-
-    $('body').on('change', '.dropdown-filters select', function (e) {
-        select_case = $(this).parent().attr('id')
-        selection = $(this).val();
-        if(select_case == 'code_ass') {
-            ass_filter = selection;
-            if(selection!='No')
-                $('#code_rec select').prop('disabled', false);
-            else {
-                $('#code_rec select').prop('disabled', true);
-                $('#code_rec select').val('');
-                rec_filter = '';
-            }
+  $('.letters').on('click','span', function () {
+  	letter = $(this).html().toLowerCase()
+    if(letter != 'tutti') {
+      $('#search').val('').prop('disabled', true)
+  		$('.letters span:first-child').removeClass('selected');
+  		if($(this).hasClass('selected')) {
+        $(this).removeClass('selected')
+        delete letter_filters[letter];
+        if (Object.keys(letter_filters).length==0) {
+          $('#all').addClass('selected');
+          $('#search').prop('disabled', false);
         }
-        if(select_case == 'code_rec') {
-            rec_filter = selection;
-        }
+      }else {//Ho selezionato una nuova lettera, l'aggiungo ai filtri
+        $(this).addClass('selected')
+        letter_filters[letter] = letter;
+      }
+	   } else {
+      $('#search').prop('disabled', false);
+      $('.letters span').removeClass('selected');
+      $('.letters span:first-child').addClass('selected');
+        letter_filters = {};
+     }
+    filtering('letter')
+  });
 
-        filtering('select');
-
-    });
-
+  $('body').on('change', '.dropdown-filters select', function (e) {
+    select_case = $(this).parent().attr('id')
+    selection = $(this).val();
+    if(select_case == 'code_ass') {
+      ass_filter = selection;
+      if(selection!='No')
+        $('#code_rec select').prop('disabled', false);
+      else {
+        $('#code_rec select').prop('disabled', true).val('');
+        rec_filter = '';
+      }
+    }
+    if(select_case == 'code_rec') {
+      rec_filter = selection;
+    }
+    filtering('select');
+  });
 
 	function showPage (offset) {
 		if (users_mnpl.length==0)
@@ -197,8 +190,8 @@ $(document).ready(function () {
       tr += '<td class="select_td">' + select_projects_sc + '</td>';
       tr += '<td class="select_region">' + region + '</td>';
 
-      sendready = users_mnpl[i].code_ass == 'Si' ? 'sendready' : '';
-      tr += '<td class="sendcode '+sendready+'"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
+      sendready = users_mnpl[i].code_ass == 'Si' ? 'warning' : '';
+      tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
       tr += '</tr>'
@@ -263,27 +256,24 @@ $(document).ready(function () {
 	});
 
 	$('body').on('change', '.select_code_classic, .select_code_sc', function (e) {
-        pos = $(this).parent().parent().data('pos');
-        pos_mnpl = $(this).parent().parent().data('pos_mnpl');
+    pos = $(this).parent().parent().data('pos');
+    pos_mnpl = $(this).parent().parent().data('pos_mnpl');
 		if ($(this).val() !== '---') {
 			$(this).parent().parent().find(".select_region").html($(this).val());
-
-            var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc';
-            var oppositeClass = $(this).hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic';
+      var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc';
+      var oppositeClass = $(this).hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic';
 
 			$(this).parent().parent().find(".select_td > " + oppositeClass).val('---');
 
-			ID = $(this).parent().parent().data('id');
+			var ID = $(this).parent().parent().data('id');
 			selected = $(idName + ID + ' option:selected' ).text();
 			region = $(idName + ID + ' option:selected' ).val();
-
 			setcode(ID, selected, region, pos, pos_mnpl);
-			//console.log(pos)
-			$(this).parent().parent().find('.sendcode').addClass('sendready');
+			$(this).parent().parent().find('.sendcode').addClass('warning');
 		} else {
 			setcode(ID, '', '', pos, pos_mnpl);
 			$(this).parent().parent().find('.select_region').html('');
-			$(this).parent().parent().find('.sendcode').removeClass('sendready')
+			$(this).parent().parent().find('.sendcode').removeClass('warning')
 		}
 	})
 
@@ -294,18 +284,14 @@ $(document).ready(function () {
 			url: window.base_url + 'dashboard/setcode/',
 			data: 'ID='+ID+'&code='+selected+"&region="+region,
 			success: function(data){
-			    if(selected)
-			        value = 'Si';
-			    else
-			        value = 'No';
+        var value = selected ? 'Si' : 'No'
+        window.users[pos]['code_ass'] = value;
+        window.users[pos]['code'] = selected;
+        window.users[pos]['region'] = region;
 
-			    window.users[pos]['code_ass'] = value;
-                window.users[pos]['code'] = selected;
-                window.users[pos]['region'] = region;
-
-                users_mnpl[pos_mnpl]['code_ass'] = value;
-                users_mnpl[pos_mnpl]['code'] = selected;
-                users_mnpl[pos_mnpl]['region'] = region;
+        users_mnpl[pos_mnpl]['code_ass'] = value;
+        users_mnpl[pos_mnpl]['code'] = selected;
+        users_mnpl[pos_mnpl]['region'] = region;
 			}
 		})
 	}
@@ -313,16 +299,14 @@ $(document).ready(function () {
 	$('body').on('click', '.setsendmessage2', function () {
 		$('#messDest').html($(this).parent().data('name'));
 		destID = $(this).parent().data('id');
-		//console.log($(this).parent().data('id'));
 		$('.sendmessage2').modal('show');
 	})
 
-	chosen2 = -1;
-	$rowEl2 = -1;
-	btn = null;
-	$('body').on('click', '.sendcode', function () {
-		if (!($(this).hasClass('sent'))) {
-			ID = $(this).parent().data('id')
+	$('body').on('click', '.sendcode .btn', function () {
+    var ID = $(this).parent().parent().data('id')
+    var name = $(this).parent().parent().find('.cName').html()
+		if (!$(this).hasClass('success') || $(this).hasClass('warning')) {
+      var btn = $(this)
 			selected = $('#select_classic' + ID + ' option:selected' ).text();
 			if (selected === '---') {
 				selected = $('#select_sc' + ID + ' option:selected' ).text();
@@ -335,7 +319,6 @@ $(document).ready(function () {
 				region = $('#select_classic' + ID + ' option:selected' ).val();
 			}
 
-			btn = $(this)
 			if (selected !== '') {
 				$.ajax({
 					method: 'POST',
@@ -343,46 +326,56 @@ $(document).ready(function () {
 					url: window.base_url + 'dashboard/sendcode/',
 					data: 'ID=' + ID + '&code=' + selected + '&region=' + region,
 					success: function (data) {
-						btn.removeClass('sendready');
-            var newClass = data ? 'sent' : 'notSent';
-						$('#select_classic' + ID).prop('disabled', true);
-						$('#select_sc' + ID).prop('disabled', true);
-            //console.log('codice inviato ', data);
+            var messages = {
+              success: {
+                type: 'success',
+                message: `Il codice di ${name} è stato inviato con successo`
+              },
+              error: {
+                type: 'error',
+                message: `Si è verificato un errore durante l'invio del codice di ${name}`
+              }
+            }
+
+            var result = data ? messages.success : messages.error
+            btn.removeClass('warning').addClass(result.type)
+						$('#select_classic' + ID).prop('disabled', data);
+						$('#select_sc' + ID).prop('disabled', data);
+            notify(result)
 					}
 				})
 			}
 		} else {
-			//event.stopPropagation()
-			$('.confirm2').modal('show');
-			$rowEl2 = $(this).parent();
-			chosen2 = $(this).parent().data('id');
-			name2 = $(this).parent().find('.cName').html();
-			btn = $(this);
-			$('.confirm2 .modal-body p').html("Vuoi riassegnare un nuovo codice per l'utente " + name2 + "?");
+      prompt(`Vuoi riassegnare un nuovo codice a ${name}`, ID)
 		}
 	});
 
-	$('.confirm2').on('click', '.delcode', function () {
+	function confirmReassign (ID) {
 		$.ajax({
 			method: 'POST',
 			dataType: 'json',
 			url: window.base_url + 'dashboard/deleteUserCode/',
-			data: 'ID='+chosen2,
-			beforeSend: function(){
-				$('.confirm2 .modal-footer .btn-primary').button('loading').delay(100).append('.').delay(100).append('.');
-			},
+			data: 'ID=' + ID,
 			success: function(data){
-				$('.confirm2 .modal-footer .btn-primary').button('reset');
-				$('.confirm2').modal('hide');
-				$('#select' + chosen2).prop('disabled', false);
-				btn.removeClass('sent');
-			},
-			error: function(data){
-				$('.confirm2 .modal-footer .btn-primary').button('reset');
-				$(this).find('.confirm2 .modal-body p').html('<span class="text-danger">Si è verificato un errore, riprovare più tardi.</span>');
+        var messages = {
+          success: {
+            type: 'success',
+            message: `Il codice di ${name} è stato inviato con successo`
+          },
+          error: {
+            type: 'error',
+            message: `Si è verificato un errore durante l'invio del codice di ${name}`
+          }
+        }
+
+        var result = data ? messages.success : messages.error
+        btn.removeClass('warning').addClass(result.type)
+        $('#select_classic' + ID).prop('disabled', data);
+        $('#select_sc' + ID).prop('disabled', data);
+        notify(result)
 			}
 		})
-	})
+	}
 
 	$('button.sendmessageDo2').click(function () {
 		removeErrors()
@@ -523,3 +516,43 @@ $(document).ready(function () {
     })
   })
 })
+
+function notify (obj) {
+  noty({
+    layout: 'topRight',
+    theme: 'relax',
+    type: obj.type,
+    text: obj.message,
+    force: true,
+    timeout: 2000,
+    progressBar: true
+  })
+}
+
+function prompt (message, ID) {
+  noty({
+    layout: 'center',
+    theme: 'relax',
+    type: 'warning',
+    text: message,
+    force: true,
+    timeout: false,
+    buttons: [{
+      addClass: 'btn btn-primary ' + ID,
+      text: 'Conferma',
+      onClick: function($noty) {
+        let ID = this[0].classList[2]
+        confirmReassign(ID)
+        $noty.close()
+      }
+    },
+    {
+      addClass: 'btn btn-danger',
+      text: 'Annulla',
+      onClick: function($noty) {
+        $noty.close()
+      }
+    }
+  ]
+  })
+}

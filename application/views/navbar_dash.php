@@ -23,13 +23,12 @@
       <ul class="nav nav-sidebar items" data-active="<? echo 'dash'; ?>">
         <? if($role != 'user'): ?>
           <li data-nav="dash"><a href="<? echo base_url('dashboard'); ?>">Home</a></li>
-          <? if($role == 'admin'): ?>
-            <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
+          <? if($role == 'clickMaster' || $role == 'admin'): ?>
             <li data-nav="userlist"><a href="<? echo base_url('dashboard/userlist'); ?>">Lista Utenti</a></li>
             <li data-nav="screenshots"><a href="<? echo base_url('dashboard/screens'); ?>">Screenshots</a></li>
+          <? elseif($role == 'admin'): ?>
+            <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
             <li data-nav="projects"><a href="<? echo base_url('dashboard/projects'); ?>">Elenco Progetti</a></li>
-          <? elseif($role == 'clickMaster'): ?>
-            <li data-nav="codes"><a href="<? echo base_url('dashboard/codes'); ?>">Assegna Codici</a></li>
           <? endif; ?>
         <? else: ?>
           <li data-nav="profile"><a href="<? echo base_url('dashboard/profile'); ?>">Modifica dati personali</a></li>

@@ -38,6 +38,7 @@
 									<th>Email</th>
 									<th>Utenti associati</th>
 									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -45,15 +46,17 @@
 									$k = 0;
 									while(($k < $pageSpan)&&($k <count($rawCMs))) :
 										$tr = '<tr class="user-line" data-ID="'. $rawCMs[$k]['ID'] .'" title="Clicca per vedere gli utenti associati a ' . $rawCMs[$k]['name'] . '">';
+
 										$tr .= '<td class="cmName"><b>'. $rawCMs[$k]['name'] .'</b></td>';
 										$tr .= '<td class="cmCode">'. $rawCMs[$k]['code'] .'</td>';
 										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
 										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
 										$tr .= '<td class="cmUsers"><span>'. $rawCMs[$k]['users'] .'</span><span class="glyphicon glyphicon-search"></span></td>';
-										$tr .= '<td class="cmActions">';
-										$tr .= '<span class="label label-info" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></span> ';
-										$tr .= '<span title="Elimina ClickMaster" data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>';
-										$tr .= '</td>';
+
+										$tr .= '<td class="cmActions"><span class="label label-info" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></span>';
+										$tr .= '<span title="Elimina ClickMaster" data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td>';
+
+										$tr .= '</tr>';
 										echo $tr;
 										$k++;
 									endwhile;

@@ -83,29 +83,36 @@
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default userlistWidget">
-					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a></div>
-					<div class="panel-body table-responsive">
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
-                        </div>
-                        <div class="col-sm-2 dropdown-filters" id="code_ass">
-                            <p>Progetto assegnato:</p>
-                            <select>
-                                <option value="">Tutti</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2 dropdown-filters" id="code_rec">
-                            <p>Progetto ricevuto:</p>
-                            <select>
-                                <option value="">Tutti</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
+			<div class="panel panel-default userlistWidget">
+				<div class="panel-heading text-right">
+					<span class="pull-left">Lista utenti</span>
+					<a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default">
+						<span class="print glyphicon glyphicon-print"></span> Stampa
+					</a>
+				</div>
+				<div class="panel-body table-responsive">
+					<div class="row">
+						<div class="col-md-8">
+							<input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search" />
+						</div>
+						<div class="col-sm-2 dropdown-filters" id="code_ass">
+							<label id="code_ass">Progetto assegnato:<br/>
+								<select>
+		              <option value="">Tutti</option>
+		              <option value="Si">Si</option>
+		              <option value="No">No</option>
+	            	</select>
+							</label>
+	            <label id="code_rec">Progetto ricevuto:<br/>
+		            <select>
+		          		<option value="">Tutti</option>
+		              <option value="Si">Si</option>
+		              <option value="No">No</option>
+		            </select>
+							</label>
+						</div>
+					</div>
+					<div class="row">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -126,86 +133,86 @@
 								</tr>
 							</thead>
 							<tbody class="se">
-								<?
-									$k = 0;
-									while(($k < $pageSpan)&&($k <count($rawUsers))) :
-										$region = "";
-										$sent = "";
-										if($rawUsers[$k]['code_rec']=="No") {
-											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
+							<?
+								$k = 0;
+								while(($k < $pageSpan)&&($k <count($rawUsers))) :
+									$region = "";
+									$sent = "";
+									if($rawUsers[$k]['code_rec']=="No") {
+										$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
 
-											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
-										} else {
-											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
+										$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
+									} else {
+										$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
 
-											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
+										$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
 
-											$sent = "sent";
+										$sent = "sent";
+									}
+									foreach($projects_classic as $file) {
+										if($rawUsers[$k]['code']!=$file["file"])
+											$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+										else {
+											$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+											$region = $rawUsers[$k]['region'];
 										}
-										foreach($projects_classic as $file) {
-											if($rawUsers[$k]['code']!=$file["file"])
-												$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
-											else {
-												$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
-												$region = $rawUsers[$k]['region'];
-											}
+									}
+									$select_projects_classic .= "</select>";
+
+									foreach($projects_sc as $file) {
+										if($rawUsers[$k]['code']!=$file["file"])
+											$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+										else {
+											$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+											$region = $rawUsers[$k]['region'];
 										}
-										$select_projects_classic .= "</select>";
+									}
+									$select_projects_sc .= "</select>";
 
-										foreach($projects_sc as $file) {
-											if($rawUsers[$k]['code']!=$file["file"])
-												$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
-											else {
-												$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
-												$region = $rawUsers[$k]['region'];
-											}
-										}
-										$select_projects_sc .= "</select>";
+									$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '" data-name="' . $rawUsers[$k]['name'] . '" >';
 
-										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '" data-name="' . $rawUsers[$k]['name'] . '" >';
+									$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
+									$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
+									$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['contract'] . '</td>';
+									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
+									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
+									$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-										$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
-										$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
-										$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
-										$tr .= '<td>' .$rawUsers[$k]['contract']. '</td>';
-										$tr .= '<td ' .$fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
-										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
-										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
+									$sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'success' : 'error';
+									$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
+									$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+									$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
+									$tr .= '</tr>';
 
-                                        $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'sendready' : '';
-										$tr .= '<td class="sendcode '.$sendready.'"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
-										$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
-										$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
-										$tr .= '</tr>';
+									echo $tr;
 
-										echo $tr;
-
-										$k++;
-									endwhile;
-								?>
+									$k++;
+								endwhile;
+							?>
 							</tbody>
 						</table>
 					</div>
-					<div class="panel-footer text-center">
-						<nav>
-							<ul class="pagination" id="usrPages">
-								<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-								<?
-									echo '<li id="pag1" class="active" data-offset="0"><a href="#">1</a></li>';
-									$k = 1;
-									while($k < $pages):
-										echo '<li id="pag'. ($k+1) .'" data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
-										$k++;
-									endwhile;
-								?>
-								<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-							</ul>
-						</nav>
-					</div>
+				</div>
+				<div class="panel-footer text-center">
+					<nav>
+						<ul class="pagination" id="usrPages">
+							<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+							<?
+								echo '<li id="pag1" class="active" data-offset="0"><a href="#">1</a></li>';
+								$k = 1;
+								while($k < $pages):
+									echo '<li id="pag'. ($k+1) .'" data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
+									$k++;
+								endwhile;
+							?>
+							<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
@@ -216,37 +223,72 @@
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default userlistWidget">
-					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a><a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-picture"></span> Screenshots</a></div>
-					<div class="panel-body table-responsive">
-                        <div class="col-sm-3">
-						    <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
-                        </div>
-                        <div class="col-sm-5">
-                            <div id="" class="letters-filter">
-                               <!-- <p>Filtro lettere:</p> -->
-                                <div class="letters">
-                                    <a id="all" class="selected" href="#">Tutti</a><a id="a" href="#">A</a><a id="b" href="#">B</a><a id="c" href="#">C</a><a id="d" href="#">D</a><a id="e" href="#">E</a><a id="f" href="#">F</a><a id="g" href="#">G</a><a id="h" href="#">H</a><a id="i" href="#">I</a><a id="j" href="#">J</a><a id="k ln-disabled" href="#">K</a><a id="l" href="#">L</a><a id="m" href="#">M</a><a id="n" href="#">N</a><a id="o ln-disabled" href="#">O</a><a id="p" href="#">P</a><a id="q" href="#">Q</a><a id="r" href="#">R</a><a id="s" href="#">S</a><a id="t" href="#">T</a><a id="u" href="#">U</a><a id="v" href="#">V</a><a id="w" href="#">W</a><a id="x" href="#">X</a><a id="y" href="#">Y</a><a id="z ln-last" href="#">Z</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 dropdown-filters" id="code_ass">
-                            <p>Progetto assegnato:</p>
-                            <select>
-                                <option value="">Tutti</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2 dropdown-filters" id="code_rec">
-                            <p>Progetto ricevuto:</p>
-                            <select>
-                                <option value="">Tutti</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
+			<div class="panel panel-default userlistWidget">
+				<div class="panel-heading text-right">
+					<span class="pull-left">Lista utenti</span>
+					<a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default">
+						<span class="print glyphicon glyphicon-print"></span> Stampa
+					</a>
+					<a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default">
+						<span class="print glyphicon glyphicon-picture"></span> Screenshots
+					</a>
+				</div>
+				<div class="panel-body table-responsive">
+					<div class="row">
+	          <div class="col-md-3">
+					    <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+	          </div>
+	          <div class="col-md-7">
+	            <div class="letters-filter">
+	              <div class="letters">
+	                <span class="selected">Tutti</span>
+									<span>A</span>
+									<span>B</span>
+									<span>C</span>
+									<span>D</span>
+									<span>E</span>
+									<span>F</span>
+									<span>G</span>
+									<span>H</span>
+									<span>I</span>
+									<span>J</span>
+									<span id="ln-disabled">K</span>
+									<span>L</span>
+									<span>M</span>
+									<span>N</span>
+									<span id="ln-disabled">O</span>
+									<span>P</span>
+									<span>Q</span>
+									<span>R</span>
+									<span>S</span>
+									<span>T</span>
+									<span>U</span>
+									<span>V</span>
+									<span>W</span>
+									<span>X</span>
+									<span>Y</span>
+									<span id="ln-last">Z</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 text-left dropdown-filters">
+							<label id="code_ass">Progetto assegnato:
+								<select>
+		              <option value="">Tutti</option>
+		              <option value="Si">Si</option>
+		              <option value="No">No</option>
+	            	</select>
+							</label>
+	            <label id="code_rec">Progetto ricevuto:
+		            <select>
+		          		<option value="">Tutti</option>
+		              <option value="Si">Si</option>
+		              <option value="No">No</option>
+		            </select>
+							</label>
+	          </div>
+					</div>
+					<div class="row">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -267,93 +309,94 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?
-									$k = 0;
-									while(($k < $pageSpan)&&($k <count($rawUsers))) :
-										$region = "";
-										$sent = "";
-										if($rawUsers[$k]['code_rec']=="No") {
-											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
+							<?
+								$k = 0;
+								while(($k < $pageSpan)&&($k <count($rawUsers))) :
+									$region = "";
+									$sent = "";
+									if($rawUsers[$k]['code_rec']=="No") {
+										$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic'><option value='---'>---</option>";
 
-											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
-										} else {
-											$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
+										$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc'><option value='---'>---</option>";
+									} else {
+										$select_projects_classic = "<select id='select_classic". $rawUsers[$k]['ID'] ."' class='select_code_classic' disabled><option value='---'>---</option>";
 
-											$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
+										$select_projects_sc = "<select id='select_sc". $rawUsers[$k]['ID'] ."' class='select_code_sc' disabled><option value='---'>---</option>";
 
-											$sent = "sent";
+										$sent = "sent";
+									}
+									foreach($projects_classic as $file) {
+										if($rawUsers[$k]['code']!=$file["file"])
+											$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+										else {
+											$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+											$region = $rawUsers[$k]['region'];
 										}
-										foreach($projects_classic as $file) {
-											if($rawUsers[$k]['code']!=$file["file"])
-												$select_projects_classic .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
-											else {
-												$select_projects_classic .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
-												$region = $rawUsers[$k]['region'];
-											}
+									}
+									$select_projects_classic .= "</select>";
+
+									foreach($projects_sc as $file) {
+										if($rawUsers[$k]['code']!=$file["file"])
+											$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
+										else {
+											$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
+											$region = $rawUsers[$k]['region'];
 										}
-										$select_projects_classic .= "</select>";
+									}
+									$select_projects_sc .= "</select>";
 
-										foreach($projects_sc as $file) {
-											if($rawUsers[$k]['code']!=$file["file"])
-												$select_projects_sc .=  "<option value='". $file["region"] ."'>". $file["file"] ."</option>";
-											else {
-												$select_projects_sc .=  "<option value='". $file["region"] ."' selected>". $file["file"] ."</option>";
-												$region = $rawUsers[$k]['region'];
-											}
-										}
-										$select_projects_sc .= "</select>";
+									$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '"';
+									$tr .= ' data-name="' . $rawUsers[$k]['name'] . '"';
+                  $tr .= ' data-pos="' . $rawUsers[$k]['pos'] . '"';
+                  $tr .= ' data-pos_mnpl="' . $rawUsers[$k]['pos'] . '" >';
 
-										$tr = '<tr class="user-line" data-id="' . $rawUsers[$k]['ID'] . '"';
-										$tr .= ' data-name="' . $rawUsers[$k]['name'] . '"';
-                                        $tr .= ' data-pos="' . $rawUsers[$k]['pos'] . '"';
-                                        $tr .= ' data-pos_mnpl="' . $rawUsers[$k]['pos'] . '" >';
+									$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
+									$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
+									$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
+									$tr .= '<td>' . $rawUsers[$k]['contract'] . '</td>';
+									$tr .= '<td ' .$fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
+									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
+									$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-										$tr .= '<td><div class="status-circle status' . $rawUsers[$k]['status'] . '"></div></td>';
-										$tr .= '<td class="cName"><b>' . $rawUsers[$k]['name'] . '</b></td>';
-										$tr .= '<td>' . $rawUsers[$k]['join'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['clickM'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['approved'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
-										$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
-										$tr .= '<td>' .$rawUsers[$k]['contract']. '</td>';
-										$tr .= '<td ' .$fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
-										$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
-										$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
+                  $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'success' : '';
+                  $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
+									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+									$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
+									$tr .= '</tr>';
 
-                                        $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'sendready' : '';
-                                        $tr .= '<td class="sendcode '.$sendready.'"><button class="btn btn-sm btn-default"><small>Invia Codice</small></button></td>';
-										$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
-										$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
-										$tr .= '</tr>';
+									echo $tr;
 
-										echo $tr;
-
-										$k++;
-									endwhile;
-								?>
+									$k++;
+								endwhile;
+							?>
 							</tbody>
 						</table>
 					</div>
-					<div class="panel-footer text-center">
-						<nav>
-							<ul class="pagination" id="usrPages">
-								<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-								<?
-									echo '<li id="pag1" class="active" data-offset="0"><a href="#">1</a></li>';
-									$k = 1;
-									while($k < $pages):
-										echo '<li id="pag'. ($k+1) .'" data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
-										$k++;
-									endwhile;
-								?>
-								<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-							</ul>
-						</nav>
-					</div>
+				</div>
+				<div class="panel-footer text-center">
+					<nav>
+						<ul class="pagination" id="usrPages">
+							<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+							<?
+								echo '<li id="pag1" class="active" data-offset="0"><a href="#">1</a></li>';
+								$k = 1;
+								while($k < $pages):
+									echo '<li id="pag'. ($k+1) .'" data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
+									$k++;
+								endwhile;
+							?>
+							<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 <?
 	endif;
 ?>
@@ -434,6 +477,7 @@
 	echo '</div>';
 ?>
 	<script src="<? echo base_url('assets/js/jlinq.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/userlist.js'); ?>"></script>
 
 </body>
