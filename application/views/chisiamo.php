@@ -36,14 +36,12 @@
 						<div id="bg04">
 							<div class="row">
 								<h3 class="text-uppercase text-center">Chi siamo</h3>
-								<p class="testo3 text-justify"><b>ATS - CONSULENTI ASSOCIATI S.r.l.</b> è una società di consulenza fondata nel 1995
+								<p class="testo3 text-justify">Siamo una società di consulenza fondata nel 1995
 								con sede a Reggio Emilia.<br>
-								Lo Studio si occupa principalmente di <b>Consulenze e Formazione</b> in ambito di Sicurezza
-								sul Lavoro ed Ambiente, <b>Certificazioni di Qualità, Finanza Agevolata e Pianificazione Territoriale</b>.<br>
 								Per il BANDO INAIL ci occupiamo, oltre che dell'invio delle domande il giorno del Click
 								Day, di <b>tutte le pratiche tecniche ed amministrative</b> necessarie alla presentazione dei
 								progetti all'INAIL per l'ottenimento dei contributi.<br>
-								Dato il numero elevato di domande da inviare all’INAIL il giorno del Click Day, ATS - CONSULENTI ASSOCIATI S.r.l. - oltre ad impiegare i propri dipendenti e collaboratori diretti sul progetto - seleziona ogni anno dei cliccatori esterni per fronteggiare al meglio il numero elevato di pratiche presentate.</p>
+								Dato il numero elevato di domande da inviare all’INAIL il giorno del Click Day, ATS - CONSULENTI ASSOCIATI S.r.l. - oltre ad impiegare i propri dipendenti e collaboratori diretti sul progetto - seleziona ogni anno dei cliccatori su tutto il territorio nazionale per fronteggiare al meglio il numero elevato di pratiche presentate.</p>
 							</div>
 						</div>
                     </div>

@@ -8,13 +8,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="index,follow">
-	<title>Click Day 2016</title>
-	<meta name="keywords" content="clickday, 2016, clickdayats, click, day, clicday, click, dey, dei" />
+	<title>Click Day 2017</title>
+	<meta name="keywords" content="clickday, 2017, clickdayats, click, day, clicday, click, dey, dei" />
 	<meta name="description" content="Click Day è il progetto organizzato da ATS - CONSULENTI ASSOCIATI, che raccoglie cliccatori da tutta Italia per inoltrare all’INAIL le domande di tutte quelle aziende che vogliono ottenere contributi a fondo perduto volti a migliorare la sicurezza e il livello di salute sui propri luoghi di lavoro" />
-	<meta property="og:title" content="Click Day 2016"/>
+	<meta property="og:title" content="Click Day 2017"/>
 	<meta property="og:type" content="website"/>
 	<meta property="og:url" content="http://clickdayats.it"/>
-	<meta property="og:title" content="Click Day 2016"/>
+	<meta property="og:title" content="Click Day 2017"/>
 	<meta property="og:description" content="Click Day è il progetto organizzato da ATS - CONSULENTI ASSOCIATI, che raccoglie cliccatori da tutta Italia per inoltrare all’INAIL le domande di tutte quelle aziende che vogliono ottenere contributi a fondo perduto volti a migliorare la sicurezza e il livello di salute sui propri luoghi di lavoro"/>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<link rel="stylesheet" type="text/css" href="<? echo base_url('assets/css/bootstrap.min.css'); ?>">

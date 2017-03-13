@@ -32,10 +32,10 @@
                     <div class="col-md-6 text-justify row1left more-margin" id="comeGuadagni">
 						<h3 class="text-uppercase text-center hidden">Il bando inail</h3>
 						<img class="center-block scale hidden" id="inail" data-src="<? echo base_url('assets/img/inail.png'); ?>" alt="INAIL" />
-					    <p class="testo3 hidden">Con il BANDO ISI 2015/2016 l’INAIL rinnova ancora una volta il proprio impegno per il welfare del Paese, mettendo a disposizione delle imprese <b><b>276.269.986 Euro</b></b> di contributi a fondo perduto per progetti di miglioramento dei livelli di salute e sicurezza nei luoghi di lavoro.</p>
+					    <p class="testo3 hidden">Con il BANDO ISI 2016, Click Day 2017, l’INAIL rinnova ancora una volta il proprio impegno per il welfare del Paese, mettendo a disposizione delle imprese <b><b>244.507.756 Euro</b></b> di contributi a fondo perduto per progetti di miglioramento dei livelli di salute e sicurezza nei luoghi di lavoro.</p>
                         <p class="testo3 hidden">Tale stanziamento è ripartito in budget regionali ed i contributi vengono assegnati fino ad esaurimento, secondo l’ordine cronologico di arrivo delle domande inviate il giorno del Click Day.</p>
 						<div class="text-center">
-							<a href="https://www.inail.it/cs/internet/attivita/prevenzione-e-sicurezza/agevolazioni-e-finanziamenti/incentivi-alle-imprese/bando-isi-2015.html" target="_blank" id="visbtn" class="btn btn-primary text-uppercase hidden">Visualizza</a>
+							<a href="https://www.inail.it/cs/internet/attivita/prevenzione-e-sicurezza/agevolazioni-e-finanziamenti/incentivi-alle-imprese/bando-isi-2016.html" target="_blank" id="visbtn" class="btn btn-primary text-uppercase hidden">Visualizza</a>
 						</div>
                     </div>
                     <div class="col-md-6 text-center row1right" id="premi">

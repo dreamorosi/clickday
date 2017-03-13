@@ -121,7 +121,7 @@
 					<li><div class="dot1"></div></li>
 					<li><a id="experience" href="<? echo base_url('experience'); ?>">L'esperienza<br>Click Day</a></li>
 					<li><div class="dot1"></div></li>
-					<li><a id="bando" class="sing" href="<? echo base_url('bando'); ?>">Il bando INAIL</a></li>
+					<li><a id="bando" class="sing" href="<? echo base_url('bando'); ?>">IL BANDO INAIL</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right text-center">
 					<li><a id="chisiamo" class="sing" href="<? echo base_url('chisiamo'); ?>">Chi siamo</a></li>

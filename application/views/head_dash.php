@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Click Day 2016</title>
+	<title>Click Day 2017</title>
 
 	<link rel="stylesheet" type="text/css" href="<? echo base_url('assets/css/bootstrap_dash.min.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<? echo base_url('assets/css/style.css'); ?>">

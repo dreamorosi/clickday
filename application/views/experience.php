@@ -27,7 +27,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<p id="leFoto">Alcuni momenti dell'edizione Click Day 2015 che si è svolta all'interno delle sedi di ATS - Consulenti Associati a Reggio Emilia.</p>
+							<p id="leFoto">Questi siamo noi che clicchiamo dalle nostre sedi. Tu potrai partecipare direttamente da casa tua!</p>
 						</div>
 					</div>
 					<div class="row">

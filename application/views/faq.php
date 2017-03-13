@@ -27,21 +27,19 @@
 					<div class="col-md-12">
 						<h2 id="clickDay2" class="text-uppercase">Informazioni Generali</h2>
 						<ul class="listF list-unstyled">
-							<li><span class="listFnumber">1</span><a role="button" data-toggle="collapse" href="#col1" aria-expanded="false">Quando ci sarà il Click Day?</a><div id="col1" class="collapse">Il giorno del Click Day è il 26 maggio 2016 alle ore 16, il portale si aprirà alle ore 16. È richiesta la partecipazione dei cliccatori dalle ore 15 e 30.</div></li>
+							<li><span class="listFnumber">1</span><a role="button" data-toggle="collapse" href="#col1" aria-expanded="false">Quando ci sarà il Click Day?</a><div id="col1" class="collapse">Il giorno del Click Day sarà comunicato dall’INAIL a partire dal 12 giugno 2017, plausibilmente in una data compresa nelle due settimane successive. Vi aggiorneremo costantemente.</div></li>
 							<li><span class="listFnumber">2</span><a role="button" data-toggle="collapse" href="#col2" aria-expanded="false">Dove sarà realizzato il Click Day?</a><div id="col2" class="collapse">Da nessuna parte! Potrai fare il tuo click comodamente da casa!</div></li>
 							<li><span class="listFnumber">3</span><a role="button" data-toggle="collapse" href="#col3" aria-expanded="false">Quanto tempo dovrò impiegare per fare la procedura del click?</a><div id="col3" class="collapse">
-								Circa 30 minuti.
+                                    Circa 5 minuti ma ti chiederemo di essere comunque seduto davanti al tuo PC 30 minuti prima dell’orario che vi comunicheremo.
 							</div></li>
 							<li><span class="listFnumber">4</span><a role="button" data-toggle="collapse" href="#col4" aria-expanded="false">Cosa c’entra il mio click con l’INAIL?</a><div id="col4" class="collapse">
-								Nulla. I cliccatori non hanno alcun tipo di relazione con l’INAIL, ma solo con l’organizzatore del progetto.
-								L’INAIL è semplicemente l’Ente Pubblico che si occupa di tutelare le vittime degli infortuni sul lavoro e che mette a disposizione delle imprese dei contributi finanziari per progetti di miglioramento dei livelli di salute e sicurezza nei luoghi di lavoro.
-Le aziende che sono interessate ad ottenere tali contributi si rivolgono a degli studi di consulenza – in questo caso ATS – Consulenti Associati – per svolgere tutte le pratiche per ottenerli, compreso l’invio della domanda tramite un click.
+								Nulla. I cliccatori non hanno alcun tipo di relazione diretta con l’INAIL, ma solo con ATS - CONSULENTI ASSOCIATI S.r.l. in qualità di soggetto organizzatore del progetto. L’INAIL è l’Ente Pubblicoche si occupa di tutelare le vittime degli infortuni sul lavoro e che mette a disposizione delle imprese dei contributi finanziari per progetti di miglioramento dei livelli di salute e sicurezza nei luoghi di lavoro. Le aziende che sono interessate ad ottenere tali contributi si rivolgono a degli studi di consulenza – in questo caso ATS – Consulenti Associati – per svolgere tutte le pratiche per ottenerli, compreso l’invio della domanda tramite un click.
 							</div></li>
 							<li><span class="listFnumber">5</span><a role="button" data-toggle="collapse" href="#col5" aria-expanded="false">Cosa devo fare il giorno del Click Day?</a><div id="col5" class="collapse">
-								Accendere il tuo pc, seguire le istruzioni che ti avremo inviato via mail, fare click ed infine inviare lo screenshot/stamp della schermata d’invio loggandosi con le proprie credenziali sul portale clickdayats.it, attraverso la sezione “screenshots”.
+								Accendere il tuo pc, seguire le istruzioni ed il video tutorial che ti avremo inviato via mail, fare click ed infine inviare lo screenshot/stamp della schermata d’invio generata dall’INAIL, il tutto loggandosi con le proprie credenziali sul portale clickdayats.it, attraverso la sezione “screenshots”.
 							</div></li>
 							<li><span class="listFnumber">6</span><a role="button" data-toggle="collapse" href="#col6" aria-expanded="false">Quando riceverò il mio compenso?</a><div id="col6" class="collapse">
-								Riceverai il tuo compenso, a mezzo di bonifico bancario, entro 30 giorni dalla pubblicazione degli elenchi cronologici dell’INAIL che individuano i progetti ammissibili a contributo.
+								Riceverai il tuo compenso, a mezzo di bonifico bancario, entro 30 giorni dalla pubblicazione degli elenchi cronologici dell’INAIL che individuano i progetti ammissibili a contributo. Tali elenchi saranno pubblicati entro 7 giorni dalla data del Clickday.
 							</div></li>
 							<li><span class="listFnumber">7</span><a role="button" data-toggle="collapse" href="#col7" aria-expanded="false">Posso partecipare anche se ho la partita IVA?</a><div id="col7" class="collapse">
 								Certo! Anziché un contratto di collaborazione occasionale, il cliccatore in possesso di p.IVA emetterà regolare fattura.
@@ -60,7 +58,7 @@ Le aziende che sono interessate ad ottenere tali contributi si rivolgono a degli
 								Non succede nulla. Non sarai obbligato in nessun modo a fare il click anche a seguito della tua iscrizione.<br>Nel caso in cui decidessi di non partecipare, ti chiediamo solo la cortesia di comunicarlo al tuo Click Master, lo potrai fare direttamente dal sistema di messaggistica presente nella tua area personale.
 							</div></li>
 							<li><span class="listFnumber">12</span><a role="button" data-toggle="collapse" href="#col12" aria-expanded="false">Dopo aver effettuato la registrazione a Click Day cosa devo fare?</a><div id="col12" class="collapse">
-								Una volta effettuata e confermata l'iscrizione, non dovrai fare altro che aspettare le comunicazioni del nostro Staff.<br>La data esatta, infatti, è fissata per giovedì 26 maggio alle ore 16.00 esatte ma la tua presenza davanti al tuo PC è richiesta per le ore 15,30 in modo da essere pronto!
+								Una volta effettuata e confermata l'iscrizione, non dovrai fare altro che aspettare le comunicazioni del nostro Staff.<br>Il giorno e l’orario esatto, infatti, saranno comunicati dall’INAIL a partire dal 12 giugno 2017, plausibilmente in una data compresa nelle due settimane successive. Vi aggiorneremo costantemente.
 							</div></li>
 						</ul>
 					</div>
