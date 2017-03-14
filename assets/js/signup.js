@@ -1,10 +1,12 @@
 $(document).ready(function(){
+	manageCode()
+
 	$('input.cm').change(function() {
 		if(this.checked) {
-      		$('input[name=code]').val('').attr('disabled', true);
-      	}else{
-	      	$('input[name=code]').attr('disabled', false).focus();
-      	}
+  		$('input[name=code]').val('').attr('disabled', true);
+  	}else{
+    	$('input[name=code]').attr('disabled', false).focus();
+  	}
 	});
 
 	$('button.signup').click(function(){
@@ -88,3 +90,14 @@ $(document).ready(function(){
 	});
 
 });
+
+function manageCode () {
+	$input = $('.form-control[name="code"]')
+	var code = $.trim($input.val())
+	if (code !== '') {
+		sessionStorage.setItem('cmCode', code)
+	} else {
+		code = sessionStorage.getItem('cmCode')
+		$input.val(code)
+	}
+}
