@@ -138,7 +138,23 @@ class User extends CI_Model
 		$datestring = '%Y-%m-%d %H:%i';
 		$time = now('Europe/Rome');
 		$now = mdate($datestring, $time);
-		$newUser = array('name' => $usr['name'], 'surname' => $usr['surname'], 'email' => $usr['email'], 'phone' => $usr['phone'], 'password' => $password, 'dateBirth' => $usr['dateBirth'], 'country' => $usr['country'], 'address' => $usr['address'], 'cf' => $usr['cf'],'joinDate' => $now, 'prov' => $usr['prov'], 'cap' => $usr['cap'], 'work' => $usr['work'], 'clickM' => $clickM, 'activation' => $activation);
+		$newUser = array(
+      'name' => $usr['name'],
+      'surname' => $usr['surname'],
+      'email' => $usr['email'],
+      'phone' => $usr['phone'],
+      'password' => $password,
+      'dateBirth' => $usr['dateBirth'],
+      'country' => $usr['country'],
+      'address' => $usr['address'],
+      'cf' => $usr['cf'],
+      'joinDate' => $now,
+      'prov' => $usr['prov'],
+      'cap' => $usr['cap'],
+      'work' => $usr['work'],
+      'clickM' => $clickM,
+      'activation' => $activation
+    );
 		$this->db->insert('users', (object) $newUser);
 		if ($this->db->affected_rows() > 0){
 			if($clickM != -1){

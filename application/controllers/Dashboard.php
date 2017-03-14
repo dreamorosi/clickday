@@ -142,22 +142,22 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function codes()
+	public function codes($code = NULL)
 	{
 		if($this->data['isLogged']){
-			if($this->data['role']!='user'){
+			if($this->data['role'] == 'admin'){
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
-				if($this->data['role']=='clickMaster'){
-					$this->data['codes'] = $this->clickmaster->getCodes($this->data['ID']);
-				}else{
-					redirect(base_url('signup'));
-				}
+				$this->data["projects_classic"] = $this->dashboard_model->getProjectsClassic();
+				$this->data["projects_sc"] = $this->dashboard_model->getProjectsSC();
+				$this->data['notCodeUsers'] = $this->dashboard_model->get_users_no_code();
+				$this->data['code'] = $code;
+
 				$this->load->view('codes', $this->data);
-			}else{
-				redirect(base_url('signup'));
+			} else {
+				redirect(base_url('signin'));
 			}
 		}else{
-			redirect(base_url('signup'));
+			redirect(base_url('signin'));
 		}
 	}
 
@@ -459,20 +459,6 @@ class Dashboard extends CI_Controller {
 		$pdf->Output($pdfFilePath, "D");
 	}
 
-	public function assignCodes()
-	{
-		$codes = $this->input->post('codes');
-		$data = $this->clickmaster->distributeCode($codes, $this->data['ID']);
-		if($data==200){
-			$this->output->set_status_header('200');
-			echo json_encode(TRUE);
-		}elseif($data==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}
-		echo json_encode($data);
-	}
-
 	public function setcode()
 	{
 		if($this->input->post('code') == '')
@@ -520,6 +506,20 @@ class Dashboard extends CI_Controller {
 	{
 		$clickers = $this->dashboard_model->getProjectClickers($code);
 		echo json_encode(count($clickers));
+	}
+
+	function assign_cl_codes()
+	{
+		$data = $this->input->get();
+		$result = $this->dashboard_model->assign_codes($data['usersCount'], $data['code']);
+		echo json_encode($result);
+	}
+
+	function assign_sc_codes()
+	{
+		$data = $this->input->get();
+		$result = $this->dashboard_model->assign_codes($data['usersCount'], $data['code']);
+		echo json_encode($result);
 	}
 }
 

@@ -10,63 +10,78 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/magnifier.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
+	$name = 'Admin '. $name;
 
 	include_once 'header_dash.php';
 
+	echo "<script>window.code = '" . $code . "';</script>";
 	echo "<script>window.navActive = 'codes';</script>";
+	echo "<script>window.notCodeUsers = '" . $notCodeUsers . "';</script>";
 	include_once 'navbar_dash.php';
-
-	if($role=='clickMaster'):
 ?>
 
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default codesWidget">
-					<div class="panel-heading text-right"><span class="pull-left">Assegna Codici</span> <button class="btn btn-sm btn-default addRow"><span class="print glyphicon glyphicon-plus"></span> Aggiungi codice</button></div>
+					<div class="panel-heading">
+						<span>Assegna Codici</span>
+					</div>
 					<div class="panel-body">
-						<? foreach($codes as $code): ?>
 						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<input class="form-control" value="<? echo $code[0]; ?>" placeholder="Codice" />
-								</div>
+							<div class="col-md-6">
+								<p class="lead">Progetti Classici</p>
+								<form data-projects="cl">
+									Assegna il codice
+									<select>
+									<? foreach($projects_classic as $file) {
+										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
+									}
+									?>
+									</select>
+									a
+									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
+									utenti.
+									<button type="submit" class="btn btn-sm btn-default">
+										<span>Assegna</span>
+										<i class="glyphicon glyphicon-refresh hidden"></i>
+									</button>
+								</form>
+								<p class="lead">Progetti Solo click</p>
+								<form data-projects="sc">
+									Assegna il codice
+									<select>
+									<? foreach($projects_sc as $file) {
+										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
+									}
+									?>
+									</select>
+									a
+									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
+									utenti.
+									<button type="submit" class="btn btn-sm btn-default">
+										<span>Assegna</span>
+										<i class="glyphicon glyphicon-refresh hidden"></i>
+									</button>
+								</form>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<input class="form-control perc" value="<? echo $code[1]; ?>" placeholder="% Utenti" />
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group text-right">
-									<button data-action="delete" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
-								</div>
+							<div class="col-md-6 text-center">
+								<h2>
+									<i class="glyphicon glyphicon-user"></i><span></span><i class="glyphicon glyphicon glyphicon-arrow-down hidden"></i>
+								</h2>
+								<small class="text-uppercase">Utenti senza codice</small>
 							</div>
 						</div>
-						<? endforeach; ?>
-					</div>
-					<div class="panel-footer text-center">
-						<button data-loading-text="Caricamento" class="btn btn-default save">Conferma</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
 <?
-	//Admin section
-	else:
-?>
-
-
-<?
-	endif;
 	include_once 'footer_dash.php';
 	echo '</div>';
 ?>
+	<script src="<? echo base_url('assets/js/jquery.animateNumber.min.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/codes.js'); ?>"></script>
-
 </body>
 </html>

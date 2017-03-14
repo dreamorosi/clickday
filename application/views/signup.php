@@ -7,7 +7,7 @@
 	include_once 'header.php';
 
 	//Iscrizioni aperte/chiuse [true/false]
-	$open = false;
+	$open = true;
 ?>
 <div class="submenu">
     <nav class="navbar navbar-default">

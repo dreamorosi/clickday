@@ -806,6 +806,36 @@ class Dashboard_model extends CI_Model
     return $sent;
 	}
 
+  function get_users_no_code()
+  {
+    $query = $this->db->get_where('users', array('code_assigned' => 0));
+    return count($query->result_array());
+  }
+
+  function assign_codes($usersCount, $code)
+  {
+    $query = $this->db->order_by('joinDate', 'ASC')->get_where('users', array('code_assigned' => 0), $usersCount);
+
+    $success = TRUE;
+    $count = 0;
+
+    foreach ($query->result() as $user) {
+      $update = array('code' => $code, 'code_assigned' => 1);
+      $this->db->set($update)->where(array('ID' => $user->ID))->update('users');
+      if ($this->db->affected_rows() > 0) {
+        $count++;
+      } else {
+        $success = FALSE;
+      }
+    }
+
+
+    $result = array(
+      'success' => $success,
+      'affected' => $count
+    );
+    return $result;
+  }
 }
 
 ?>

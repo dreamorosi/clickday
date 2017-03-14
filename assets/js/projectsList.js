@@ -136,12 +136,14 @@ function showProjectInfo (project = null) {
   if (project === null) {
     $infoBox.append('<p class="text-center blankInfo">Seleziona un progetto per visualizzare le informazioni.</p>')
   } else {
+    var proj = project.file.substr(0, project.file.length - 4)
     $infoBox.append('<dl>')
     $infoBox.append('<dt>Nome Progetto</dt><dd>' + project.proj + '</dd>')
     $infoBox.append('<dt>Regione</dt><dd>' + project.region_ex + '</dd>')
     $infoBox.append('<dt>File associato</dt><dd>' + project.file + '</dd>')
     $infoBox.append('<dt>Cliccatori Assegnati</dt><dd class="infoClicker">Loading..</dd>')
     $infoBox.append('</dl>')
+    $infoBox.append('<div class="text-center"><a class="btn btn-default btn-sm" href="' + window.base_url + 'dashboard/codes/' + proj + '">Assegna questo codice a dei cliccatori</a><div>')
     getAssociatedClickers(project.file)
   }
 }

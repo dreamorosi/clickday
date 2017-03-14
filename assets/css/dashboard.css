@@ -544,9 +544,40 @@ tr.user-line, li.list-group-item.no-border{
 	cursor: pointer;
 }
 
-.codesWidget .form-group.text-right{
-	margin-top:5px;
-	margin-bottom: 0px;
+.codesWidget .glyphicon{
+	vertical-align: baseline;
+	font-size: .9em;
+}
+
+.codesWidget h2{
+	padding-top: 50px;
+}
+
+.codesWidget .glyphicon-arrow-down{
+	color: #43F269;
+	font-size: .7em;
+	transition: all 150ms ease-in;
+}
+
+.codesWidget form{
+	font-size: 1.1em;
+}
+
+.codesWidget form input{
+	display: inline-block;
+	width: 100px
+}
+
+.codesWidget form select{
+	width: 180px
+}
+
+.codesWidget form button{
+	margin-left: 50px;
+}
+
+.codesWidget form i{
+	padding: 2px 0 2px 0
 }
 
 @media (min-width: 768px) {

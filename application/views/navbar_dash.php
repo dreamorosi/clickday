@@ -26,9 +26,11 @@
           <? if($role == 'clickMaster' || $role == 'admin'): ?>
             <li data-nav="userlist"><a href="<? echo base_url('dashboard/userlist'); ?>">Lista Utenti</a></li>
             <li data-nav="screenshots"><a href="<? echo base_url('dashboard/screens'); ?>">Screenshots</a></li>
-          <? elseif($role == 'admin'): ?>
-            <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
-            <li data-nav="projects"><a href="<? echo base_url('dashboard/projects'); ?>">Elenco Progetti</a></li>
+            <? if($role == 'admin'): ?>
+              <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
+              <li data-nav="projects"><a href="<? echo base_url('dashboard/projects'); ?>">Elenco Progetti</a></li>
+              <li data-nav="codes"><a href="<? echo base_url('dashboard/codes'); ?>">Codici</a/></li>
+            <? endif; ?>
           <? endif; ?>
         <? else: ?>
           <li data-nav="profile"><a href="<? echo base_url('dashboard/profile'); ?>">Modifica dati personali</a></li>
