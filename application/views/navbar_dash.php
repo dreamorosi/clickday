@@ -34,11 +34,7 @@
           <? endif; ?>
         <? else: ?>
           <li data-nav="profile"><a href="<? echo base_url('dashboard/profile'); ?>">Modifica dati personali</a></li>
-          <? if($videoLink != '#'): ?>
-            <li><a href="<? echo $videoLink; ?>">Video Tutorial</a></li>
-          <? endif; ?>
         <? endif; ?>
-        <li><a href="#"  data-toggle="modal" data-target=".winners">Lista Cliccatori vincenti</a></li>
         <li><a href="<? echo base_url('dashboard/signout'); ?>">Logout</a></li>
       </ul>
     </div>
