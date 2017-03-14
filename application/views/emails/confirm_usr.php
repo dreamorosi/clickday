@@ -19,7 +19,7 @@
 										<table class="twelve columns">
 											<tr>
 												<td class="text-pad">
-													<p>Grazie per aver attivato il tuo profilo utente <strong>Click Day 2016</strong>. Ora puoi accedere all'Area Personale, dove riceverai eventuali comunicazioni dal tuo <i>ClickMaster</i> (ossia il tuo referente personale), potrai modificare il tuo profilo utente e caricare lo screenshot di avvenuta presa in carico del codice al termine di Click Day 2016.</p>
+													<p>Grazie per aver attivato il tuo profilo utente <strong>Click Day 2017</strong>. Ora puoi accedere all'Area Personale, dove riceverai eventuali comunicazioni dal tuo <i>ClickMaster</i> (ossia il tuo referente personale), potrai modificare il tuo profilo utente e caricare lo screenshot di avvenuta presa in carico del codice al termine di Click Day 2016.</p>
 												</td>
 												<td class="expander"></td>
 											</tr>

@@ -19,7 +19,7 @@
 										<table class="twelve columns">
 											<tr>
 												<td class="text-pad">
-													<p>Grazie per esserti registrato a <strong>Click Day 2016</strong>.</p>
+													<p>Grazie per esserti registrato a <strong>Click Day 2017</strong>.</p>
 													<p>Per favore, attiva il tuo Profilo Utente e conferma la tua registrazione.</p>
 												</td>
 												<td class="expander"></td>
