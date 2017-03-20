@@ -35,12 +35,12 @@ class Clickmaster extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -50,8 +50,9 @@ class Clickmaster extends CI_Model
 		$data = array( 'email' => $email, 'base_url' => base_url(), 'pass' => $pass);
 		$content = $this->load->view('emails/notification', $data, TRUE);
 		$this->email->message($content);
-		$this->email->send();
-        log_message('error', $this->email->print_debugger());
+		$result = $this->email->send();
+    return $result;
+        // log_message('error', $this->email->print_debugger());
 	}
 
 	function createNewCm($usr)
@@ -76,8 +77,8 @@ class Clickmaster extends CI_Model
 		$newCm = array('name' => $usr['name'], 'surname' => $usr['surname'], 'email' => $usr['email'], 'password' => $passwordH, 'code' => $usr['code']);
 		$this->db->insert('clickmasters', (object) $newCm);
 		$data['ID'] = -1;
-		$data['ID']=$this->db->insert_id();
-		$this->db->insert('codes', array('ID' => $data['ID']));
+		$data['ID'] = $this->db->insert_id();
+		// $this->db->insert('codes', array('ID' => $data['ID']));
 		if ($this->db->affected_rows() > 0){
 			$this->sendNotificationMail($usr['email'], $password);
 			return $data;
