@@ -28,7 +28,7 @@
 					<div class="col-md-12">
 						<h2 id="clickDay2" class="text-uppercase">Informazioni Generali</h2>
 						<ul class="listF list-unstyled">
-							<li><a role="button" data-toggle="collapse" href="#col1" aria-expanded="false">Quando ci sarà il Click Day?</a><div id="col1" class="collapse">La data e l’ora esatta non si sanno ancora!L’INAIL comunicherà la data e l’ora ufficiale a partire dal giorno 19 maggio 2016.Sarà nostra cura informare tutti gli iscritti al Click Day via email.Viste le esperienze passate, con molta probabilità̀, sarà nel mese di giugno, in una giornata lavorativa.</div></li>
+							<li><a role="button" data-toggle="collapse" href="#col1" aria-expanded="false">Quando ci sarà il Click Day?</a><div id="col1" class="collapse">Il giorno del Click Day sarà comunicato dall’INAIL a partire dal 12 giugno 2017, plausibilmente in una data compresa nelle due settimane successive. Vi aggiorneremo costantemente.</div></li>
 							<li><a role="button" data-toggle="collapse" href="#col2" aria-expanded="false">Dove sarà realizzato il Click Day?</a><div id="col2" class="collapse">Da nessuna parte! Potrai fare il tuo click comodamente da casa!</div></li>
 							<li><a role="button" data-toggle="collapse" href="#col3" aria-expanded="false">Quanto tempo dovrò impiegare per fare la procedura del click?</a><div id="col3" class="collapse">
 								Circa 30 minuti.

@@ -45,14 +45,14 @@ class User extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
 		if($role == 'usr'){
-			$this->email->subject('Registrazione ClickDay 2016');
+			$this->email->subject('Registrazione ClickDay 2017');
 			$data = array( 'base_url' => base_url(), 'code' => base_url('users/activate/'.$activation));
 			$content = $this->load->view('emails/activation', $data, TRUE);
 		}elseif($role=='cm'){
-			$this->email->subject('Nuovo Utente Registrato ClickDay 2016');
+			$this->email->subject('Nuovo Utente Registrato ClickDay 2017');
 			$data = array( 'base_url' => base_url(), 'name' => $activation);
 			$content = $this->load->view('emails/activation_cm', $data, TRUE);
 		}
@@ -73,9 +73,9 @@ class User extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
-		$this->email->subject('Recupero Password ClickDay 2016');
+		$this->email->subject('Recupero Password ClickDay 2017');
 		$data = array( 'base_url' => base_url(), 'recovery' => base_url('login/forgot/'.$code));
 		$content = $this->load->view('emails/recovery', $data, TRUE);
 		$this->email->message($content);
@@ -95,14 +95,14 @@ class User extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
 		if($role == 'usr'){
-			$this->email->subject('Conferma Attivazione ClickDay 2016');
+			$this->email->subject('Conferma Attivazione ClickDay 2017');
 			$data = array( 'base_url' => base_url());
 			$content = $this->load->view('emails/confirm_usr', $data, TRUE);
 		}elseif($role == 'cm'){
-			$this->email->subject('Nuovo Utente Verificato ClickDay 2016');
+			$this->email->subject('Nuovo Utente Verificato ClickDay 2017');
 			$data = array( 'base_url' => base_url(), 'name' => $payload);
 			$content = $this->load->view('emails/confirm_cm', $data, TRUE);
 		}

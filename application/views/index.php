@@ -11,7 +11,7 @@
         <div class="container container-menu">
             <div class="collapse navbar-collapse" id="subNavItems">
                 <ul class="nav navbar-nav navbar-left text-center">
-                    <li><a href="#clickDay2">Click Day<br/>2016</a></li>
+                    <li><a href="#clickDay2">Click Day<br/>2017</a></li>
                     <li><div class="dot2"></div></li>
                     <li><a href="#chiSono">Chi sono<br/>i Cliccatori</a></li>
                     <li><div class="dot2"></div></li>
@@ -177,7 +177,7 @@
 							<h3 class="text-uppercase text-center hidden">Requisiti</h3>
 							<img class="center-block scale hidden" id="tools" data-src="<? echo base_url('assets/img/tools.png'); ?>" alt="tools" />
 							<h3 class="text-center smod hidden">IMPORTANTE</h3>
-							<p class="text-center hidden">Leggi i requisiti tecnici <b>necessari per partecipare</b> a Click Day 2016</p>
+							<p class="text-center hidden">Leggi i requisiti tecnici <b>necessari per partecipare</b> a Click Day 2017</p>
 							<div data-toggle="modal" data-target="#modrequisiti" id="button1" class="modbutton hidden">CONTINUA<br>A LEGGERE</div>
 						</div>
                     </div>
@@ -196,7 +196,7 @@
                 <div class="row">
                     <div class="col-md-6 text-justify row1left">
                         <p class="testo3 hidden">Il giorno del Click Day, i cliccatori che avranno aderito al progetto, dovranno procedere con l’<b>invio delle domande sul sito web dell’INAIL</b>.</p>
-                        <p class="testo3 hidden">Una volta connessi al sito, <b>alle ore 16 del giorno 26 maggi 2016</b>, i cliccatori dovranno incollare un codice alfanumerico da noi fornito preventivamente, all’interno di una finestra dedicata ed infine cliccare un pulsante “invia” nel più breve tempo possibile (3-4 secondi).</p>
+                        <p class="testo3 hidden">Una volta connessi al sito, in ora e giorno da definirsi (l’Inail comunicherà la data e l’orario esatto del click day a partire dal 12 giugno 2017), i cliccatori dovranno incollare un codice alfanumerico da noi fornito preventivamente, all’interno di una finestra dedicata ed infine cliccare un pulsante “invia” nel più breve tempo possibile (3-4 secondi).</p>
                         <img class="center-block scale hidden" id="monitor" data-src="<? echo base_url('assets/img/monitor.png'); ?>" alt="monitor" />
                     </div>
                     <div class="col-md-6 text-justify row1right">

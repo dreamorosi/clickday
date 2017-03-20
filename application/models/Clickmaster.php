@@ -44,9 +44,9 @@ class Clickmaster extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
-		$this->email->subject('Profilo Click Master ClickDay 2016');
+		$this->email->subject('Profilo Click Master ClickDay 2017');
 		$data = array( 'email' => $email, 'base_url' => base_url(), 'pass' => $pass);
 		$content = $this->load->view('emails/notification', $data, TRUE);
 		$this->email->message($content);

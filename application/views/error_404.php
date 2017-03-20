@@ -11,7 +11,7 @@
         <div class="container container-menu">
             <div class="collapse navbar-collapse" id="subNavItems">
                 <ul class="nav navbar-nav navbar-left text-center">
-                    <li><a href="#clickDay2">Click Day<br/>2016</a></li>
+                    <li><a href="#clickDay2">Click Day<br/>2017</a></li>
                     <li><div class="dot2"></div></li>
                     <li><a href="#chiSono">Chi sono<br/>i Cliccatori</a></li>
                     <li><div class="dot2"></div></li>

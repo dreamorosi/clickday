@@ -202,7 +202,7 @@ class Dashboard_model extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('notification@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('notification@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
 		$this->email->subject('Nuovo messaggio ricevuto da '. $mitt);
 		$content = $this->load->view('emails/notmail', $data, TRUE);
@@ -795,9 +795,9 @@ class Dashboard_model extends CI_Model
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
-		$this->email->from('notification@clickdayats.it', 'ClickDay 2016');
+		$this->email->from('notification@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
-		$this->email->subject('Codice progetto Click Day 2016');
+		$this->email->subject('Codice progetto Click Day 2017');
 		$content = $this->load->view('emails/codemail', $data, TRUE);
 		$this->email->message($content);
 		$sent = $this->email->send();
