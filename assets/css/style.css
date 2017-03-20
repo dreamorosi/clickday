@@ -804,13 +804,17 @@ a, a:hover, .text-danger{
 @media (max-width: 1144px) {
 }
 .fix1{
-	width: 40%;
+	width: 43%;
+}
+.birthDate > .form-group > input{
+	padding: 6px 7px;
 }
 
 @media (min-width: 1330px) {
 	.fix1{
-		width: 44%;
+		width: 45%;
 	}
+
 }
 
 @media (max-width: 1199px) {

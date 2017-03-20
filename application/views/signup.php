@@ -37,7 +37,7 @@
 		<? if($open): ?>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="col-md-6 col-md-offset-3 jumbotron">
+				<div class="col-md-8 col-md-offset-2 jumbotron">
 					<div class="row hidden">
 						<div class="col-md-12 text-center">
 							<div class="form-group">
