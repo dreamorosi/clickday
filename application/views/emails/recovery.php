@@ -19,7 +19,7 @@
 										<table class="twelve columns">
 											<tr>
 												<td class="text-pad">
-													<p>È stato richiesto di reimpostare la password del tuo account <strong>Click Day 2016</strong>.</p>
+													<p>È stato richiesto di reimpostare la password del tuo account <strong>Click Day 2017</strong>.</p>
 												</td>
 												<td class="expander"></td>
 											</tr>

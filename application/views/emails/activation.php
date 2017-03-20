@@ -49,7 +49,7 @@
 											<tr>
 												<td style="padding-bottom: 0px" class="text-pad">
 													<p style="border-bottom: 1px solid #f6a723; padding-bottom: 100px">Altrimenti copia questo url nel tuo browser:<br/><a style="text-decoration: underline; font-size: 14px" class="text-ora" href="<? echo $code; ?>"><? echo $code; ?></a></p>
-													<p>Potrai quindi accedere all'<strong>Area Personale</strong>, dove riceverai eventuali comunicazioni dal tuo <i>ClickMaster</i> (ossia il tuo referente personale), ricevere il codice progetto che ti è stato assegnato, potrai modificare il tuo profilo utente e caricare lo screenshot di avvenuta presa in carico del codice al termine di Click Day 2016.</p>
+													<p>Potrai quindi accedere all'<strong>Area Personale</strong>, dove riceverai eventuali comunicazioni dal tuo <i>ClickMaster</i> (ossia il tuo referente personale), ricevere il codice progetto che ti è stato assegnato, potrai modificare il tuo profilo utente e caricare lo screenshot di avvenuta presa in carico del codice al termine di Click Day 2017.</p>
 												</td>
 												<td class="expander"></td>
 											</tr>
