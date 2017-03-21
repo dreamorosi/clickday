@@ -82,7 +82,7 @@ $(document).ready(function () {
   }
 
   $('#search').keyup(function () {
-      filtering('search')
+    filtering('search')
   });
 
   $('.letters').on('click','span', function () {
@@ -156,24 +156,23 @@ $(document).ready(function () {
 				sent = "sent"
 			}
 
-			if(role=='admin') {
-                projects_classic.forEach(function (project) {
-                    var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
-                    var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
-                    select_projects_classic += option;
-                    region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
-                })
-                select_projects_classic += "</select>"
+			if(role === 'admin') {
+        projects_classic.forEach(function (project) {
+          var selected = users_mnpl[i].code !== project.file ? '' : 'selected'
+          var option = `<option value='${project.region}' ${selected}>${project.file}</option>`
+          select_projects_classic += option
+          region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : ''
+        })
+        select_projects_classic += "</select>"
 
-
-                projects_sc.forEach(function (project) {
-                    var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
-                    var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
-                    select_projects_sc += option;
-                    region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
-                })
-                select_projects_sc += "</select>";
-            }
+        projects_sc.forEach(function (project) {
+          var selected = users_mnpl[i].code !== project.file ? '' : 'selected'
+          var option = `<option value='${project.region}' ${selected}>${project.file}</option>`
+          select_projects_sc += option
+          region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : ''
+        })
+        select_projects_sc += "</select>"
+      }
       var tr = '<tr class="user-line" data-id="' + users_mnpl[i].ID + '"'
       tr += ' data-name="' + users_mnpl[i].name + '"';
       tr += ' data-pos="' + users_mnpl[i].pos + '"';
@@ -189,15 +188,15 @@ $(document).ready(function () {
       tr += '<td>' + users_mnpl[i].contract + '</td>';
       sendready = '';
       if(role=='admin') {
-          tr += '<td class="select_td">' + select_projects_classic + '</td>';
-          tr += '<td class="select_td">' + select_projects_sc + '</td>';
-          tr += '<td class="select_region">' + region + '</td>';
-          if(users_mnpl[i].code_ass == 'Si')
-              if(users_mnpl[i].code_rec == 'Si')
-                  sendready = 'success';
-              else
-                  sendready = 'warning';
-		  tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
+        tr += '<td class="select_td">' + select_projects_classic + '</td>';
+        tr += '<td class="select_td">' + select_projects_sc + '</td>';
+        tr += '<td class="select_region">' + region + '</td>';
+        if(users_mnpl[i].code_ass == 'Si')
+        if(users_mnpl[i].code_rec == 'Si')
+          sendready = 'success';
+        else
+          sendready = 'warning';
+  		  tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
       }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
@@ -263,9 +262,9 @@ $(document).ready(function () {
 	});
 
 	$('body').on('change', '.select_code_classic, .select_code_sc', function (e) {
-    	pos = $(this).parent().parent().data('pos');
-    	pos_mnpl = $(this).parent().parent().data('pos_mnpl');
-        var ID = $(this).parent().parent().data('id');
+  	pos = $(this).parent().parent().data('pos');
+  	pos_mnpl = $(this).parent().parent().data('pos_mnpl');
+    var ID = $(this).parent().parent().data('id');
 		if ($(this).val() !== '---') {
 			$(this).parent().parent().find(".select_region").html($(this).val());
 			var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc';
@@ -274,12 +273,11 @@ $(document).ready(function () {
 			selected = $(idName + ID + ' option:selected' ).text();
 			region = $(idName + ID + ' option:selected' ).val();
 			setcode(ID, selected, region, pos, pos_mnpl);
-			$(this).parent().parent().find('button').addClass('warning');
-			console.log($(this).parent().parent().find('button').html())
+			$(this).parent().parent().find('.sendcode .btn').addClass('warning');
 		} else {
 			setcode(ID, '', '', pos, pos_mnpl);
 			$(this).parent().parent().find('.select_region').html('');
-			$(this).parent().parent().find('button').removeClass('warning')
+			$(this).parent().parent().find('.sendcode .btn').removeClass('warning')
 		}
 	});
 
@@ -309,79 +307,29 @@ $(document).ready(function () {
 	})
 
 	$('body').on('click', '.sendcode .btn', function () {
-    var ID = $(this).parent().parent().data('id');
-    var name = $(this).parent().parent().find('.cName').html();
-		if (!$(this).hasClass('success') || $(this).hasClass('warning')) {
-            var btn = $(this);
-			selected = $('#select_classic' + ID + ' option:selected' ).text();
-			if (selected === '---') {
-				selected = $('#select_sc' + ID + ' option:selected' ).text();
-				if (selected === '---') {
-					return
-				} else {
-					region = $('#select_sc' + ID + ' option:selected' ).val();
-				}
-			} else {
-				region = $('#select_classic' + ID + ' option:selected' ).val();
-			}
+    var $btn = $(this)
+    var ID = $btn.parent().parent().data('id')
+    var name = $btn.parent().parent().find('.cName').html()
+    if ($btn.hasClass('success')) {
+      // Success status (already sent)
+      prompt("Vuoi inviare nuovamente il codice a " + name, ID)
+    } else if ($btn.hasClass('error') || $btn.hasClass('warning')) {
+      // Error or ready statuses (can send)
+      var $userLine = $btn.parent().parent()
 
-			if (selected !== '') {
-				$.ajax({
-					method: 'POST',
-					dataType: 'json',
-					url: window.base_url + 'dashboard/sendcode/',
-					data: 'ID=' + ID + '&code=' + selected + '&region=' + region,
-					success: function (data) {
-            var messages = {
-              success: {
-                type: 'success',
-                message: "Il codice di "+ name + " è stato inviato con successo"
-              },
-              error: {
-                type: 'error',
-                message: "Si è verificato un errore durante l'invio del codice di " + name
-              }
-            };
+      var $option = null
+      $option = getSelectedCodes($userLine)
 
-            var result = data ? messages.success : messages.error
-            btn.removeClass('warning').addClass(result.type)
-						$('#select_classic' + ID).prop('disabled', data);
-						$('#select_sc' + ID).prop('disabled', data);
-            notify(result)
-					}
-				})
-			}
-		} else {
-      prompt("Vuoi riassegnare un nuovo codice a " + name, ID)
-		}
-	});
-
-	function confirmReassign (ID) {
-		$.ajax({
-			method: 'POST',
-			dataType: 'json',
-			url: window.base_url + 'dashboard/deleteUserCode/',
-			data: 'ID=' + ID,
-			success: function(data){
-        var messages = {
-          success: {
-            type: 'success',
-            message: "Il codice di ${name} è stato inviato con successo"
-          },
-          error: {
-            type: 'error',
-            message: "Si è verificato un errore durante l'invio del codice di " + name
-          }
-        }
-
-        var result = data ? messages.success : messages.error
-        btn.removeClass('warning').addClass(result.type)
-        $('#select_classic' + ID).prop('disabled', data);
-        $('#select_sc' + ID).prop('disabled', data);
-        notify(result)
-			}
-		})
-	}
+      if ($option !== null) {
+        sendCode(ID, name, $option)
+      } else {
+        notify({type: 'warning', message: 'Seleziona un nuovo codice prima di inviare.'})
+      }
+    } else {
+      // Idle status (nothing to send)
+      notify({type: 'warning', message: 'Seleziona un nuovo codice prima di inviare.'})
+    }
+	})
 
 	$('button.sendmessageDo2').click(function () {
 		removeErrors()
@@ -535,6 +483,21 @@ function notify (obj) {
   })
 }
 
+function confirmReassign (ID) {
+  var $userLine = $(`tr.user-line[data-id='${ID}']`)
+  var name = $userLine.find('.cName').html()
+
+  var $option = null
+  $option = getSelectedCodes($userLine)
+
+  if ($option !== null) {
+    sendCode(ID, name, $option)
+  } else {
+    // Idle status (nothing to send)
+    notify({type: 'warning', message: 'Seleziona un nuovo codice prima di inviare.'})
+  }
+}
+
 function prompt (message, ID) {
   noty({
     layout: 'center',
@@ -561,4 +524,62 @@ function prompt (message, ID) {
     }
   ]
   })
+}
+
+function getSelectedCodes ($userLine) {
+  var $selectCl = $userLine.find('.select_code_classic')
+  var $selectSc = $userLine.find('.select_code_sc')
+  var $option = null
+  if ($selectCl.val() !== '---') {
+    $option = $selectCl.find('option:selected')
+  } else if ($selectSc.val() !== '---') {
+    $option = $selectSc.find('option:selected')
+  }
+  return $option
+}
+
+function sendCode (ID, name, $option) {
+  var code = $option.text()
+  var region = $option.val()
+  $.ajax({
+    method: 'POST',
+    dataType: 'json',
+    url: `${window.base_url}dashboard/sendcode/`,
+    data: `ID=${ID}&code=${code}&region=${region}`,
+    success: function(data) {
+      var messages = {
+        success: {
+          type: 'success',
+          message: `Il codice di ${name} è stato inviato con successo`
+        },
+        error: {
+          type: 'error',
+          message: `Si è verificato un errore durante l'invio del codice di ${name}`
+        }
+      }
+
+      var result = data ? messages.success : messages.error
+      disableSelects(ID, data)
+      addStatusToButton(ID, result.type)
+      notify(result)
+    }
+  })
+}
+
+function disableSelects (ID, bool) {
+  var $userLine = $(`tr.user-line[data-id='${ID}']`)
+  var $selectCl = $userLine.find('.select_code_classic')
+  var $selectSc = $userLine.find('.select_code_sc')
+  $selectCl.prop('disabled', bool)
+  $selectSc.prop('disabled', bool)
+}
+
+function addStatusToButton (ID, type) {
+  var $userLine = $(`tr.user-line[data-id='${ID}']`)
+  var $btn = $userLine.find('.sendcode .btn')
+  $btn
+    .removeClass('warning')
+    .removeClass('error')
+    .removeClass('success')
+    .addClass(type)
 }

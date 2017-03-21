@@ -785,13 +785,13 @@ class Dashboard_model extends CI_Model
 		$data = array( 'base_url' => base_url(), 'email' => urlencode($email), 'code' => $code, 'name' => $user->name);
 		$this->load->library('email');
 		$this->load->helper('url');
-		//$config['protocol'] = 'sendmail';
-		$config['protocol']    = 'smtp';
-    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port']    = '25';
+    // $config['protocol'] = 'sendmail';
+		$config['protocol'] = 'smtp';
+    $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port'] = '25';
     $config['smtp_timeout'] = '7';
-    $config['smtp_user']    = 'notification@clickdayats.it';
-    $config['smtp_pass']    = 'Clickday1';
+    $config['smtp_user'] = 'notification@clickdayats.it';
+    $config['smtp_pass'] = 'Clickday1';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -802,7 +802,9 @@ class Dashboard_model extends CI_Model
 		$this->email->message($content);
 		$sent = $this->email->send();
 
-		$this->db->set('code_received', 1)->where('ID', $id)->update('users');
+    if ($sent) {
+      $this->db->set('code_received', 1)->where('ID', $id)->update('users');
+    }
     return $sent;
 	}
 
