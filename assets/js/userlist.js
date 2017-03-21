@@ -309,10 +309,10 @@ $(document).ready(function () {
 	})
 
 	$('body').on('click', '.sendcode .btn', function () {
-    var ID = $(this).parent().parent().data('id')
-    var name = $(this).parent().parent().find('.cName').html()
+    var ID = $(this).parent().parent().data('id');
+    var name = $(this).parent().parent().find('.cName').html();
 		if (!$(this).hasClass('success') || $(this).hasClass('warning')) {
-      var btn = $(this)
+            var btn = $(this);
 			selected = $('#select_classic' + ID + ' option:selected' ).text();
 			if (selected === '---') {
 				selected = $('#select_sc' + ID + ' option:selected' ).text();
@@ -335,13 +335,13 @@ $(document).ready(function () {
             var messages = {
               success: {
                 type: 'success',
-                message: "Il codice di ${name} è stato inviato con successo"
+                message: "Il codice di "+ name + " è stato inviato con successo"
               },
               error: {
                 type: 'error',
-                message: "Si è verificato un errore durante l'invio del codice di ${name}"
+                message: "Si è verificato un errore durante l'invio del codice di " + name
               }
-            }
+            };
 
             var result = data ? messages.success : messages.error
             btn.removeClass('warning').addClass(result.type)
@@ -352,7 +352,7 @@ $(document).ready(function () {
 				})
 			}
 		} else {
-      prompt("Vuoi riassegnare un nuovo codice a ${name}", ID)
+      prompt("Vuoi riassegnare un nuovo codice a " + name, ID)
 		}
 	});
 
@@ -370,7 +370,7 @@ $(document).ready(function () {
           },
           error: {
             type: 'error',
-            message: "Si è verificato un errore durante l'invio del codice di ${name}"
+            message: "Si è verificato un errore durante l'invio del codice di " + name
           }
         }
 
