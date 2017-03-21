@@ -156,23 +156,24 @@ $(document).ready(function () {
 				sent = "sent"
 			}
 
-      projects_classic.forEach(function (project) {
-        var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
-        var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
-        select_projects_classic += option;
-        region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
-      })
-      select_projects_classic += "</select>"
+			if(role=='admin') {
+                projects_classic.forEach(function (project) {
+                    var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
+                    var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
+                    select_projects_classic += option;
+                    region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
+                })
+                select_projects_classic += "</select>"
 
 
-      projects_sc.forEach(function (project) {
-        var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
-        var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
-        select_projects_sc += option;
-        region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
-      })
-			select_projects_sc += "</select>";
-
+                projects_sc.forEach(function (project) {
+                    var selected = users_mnpl[i].code !== project.file ? '' : 'selected';
+                    var option = "<option value='" + project.region + "' " + selected + ">" + project.file + "</option>";
+                    select_projects_sc += option;
+                    region = users_mnpl[i].code !== project.file ? users_mnpl[i].region : '';
+                })
+                select_projects_sc += "</select>";
+            }
       var tr = '<tr class="user-line" data-id="' + users_mnpl[i].ID + '"'
       tr += ' data-name="' + users_mnpl[i].name + '"';
       tr += ' data-pos="' + users_mnpl[i].pos + '"';
@@ -186,12 +187,13 @@ $(document).ready(function () {
       tr += '<td>' + users_mnpl[i].code_rec + '</td>';
       tr += '<td>' + users_mnpl[i].screen + '</td>';
       tr += '<td>' + users_mnpl[i].contract + '</td>';
-      tr += '<td class="select_td">' + select_projects_classic + '</td>';
-      tr += '<td class="select_td">' + select_projects_sc + '</td>';
-      tr += '<td class="select_region">' + region + '</td>';
-
-      sendready = users_mnpl[i].code_ass == 'Si' ? 'warning' : '';
-      tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
+      if(role=='admin') {
+          tr += '<td class="select_td">' + select_projects_classic + '</td>';
+          tr += '<td class="select_td">' + select_projects_sc + '</td>';
+          tr += '<td class="select_region">' + region + '</td>';
+		  sendready = users_mnpl[i].code_ass == 'Si' ? 'warning' : '';
+		  tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
+      }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
       tr += '</tr>'
@@ -329,11 +331,11 @@ $(document).ready(function () {
             var messages = {
               success: {
                 type: 'success',
-                message: `Il codice di ${name} è stato inviato con successo`
+                message: "Il codice di ${name} è stato inviato con successo"
               },
               error: {
                 type: 'error',
-                message: `Si è verificato un errore durante l'invio del codice di ${name}`
+                message: "Si è verificato un errore durante l'invio del codice di ${name}"
               }
             }
 
@@ -346,7 +348,7 @@ $(document).ready(function () {
 				})
 			}
 		} else {
-      prompt(`Vuoi riassegnare un nuovo codice a ${name}`, ID)
+      prompt("Vuoi riassegnare un nuovo codice a ${name}", ID)
 		}
 	});
 
@@ -360,11 +362,11 @@ $(document).ready(function () {
         var messages = {
           success: {
             type: 'success',
-            message: `Il codice di ${name} è stato inviato con successo`
+            message: "Il codice di ${name} è stato inviato con successo"
           },
           error: {
             type: 'error',
-            message: `Si è verificato un errore durante l'invio del codice di ${name}`
+            message: "Si è verificato un errore durante l'invio del codice di ${name}"
           }
         }
 

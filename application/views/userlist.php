@@ -95,22 +95,6 @@
 						<div class="col-md-8">
 							<input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search" />
 						</div>
-						<div class="col-sm-2 dropdown-filters" id="code_ass">
-							<label id="code_ass">Progetto assegnato:<br/>
-								<select>
-		              <option value="">Tutti</option>
-		              <option value="Si">Si</option>
-		              <option value="No">No</option>
-	            	</select>
-							</label>
-	            <label id="code_rec">Progetto ricevuto:<br/>
-		            <select>
-		          		<option value="">Tutti</option>
-		              <option value="Si">Si</option>
-		              <option value="No">No</option>
-		            </select>
-							</label>
-						</div>
 					</div>
 					<div class="row">
 						<table class="table table-striped">
@@ -124,9 +108,6 @@
 									<th>Codice ricevuto</th>
 									<th>Screenshot</th>
 									<th>Contratto</th>
-									<th>Progetto classico</th>
-									<th>Progetto solo click</th>
-									<th></th>
 									<th></th>
 									<th></th>
 									<th></th>
@@ -179,12 +160,8 @@
 									$tr .= '<td>' . $rawUsers[$k]['code_rec'] . '</td>';
 									$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
 									$tr .= '<td>' . $rawUsers[$k]['contract'] . '</td>';
-									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_classic . '</td>';
-									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
-									$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
 									$sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'success' : 'error';
-									$tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
 									$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
 									$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';
