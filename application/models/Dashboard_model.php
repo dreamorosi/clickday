@@ -831,12 +831,21 @@ class Dashboard_model extends CI_Model
       }
     }
 
-
     $result = array(
       'success' => $success,
       'affected' => $count
     );
     return $result;
+  }
+
+  function getCodeCount($type)
+  {
+    $this->db->select("$type.file, users.ID, COUNT( $type.file ) AS n");
+    $this->db->join('users', "$type.file = users.code", 'left');
+    $this->db->group_by("$type.file");
+    $this->db->order_by('n', 'ASC');
+    $query = $this->db->get("$type");
+    return $query->result_array();
   }
 }
 

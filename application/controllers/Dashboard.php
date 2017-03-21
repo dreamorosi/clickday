@@ -508,18 +508,31 @@ class Dashboard extends CI_Controller {
 		echo json_encode(count($clickers));
 	}
 
+	function getCodeCount()
+	{
+		$data = array(
+			'projects_cl' => $this->dashboard_model->getCodeCount('projects_classic'),
+			'projects_sc' => $this->dashboard_model->getCodeCount('projects_sc'),
+		);
+		echo json_encode($data);
+	}
+
 	function assign_cl_codes()
 	{
 		$data = $this->input->get();
-		$result = $this->dashboard_model->assign_codes($data['usersCount'], $data['code']);
-		echo json_encode($result);
+		// $result = $this->dashboard_model->assign_codes($data['usersCount']);
+		// echo json_encode($result);
+		$code_count = $this->dashboard_model->getCodeCount('projects_classic');
+		echo json_encode($code_count);
 	}
 
 	function assign_sc_codes()
 	{
 		$data = $this->input->get();
-		$result = $this->dashboard_model->assign_codes($data['usersCount'], $data['code']);
-		echo json_encode($result);
+		// $result = $this->dashboard_model->assign_codes($data['usersCount']);
+		// echo json_encode($result);
+		$code_count = $this->dashboard_model->getCodeCount('projects_sc');
+		echo json_encode($code_count);
 	}
 }
 

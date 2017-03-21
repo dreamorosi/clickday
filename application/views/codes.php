@@ -32,14 +32,7 @@
 							<div class="col-md-6">
 								<p class="lead">Progetti Classici</p>
 								<form data-projects="cl">
-									Assegna il codice
-									<select>
-									<? foreach($projects_classic as $file) {
-										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
-									}
-									?>
-									</select>
-									a
+									Assegna un codice progetto a
 									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
 									utenti.
 									<button type="submit" class="btn btn-sm btn-default">
@@ -49,14 +42,7 @@
 								</form>
 								<p class="lead">Progetti Solo click</p>
 								<form data-projects="sc">
-									Assegna il codice
-									<select>
-									<? foreach($projects_sc as $file) {
-										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
-									}
-									?>
-									</select>
-									a
+									Assegna un codice progetto a									
 									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
 									utenti.
 									<button type="submit" class="btn btn-sm btn-default">
