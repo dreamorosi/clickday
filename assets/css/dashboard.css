@@ -225,7 +225,7 @@ textarea{
 	width: 55px;
 }
 
-.warning .btn{
+.warning.btn{
 	border-top: 3px solid #F7B73D !important;
 }
 

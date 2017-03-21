@@ -187,11 +187,16 @@ $(document).ready(function () {
       tr += '<td>' + users_mnpl[i].code_rec + '</td>';
       tr += '<td>' + users_mnpl[i].screen + '</td>';
       tr += '<td>' + users_mnpl[i].contract + '</td>';
+      sendready = '';
       if(role=='admin') {
           tr += '<td class="select_td">' + select_projects_classic + '</td>';
           tr += '<td class="select_td">' + select_projects_sc + '</td>';
           tr += '<td class="select_region">' + region + '</td>';
-		  sendready = users_mnpl[i].code_ass == 'Si' ? 'warning' : '';
+          if(users_mnpl[i].code_ass == 'Si')
+              if(users_mnpl[i].code_rec == 'Si')
+                  sendready = 'success';
+              else
+                  sendready = 'warning';
 		  tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
       }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
@@ -258,26 +263,25 @@ $(document).ready(function () {
 	});
 
 	$('body').on('change', '.select_code_classic, .select_code_sc', function (e) {
-    pos = $(this).parent().parent().data('pos');
-    pos_mnpl = $(this).parent().parent().data('pos_mnpl');
+    	pos = $(this).parent().parent().data('pos');
+    	pos_mnpl = $(this).parent().parent().data('pos_mnpl');
+        var ID = $(this).parent().parent().data('id');
 		if ($(this).val() !== '---') {
 			$(this).parent().parent().find(".select_region").html($(this).val());
-      var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc';
-      var oppositeClass = $(this).hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic';
-
+			var idName = $(this).hasClass('select_code_classic') ? '#select_classic' : '#select_sc';
+			var oppositeClass = $(this).hasClass('select_code_classic') ? '.select_code_sc' : '.select_code_classic';
 			$(this).parent().parent().find(".select_td > " + oppositeClass).val('---');
-
-			var ID = $(this).parent().parent().data('id');
 			selected = $(idName + ID + ' option:selected' ).text();
 			region = $(idName + ID + ' option:selected' ).val();
 			setcode(ID, selected, region, pos, pos_mnpl);
-			$(this).parent().parent().find('.sendcode').addClass('warning');
+			$(this).parent().parent().find('button').addClass('warning');
+			console.log($(this).parent().parent().find('button').html())
 		} else {
 			setcode(ID, '', '', pos, pos_mnpl);
 			$(this).parent().parent().find('.select_region').html('');
-			$(this).parent().parent().find('.sendcode').removeClass('warning')
+			$(this).parent().parent().find('button').removeClass('warning')
 		}
-	})
+	});
 
 	function setcode(ID, selected, region, pos, pos_mnpl) {
 		$.ajax({

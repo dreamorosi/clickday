@@ -161,7 +161,6 @@
 									$tr .= '<td>' . $rawUsers[$k]['screen'] . '</td>';
 									$tr .= '<td>' . $rawUsers[$k]['contract'] . '</td>';
 
-									$sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'success' : 'error';
 									$tr .= '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
 									$tr .= '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';
@@ -339,8 +338,14 @@
 									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
 									$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-                  $sendready = $rawUsers[$k]['code_ass'] == 'Si' ? 'success' : '';
-                  $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
+                                    $sendready = '';
+									if($rawUsers[$k]['code_ass'] == 'Si')
+                                        if($rawUsers[$k]['code_rec'] == 'Si')
+                                            $sendready = 'success';
+									    else
+                                            $sendready = 'warning';
+
+                                    $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
 									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
 									$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';
