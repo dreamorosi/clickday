@@ -77,13 +77,26 @@ function changeType (type) {
 function selectCode (code) {
 	if (code !== '') {
 		var file = code + '.txt'
-		$.each($('select'), function () {
-			if ($(this).find('option[value="' + file + '"]').length > 0) {
-				$(this).val(file).prop('disabled', false)
-				$(this).siblings('input[type="number"]').focus()
-				$(this).siblings('label').find('input[type="checkbox"]').prop('checked', false)
-			}
-		})
+		var $firstSelect = $('select[data-projects="cl"]')
+		var $secondSelect = $('select[data-projects="sc"]')
+		var isInFirstSelect = $firstSelect.find(`option[value="${file}"]`).length > 0 ? 1 : 0
+		var isInSecondSelect = $secondSelect.find(`option[value="${file}"]`).length > 0 ? 1 : 0
+		if (isInFirstSelect) {
+			$firstSelect.prop('disabled', false).val(file)
+			$('input[type="checkbox"]').prop('checked', false)
+		} else if (isInSecondSelect){
+			$firstSelect.addClass('hidden')
+			$secondSelect.removeClass('hidden').prop('disabled', false).val(file)
+			$('input[type="checkbox"]').prop('checked', false)
+		}
+		$('input[type="number"]').focus()
+		// $.each($('select'), function () {
+		// 	if ($(this).find('option[value="' + file + '"]').length > 0) {
+		// 		$(this).val(file).prop('disabled', false)
+		// 		$(this).siblings('input[type="number"]').focus()
+		// 		$(this).siblings('label').find('input[type="checkbox"]').prop('checked', false)
+		// 	}
+		// })
 	}
 }
 
