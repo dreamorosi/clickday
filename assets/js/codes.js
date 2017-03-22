@@ -1,26 +1,49 @@
 var $ = window.$
 var notCodeUsers = window.notCodeUsers
 var base_url = window.base_url
+var code = window.code
+var select_cl = window.projects_cl
+var select_sc = window.projects_sc
 var projects_cl = []
 var projects_sc = []
 
 $(document).ready(function(){
+	selectCode(code)
 	getCodeCount()
 
 	$('.glyphicon-user + span').animateNumber({ number: notCodeUsers }, 1500)
 
-	$('.codesWidget form').on('submit', function(e) {
+	$('.codesWidget form').on('submit', function (e) {
 		e.preventDefault()
-		$input = $(this).find('input')
+		$input = $(this).find('input[type="number"]')
 		$btn = $(this).find('button')
+		$mode = $(this).find('input[type="checkbox"]').prop('checked')
 		$input.css('border-color', '#CCC')
 		var projectsType = $(this).data('projects')
 		var usersToAssign = parseInt($input.val(), 10)
 		if (isNaN(usersToAssign) || usersToAssign <= 0) {
 			$input.css('border-color', '#F7403D')
 		} else {
-			assignCodes(projectsType, usersToAssign, $btn)
+			if ($mode) {
+				assignCodes(projectsType, usersToAssign)
+			} else {
+				assignSingleCode(usersToAssign)
+			}
 		}
+	})
+
+	$('form input[type="radio"]').on('change', function () {
+		changeType($(this).val())
+	})
+
+	$('form input[type="checkbox"]').on('change', function () {
+		var $select = $('form select')
+		$.each($select, function () {
+			if (!$(this).hasClass('hidden')) {
+				var status = $select.prop('disabled')
+				$select.prop('disabled', !status)
+			}
+		})
 	})
 })
 
@@ -35,6 +58,32 @@ function buttonUI ($btn, state) {
 			$btn.find('span').text('')
 			$btn.find('i').toggleClass('hidden')
 			$btn.addClass('disabled')
+	}
+}
+
+function changeType (type) {
+	$form = $('form')
+	$select = $form.find('select')
+	if (type === 'cl') {
+		$form.data('projects', 'cl')
+	} else {
+		$form.data('projects', 'sc')
+	}
+	$.each($select, function () {
+		$(this).toggleClass('hidden')
+	})
+}
+
+function selectCode (code) {
+	if (code !== '') {
+		var file = code + '.txt'
+		$.each($('select'), function () {
+			if ($(this).find('option[value="' + file + '"]').length > 0) {
+				$(this).val(file).prop('disabled', false)
+				$(this).siblings('input[type="number"]').focus()
+				$(this).siblings('label').find('input[type="checkbox"]').prop('checked', false)
+			}
+		})
 	}
 }
 
@@ -86,17 +135,28 @@ function getCodeCount () {
 
 // Assign codes logic
 
-/* runs the balancing function and syncs the result with db */
+/* Runs the balancing function and syncs the result with db */
 var codesToDistrib = {}
 var usersToAdd = 0
-function assignCodes (type, usersCount, $btn) {
-	var dataOut = []
+function assignCodes (type, usersCount) {
 	if (type == 'cl') {
 		balanceCodes(projects_cl, usersCount)
 	} else {
 		balanceCodes(projects_sc, usersCount)
 	}
 	postAdditions(codesToDistrib, usersToAdd)
+}
+
+/* Gets the selected code and posts it along with the usersCount */
+function assignSingleCode (usersToAssign, $btn) {
+	var code = {}
+	var $select = $('form select')
+	$.each($select, function () {
+		if (!$(this).hasClass('hidden')) {
+			code[$(this).val()] = usersToAssign
+		}
+	})
+	postAdditions(code, usersToAdd)
 }
 
 /* Runs the distributeCodes function until a number of codes equal to the input has been assigned */
@@ -130,6 +190,7 @@ function distributeCodes (prj, i) {
 
 /* Assigns codes to users */
 function postAdditions (codesToDistrib, usersToAdd) {
+	$btn = $('form button')
 	buttonUI($btn, 'loading')
 	var url = `${window.base_url}dashboard/assignCodes`
 	var toDistribute = Object.keys(codesToDistrib).map(function (code) {

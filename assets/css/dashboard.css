@@ -563,21 +563,40 @@ tr.user-line, li.list-group-item.no-border{
 	font-size: 1.1em;
 }
 
-.codesWidget form input{
+.codesWidget form > span{
+	margin: 20px 20px 0 0;
 	display: inline-block;
-	width: 100px
+}
+
+.codesWidget form > span:first-child{
+	margin: 0 20px 0 0;
+}
+
+.codesWidget form input{
+	width: 20px
+}
+
+.codesWidget form input[type="number"]{
+	display: inline-block;
+	width: 100px;
 }
 
 .codesWidget form select{
-	width: 180px
+	width: 180px;
+	margin: 0 0 0 20px;
 }
 
 .codesWidget form button{
-	margin-left: 50px;
+	margin: 10px auto;
 }
 
 .codesWidget form i{
 	padding: 2px 0 2px 0
+}
+
+.codesWidget form label{
+	font-weight: 300;
+	cursor: pointer;
 }
 
 @media (min-width: 768px) {

@@ -30,21 +30,38 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-6">
-								<p class="lead">Progetti Classici</p>
 								<form data-projects="cl">
-									Assegna un codice progetto a
+									<span>Utenti a cui assegnare un codice</span>
 									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
-									utenti.
-									<button type="submit" class="btn btn-sm btn-default">
-										<span>Assegna</span>
-										<i class="glyphicon glyphicon-refresh hidden"></i>
-									</button>
-								</form>
-								<p class="lead">Progetti Solo click</p>
-								<form data-projects="sc">
-									Assegna un codice progetto a									
-									<input type="number" class="form-control" autocomplete="off" tabindex="1" required />
-									utenti.
+									<br />
+									<span>Tipo di progetto</span>
+									<label>
+										<input type="radio" value="cl" name="type" checked />
+										Classico
+									</label>
+									<label>
+										<input type="radio" value="sc" name="type">
+										Solo Click
+									</label>
+									<br />
+									<span>Assegnazione</span>
+									<label>
+										<input type="checkbox" name="assign" checked />
+										Automatica
+									</label>
+									<select data-projects="cl" disabled>
+										<? foreach($projects_classic as $file) {
+ 										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
+ 										}
+ 										?>
+ 									</select>
+									<select data-projects="sc" class="hidden" disabled>
+										<? foreach($projects_sc as $file) {
+ 										echo  "<option value='". $file["file"] ."'>". $file["file"] . ' - ' . $file["region"] ."</option>";
+ 										}
+ 										?>
+ 									</select>
+									<br />
 									<button type="submit" class="btn btn-sm btn-default">
 										<span>Assegna</span>
 										<i class="glyphicon glyphicon-refresh hidden"></i>
