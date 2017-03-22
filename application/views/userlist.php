@@ -338,14 +338,11 @@
 									$tr .= '<td ' . $fixcode . ' class="select_td">' . $select_projects_sc . '</td>';
 									$tr .= '<td ' . $fixcode . ' class="select_region">'. $region .'</td>';
 
-                                    $sendready = '';
-									if($rawUsers[$k]['code_ass'] == 'Si')
-                                        if($rawUsers[$k]['code_rec'] == 'Si')
-                                            $sendready = 'success';
-									    else
-                                            $sendready = 'warning';
+									$text = $rawUsers[$k]['code_rec'] == 'Si' ? 'Modifica Codice' : 'Invia Codice';
 
-                                    $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $sendready . '"><small>Invia Codice</small></button></td>';
+									$status = $rawUsers[$k]['code_rec'] == 'Si' ? '' : 'warning';
+
+                  $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $status . '"><small>' . $text . '</small></button></td>';
 									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
 									$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';

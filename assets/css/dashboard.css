@@ -237,6 +237,10 @@ textarea{
 	border-top: 3px solid #F7403D !important;
 }
 
+.user-line .sendcode .btn{
+	min-width: 93px
+}
+
 .select_td select:disabled {
 	color: #57c059 !important;
 }

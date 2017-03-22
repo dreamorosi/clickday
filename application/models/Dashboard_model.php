@@ -769,8 +769,7 @@ class Dashboard_model extends CI_Model
 
 	public function setcode($id, $code, $region, $assigned)
 	{
-		$this->db->set(array('code' => $code, 'region' => $region, 'code_assigned' => $assigned))->where('ID', $id)->update('users');
-		//$this->db->set('region', $region)->where('ID', $id)->update('users');
+		$this->db->set(array('code' => $code, 'region' => $region, 'code_assigned' => $assigned, 'code_received' => 0))->where('ID', $id)->update('users');
 		if ($this->db->affected_rows() > 0){
 			return TRUE;
 		}else{
@@ -785,14 +784,14 @@ class Dashboard_model extends CI_Model
 		$data = array( 'base_url' => base_url(), 'email' => urlencode($email), 'code' => $code, 'name' => $user->name);
 		$this->load->library('email');
 		$this->load->helper('url');
-    // $config['protocol'] = 'sendmail';
-		$config['protocol'] = 'smtp';
-    $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port'] = '25';
-    $config['smtp_timeout'] = '7';
-    $config['smtp_user'] = 'notification@clickdayats.it';
-    $config['smtp_pass'] = 'Clickday1';
-		$config['validate'] = 'FALSE';
+    $config['protocol'] = 'sendmail';
+		// $config['protocol'] = 'smtp';
+    // $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
+    // $config['smtp_port'] = '25';
+    // $config['smtp_timeout'] = '7';
+    // $config['smtp_user'] = 'notification@clickdayats.it';
+    // $config['smtp_pass'] = 'Clickday1';
+		// $config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
 		$this->email->from('notification@clickdayats.it', 'ClickDay 2017');

@@ -273,7 +273,7 @@ $(document).ready(function () {
 			selected = $(idName + ID + ' option:selected' ).text();
 			region = $(idName + ID + ' option:selected' ).val();
 			setcode(ID, selected, region, pos, pos_mnpl);
-			$(this).parent().parent().find('.sendcode .btn').addClass('warning');
+			$(this).parent().parent().find('.sendcode .btn').addClass('warning').find('small').text('Invia Codice');
 		} else {
 			setcode(ID, '', '', pos, pos_mnpl);
 			$(this).parent().parent().find('.select_region').html('');
@@ -310,9 +310,9 @@ $(document).ready(function () {
     var $btn = $(this)
     var ID = $btn.parent().parent().data('id')
     var name = $btn.parent().parent().find('.cName').html()
-    if ($btn.hasClass('success')) {
+    if ($btn.text() === 'Modifica Codice') {
       // Success status (already sent)
-      prompt("Vuoi inviare nuovamente il codice a " + name, ID)
+      disableSelects(ID, false)
     } else if ($btn.hasClass('error') || $btn.hasClass('warning')) {
       // Error or ready statuses (can send)
       var $userLine = $btn.parent().parent()
@@ -549,10 +549,12 @@ function sendCode (ID, name, $option) {
     success: function(data) {
       var messages = {
         success: {
+          text: 'Modifica Codice',
           type: 'success',
           message: `Il codice di ${name} è stato inviato con successo`
         },
         error: {
+          text: 'Invia Codice',
           type: 'error',
           message: `Si è verificato un errore durante l'invio del codice di ${name}`
         }
@@ -560,7 +562,7 @@ function sendCode (ID, name, $option) {
 
       var result = data ? messages.success : messages.error
       disableSelects(ID, data)
-      addStatusToButton(ID, result.type)
+      addStatusToButton(ID, result.type, result.text)
       notify(result)
     }
   })
@@ -574,12 +576,12 @@ function disableSelects (ID, bool) {
   $selectSc.prop('disabled', bool)
 }
 
-function addStatusToButton (ID, type) {
+function addStatusToButton (ID, type, text) {
   var $userLine = $(`tr.user-line[data-id='${ID}']`)
   var $btn = $userLine.find('.sendcode .btn')
   $btn
     .removeClass('warning')
     .removeClass('error')
-    .removeClass('success')
     .addClass(type)
+    .text(text)
 }
