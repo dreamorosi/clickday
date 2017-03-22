@@ -90,13 +90,6 @@ function selectCode (code) {
 			$('input[type="checkbox"]').prop('checked', false)
 		}
 		$('input[type="number"]').focus()
-		// $.each($('select'), function () {
-		// 	if ($(this).find('option[value="' + file + '"]').length > 0) {
-		// 		$(this).val(file).prop('disabled', false)
-		// 		$(this).siblings('input[type="number"]').focus()
-		// 		$(this).siblings('label').find('input[type="checkbox"]').prop('checked', false)
-		// 	}
-		// })
 	}
 }
 

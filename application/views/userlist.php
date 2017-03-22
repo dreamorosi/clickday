@@ -340,7 +340,7 @@
 
 									$text = $rawUsers[$k]['code_rec'] == 'Si' ? 'Modifica Codice' : 'Invia Codice';
 
-									$status = $rawUsers[$k]['code_rec'] == 'Si' ? '' : 'warning';
+									$status = $rawUsers[$k]['code_rec'] == 'No' && $rawUsers[$k]['code_ass'] == 'Si' ? 'warning' : '';
 
                   $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $status . '"><small>' . $text . '</small></button></td>';
 									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
