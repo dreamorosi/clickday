@@ -3,14 +3,6 @@ var notCodeUsers = window.notCodeUsers
 var base_url = window.base_url
 var projects_cl = []
 var projects_sc = []
-// position in array
-// var pointer = 0
-// current max value
-// var tab = 0
-var store = {}
-// current project
-var currentProjects = []
-// var currentUsersCount = 0
 
 $(document).ready(function(){
 	getCodeCount()
@@ -72,6 +64,7 @@ function notify (obj) {
   })
 }
 
+/* Gets the list of all the codes ordered from the one with less users up */
 function getCodeCount () {
 	var url = `${window.base_url}dashboard/getCodeCount`
 	$.getJSON(url, function (data) {
@@ -93,6 +86,7 @@ function getCodeCount () {
 
 // Assign codes logic
 
+/* runs the balancing function and syncs the result with db */
 var codesToDistrib = {}
 var usersToAdd = 0
 function assignCodes (type, usersCount, $btn) {
@@ -105,6 +99,7 @@ function assignCodes (type, usersCount, $btn) {
 	postAdditions(codesToDistrib, usersToAdd)
 }
 
+/* Runs the distributeCodes function until a number of codes equal to the input has been assigned */
 var x = {}
 var y = 0
 function balanceCodes (projects, usersCount) {
@@ -117,6 +112,7 @@ function balanceCodes (projects, usersCount) {
 	y = 0
 }
 
+/* Recursively called, it looks at a project and the one after and fills the difference */
 function distributeCodes (prj, i) {
 	var current = prj[i].count
 	var next = prj[i + 1]
@@ -132,6 +128,7 @@ function distributeCodes (prj, i) {
 	}
 }
 
+/* Assigns codes to users */
 function postAdditions (codesToDistrib, usersToAdd) {
 	buttonUI($btn, 'loading')
 	var url = `${window.base_url}dashboard/assignCodes`
@@ -163,12 +160,14 @@ function postAdditions (codesToDistrib, usersToAdd) {
 	})
 }
 
+/* Keeps in sync all the support variables */
 function registerAddition (el, diff) {
 	el.count = el.count + diff
 	x[el.project] = initOrAdd(x[el.project], diff)
 	y += diff
 }
 
+/* If the value is NaN initializes it otherwise adds the value */
 function initOrAdd (el, val) {
 	return isNaN(el) ? val : el + val
 }
