@@ -1,7 +1,6 @@
 var $ = window.$
 var notCodeUsers = window.notCodeUsers
 var base_url = window.base_url
-var code = window.code
 var projects_cl = []
 var projects_sc = []
 // position in array
@@ -14,7 +13,6 @@ var currentProjects = []
 // var currentUsersCount = 0
 
 $(document).ready(function(){
-	selectCode(code)
 	getCodeCount()
 
 	$('.glyphicon-user + span').animateNumber({ number: notCodeUsers }, 1500)
@@ -32,48 +30,7 @@ $(document).ready(function(){
 			assignCodes(projectsType, usersToAssign, $btn)
 		}
 	})
-});
-
-function assignCodesOLD (type, usersCount, $btn) {
-	buttonUI($btn, 'loading')
-	var url = `${window.base_url}dashboard/`
-	url += type === 'cl' ? 'assign_cl_codes' : 'assign_sc_codes'
-	var dataOut = {
-		"usersCount": usersCount
-	}
-	$.getJSON(url, dataOut, function (data) {
-		var messages = {
-			success: {
-				type: 'success',
-				message: `Codici assegnati con successo!`
-			},
-			error: {
-				type: 'error',
-				message: `Si è verificato un errore durante l'assegnazione`
-			}
-		}
-		console.log(data)
-		// var result = messages.error
-		// if (data.success) {
-		// 	updateUserCount(notCodeUsers - data.affected)
-		// 	result = messages.success
-		// }
-		// notify(result)
-		buttonUI($btn, 'reset')
-	})
-}
-
-function assignCodes (type, usersCount, $btn) {
-	var dataOut = []
-	// console.table(projects_cl)
-	if (type == 'cl') {
-		balanceCodes(projects_cl, usersCount, 0)
-	} else {
-		balanceCodes(projects_sc, usersCount, 0)
-	}
-	console.table(store)
-	resetBalancers()
-}
+})
 
 function buttonUI ($btn, state) {
 	switch (state) {
@@ -101,18 +58,6 @@ function updateUserCount (userCount) {
 				notCodeUsers = userCount
 	    })
 	$('.glyphicon-arrow-down').toggleClass('hidden')
-}
-
-function selectCode (code) {
-	if (code !== '') {
-		var file = code + '.txt'
-		$.each($('select'), function() {
-			if ($(this).find('option[value="' + file + '"]').length > 0) {
-				$(this).val(file)
-				$(this).siblings('input').focus()
-			}
-		})
-	}
 }
 
 function notify (obj) {
@@ -146,43 +91,84 @@ function getCodeCount () {
 	})
 }
 
-// non sono sicuro di nessuna di queste due.. quando ci lavori scrivimi
-function balanceCodes1 (projects, usersCount) {
-	currentProjects = projects
-	currentUsersCount = usersCount
-	if (currentUsersCount === 0) {
-		return
-	}
-	tab = projects[pointer].count + 1
-	projects[pointer].count = projects[pointer].count + 1
-	currentUsersCount = currentUsersCount - 1
-	var nextTab = projects[pointer + 1].count
-	if (tab < nextTab) {
-		balanceCodes(currentProjects, currentUsersCount)
+// Assign codes logic
+
+var codesToDistrib = {}
+var usersToAdd = 0
+function assignCodes (type, usersCount, $btn) {
+	var dataOut = []
+	if (type == 'cl') {
+		balanceCodes(projects_cl, usersCount)
 	} else {
-		pointer = pointer + 1
-		balanceCodes(currentProjects, currentUsersCount)
+		balanceCodes(projects_sc, usersCount)
+	}
+	postAdditions(codesToDistrib, usersToAdd)
+}
+
+var x = {}
+var y = 0
+function balanceCodes (projects, usersCount) {
+	while (usersCount > y) {
+		distributeCodes(projects, 0)
+	}
+	usersToAdd = y
+	codesToDistrib = x
+	x = {}
+	y = 0
+}
+
+function distributeCodes (prj, i) {
+	var current = prj[i].count
+	var next = prj[i + 1]
+	if (next === undefined) {
+		registerAddition(prj[i], 1)
+	} else {
+		var diff = next.count - current
+		if (diff > 0) {
+			registerAddition(prj[i], diff)
+		} else {
+			distributeCodes(prj, i + 1)
+		}
 	}
 }
 
-function balanceCodes (projects, usersCount, pointer) {
-	if (usersCount === 0) {
-		return
+function postAdditions (codesToDistrib, usersToAdd) {
+	buttonUI($btn, 'loading')
+	var url = `${window.base_url}dashboard/assignCodes`
+	var toDistribute = Object.keys(codesToDistrib).map(function (code) {
+		return { project: code, count: codesToDistrib[code]}
+	})
+	var dataOut = {
+		"codesToDistrib": toDistribute,
+		"usersToAdd": usersToAdd
 	}
-	next = projects[pointer + 1].count
-	diff = projects[pointer + 1].count - projects[pointer].count
-	if (diff > 0) {
-		code = projects[pointer].project
-		store[code] = diff
-	}
-	pointer++
-	usersCount = usersCount - diff
-	balanceCodes (projects, usersCount, pointer)
+	$.getJSON(url, dataOut, function (codesAssigned) {
+		var messages = {
+			success: {
+				type: 'success',
+				message: `Codici assegnati con successo!`
+			},
+			error: {
+				type: 'error',
+				message: `Si è verificato un errore durante l'assegnazione`
+			}
+		}
+		var result = messages.error
+		if (codesAssigned > 0) {
+			updateUserCount(notCodeUsers - codesAssigned)
+			result = messages.success
+		}
+		notify(result)
+		buttonUI($btn, 'reset')
+	})
 }
 
-function resetBalancers () {
-	pointer = 0
-	tab = 0
-	currentProjects = []
-	currentUsersCount = 0
+function registerAddition (el, diff) {
+	el.count = el.count + diff
+	x[el.project] = initOrAdd(x[el.project], diff)
+	y += diff
+}
+
+function initOrAdd (el, val) {
+	return isNaN(el) ? val : el + val
 }

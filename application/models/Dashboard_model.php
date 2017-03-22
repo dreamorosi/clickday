@@ -814,27 +814,20 @@ class Dashboard_model extends CI_Model
     return count($query->result_array());
   }
 
-  function assign_codes($usersCount, $code)
+  function set_codes($code, $usersCount)
   {
     $query = $this->db->order_by('joinDate', 'ASC')->get_where('users', array('code_assigned' => 0), $usersCount);
 
-    $success = TRUE;
-    $count = 0;
+    $result = TRUE;
 
     foreach ($query->result() as $user) {
       $update = array('code' => $code, 'code_assigned' => 1);
       $this->db->set($update)->where(array('ID' => $user->ID))->update('users');
-      if ($this->db->affected_rows() > 0) {
-        $count++;
-      } else {
-        $success = FALSE;
+      if ($this->db->affected_rows() <= 0) {
+        $result = FALSE;
       }
     }
 
-    $result = array(
-      'success' => $success,
-      'affected' => $count
-    );
     return $result;
   }
 
