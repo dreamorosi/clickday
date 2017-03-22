@@ -191,12 +191,11 @@ $(document).ready(function () {
         tr += '<td class="select_td">' + select_projects_classic + '</td>';
         tr += '<td class="select_td">' + select_projects_sc + '</td>';
         tr += '<td class="select_region">' + region + '</td>';
-        if(users_mnpl[i].code_ass == 'Si')
-        if(users_mnpl[i].code_rec == 'Si')
-          sendready = 'success';
-        else
-          sendready = 'warning';
-  		  tr += '<td class="sendcode"><button class="btn btn-sm btn-default ' + sendready + '"><small>Invia Codice</small></button></td>';
+
+        var text = users_mnpl[i].code_rec == 'Si' ? 'Modifica Codice' : 'Invia Codice'
+        var status = users_mnpl[i].code_rec == 'No' && users_mnpl[i].code_ass == 'Si' ? 'warning' : ''
+
+        tr += `<td class="sendcode"><button class="btn btn-sm btn-default ${status}"><small>${text}</small></button></td>`
       }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
@@ -583,5 +582,6 @@ function addStatusToButton (ID, type, text) {
     .removeClass('warning')
     .removeClass('error')
     .addClass(type)
+    .find('small')
     .text(text)
 }

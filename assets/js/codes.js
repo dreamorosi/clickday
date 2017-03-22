@@ -88,6 +88,7 @@ function selectCode (code) {
 			$firstSelect.addClass('hidden')
 			$secondSelect.removeClass('hidden').prop('disabled', false).val(file)
 			$('input[type="checkbox"]').prop('checked', false)
+			$('input[type="radio"]').filter('[value=sc]').prop('checked', true)
 		}
 		$('input[type="number"]').focus()
 	}
