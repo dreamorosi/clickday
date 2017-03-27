@@ -127,7 +127,6 @@
 											<br>
 												<td style="text-align: center; font-family: 'Montserrat', Arial; border-top: 1px solid #f6a723; color: #333333 !important" class="text-pad text-ora">
 													<small><a style="color:#1a0dab !important" href="http://www.atseco.it/">ATS-CONSULENTI-ASSOCIATI</a> s.r.l. Sede: Via J.F. Kennedy 17, 42124 Reggio Emilia - Tel. 05222701079 / 0522300824 - Fax. 0522379946 - PEC: <a class="text-ora" href="mailto:atseco@pec.it" style="color: #1a0dab !important">atseco@pec.it</a><br/>C.F. e P.Iva Reg. Impr.: RE 01645400357 - Cap. Soc. € 35.000,00 int. vers. - REA 201850 del 04/09/1995<br/>Questo sito utilizza cookie. Per saperne di più, accedi alla <a style="color:#1a0dab !important" href="<? echo $base_url; ?>assets/Privacy.pdf">Cookie Policy</a>.</small><br/>
-<small>Made possible by <a style="color:#1a0dab !important" href="http://yellowunicorns.com/">Yellow Unicorns</a></small>
 												</td>
 												<td class="expander"></td>
 											</tr>
