@@ -57,6 +57,7 @@ $route['soloclick'] = "index/soloclick";
 $route['faq'] = "index/faq";
 $route['experience'] = "index/experience";
 $route['signup/(:any)'] = "users/signup/$1";
+$route['dashboard/signout'] = "login/signout";
 $route['404_override'] = 'general/page_missing';
 $route['denied'] = 'index/denied';
 $route['translate_uri_dashes'] = FALSE;
