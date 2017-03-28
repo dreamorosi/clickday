@@ -10,12 +10,13 @@
 <p>il sig./sig.ra <? echo $user['name'] .' '. $user['surname']; ?></p>
 <p>nato/a a <? echo $user['loc']; ?> il <? echo $user['dateBirth'] ?></p>
 <p>residente in <? echo $user['address'].' '.$user['cap'].' '.$user['prov'] ?></p>
-<p>documento di identità n° <? echo $user['cf']; ?></p>
+<!-- <p>documento di identità n° <? echo $user['cf']; ?></p> -->
 <p>codice fiscale <? echo $user['cf']; ?> recapito telefonico <? echo $user['phone'] ?></p>
 <p>di seguito denominato (<b>il prestatore</b>),</p>
 <h4 style='text-align:center'>SI CONVIENE QUANTO SEGUE</h4>
 <p>1. Il Prestatore si impegna a svolgere in favore del Committente il seguente servizio: invio telematico delle domande di richiesta contributo relative al BANDO ISI INAIL 2016 (AVVISO PUBBLICO QUADRO 2016 - INCENTIVI ALLE IMPRESE PER LA REALIZZAZIONE DI INTERVENTI IN MATERIA DI SALUTE E SICUREZZA SUL LAVORO in attuazione dell’articolo 11, comma 5, D.Lgs. 81/2008 s.m.i.) da cui consegua il RISULTATO POSITIVO del collocamento del progetto inviato in posizione utile per l’ottenimento del contributo negli Elenchi Pubblici Cronologici INAIL; </p>
 <p>2. Il Prestatore si impegna a erogare il servizio senza alcun vincolo di subordinazione, con carattere del tutto episodico e svincolato dalle esigenze di coordinamento con l'attività del committente, nei limiti e con le modalità del presente contratto; il presente incarico si caratterizza per essere svincolato dalle esigenze di coordinamento con l'attività del committente, per la mancanza del requisito della continuità, dato il carattere del tutto episodico dell’attività lavorativa e per il mancato inserimento funzionale del prestatore nell’organizzazione aziendale; </p>
+<p>3. Il presente incarico si caratterizza per essere svincolato dalle esigenze di coordinamento con l'attività del committente, per la mancanza del requisito della continuità, dato il carattere del tutto episodico dell’attività lavorativa e per il mancato inserimento funzionale del prestatore nell’organizzazione aziendale;</p>
 <p>4. La prestazione avrà inizio il giorno XX/YY/ZZ 2017 alle ore xx,xx per terminare inderogabilmente lo stesso giorno intorno alle ore xx,xx (la data e l’orario esatto verranno comunicati dall’INAIL a partire dal giorno 12 giugno 2017). La prestazione potrà essere effettuata presso qualunque sede a discrezione del prestatore in quanto sarà necessaria una connessione internet ed un personal computer per l’invio telematico del codice della domanda; </p>
 <p>5.1 Il corrispettivo della prestazione viene pattuito in <b>€ 375,00</b> lordi (oltre IVA se dovuta) pari a <b>€ 300,00</b> netti (detratta la ritenuta di acconto), nel caso in cui all’invio telematico effettuato da parte del prestatore consegua il collocamento del progetto assegnato in posizione utile per l’ottenimento del contributo negli Elenchi Pubblici Cronologici INAIL. Tale evenienza verrà certificata sia dalla stampa della schermata (print screen/stamp) che il prestatore provvederà ad effettuare al termine dell’invio telematico a comprova di essere stato il cliccatore più veloce sul progetto assegnato, sia dalla pubblicazione dei risultati sul sito dell’INAIL www.inail.it. Il Compenso verrà quindi corrisposto, se ricorrono le condizioni suelencate, solo successivamente alla pubblicazione dei risultati. Il Committente si impegna a versare quanto di sua competenza stabilito dalle normative in essere. </p>
 <p>5.2 <b>Compenso per i cliccatori più veloci.</b><br>
@@ -50,7 +51,7 @@
 <p>......................................................<br/><span style='color:#fff'>................</span>(Il prestatore)</p>
 <br><br>
 <p><b>ATS CONSULENTI ASSOCIATI s.r.l</b></p>
-<div style="left: 125px; bottom: 225px; position: absolute;"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+<div style="left: 125px; bottom: 200px; position: absolute;"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                                                   width="75.000000pt" height="95.000000pt" viewBox="0 0 150.000000 190.000000"
                                                                   preserveAspectRatio="xMidYMid meet">
         <g transform="translate(0.000000,190.000000) scale(0.100000,-0.100000)"
