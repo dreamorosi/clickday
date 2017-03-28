@@ -73,6 +73,7 @@
         </div>
 			</div>
 		</div>
+    </div>
 <?
 	include_once 'footer_dash.php';
   echo '<script src="' . base_url('assets/js/jquery.animateNumber.min.js') . '"></script>';
