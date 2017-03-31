@@ -202,7 +202,7 @@
                     <div class="col-md-6 text-justify row1right">
                         <h4 class="text-left hidden">È più facile di ciò che pensi!</h4>
                         <p class="testo3 hidden">Ti invieremo via email le semplici istruzioni e un video tutorial che ti illustreranno passo dopo passo cosa dovrai fare precisamente quel giorno e saremo comunque a disposizione, anche telefonicamente al numero 0522 701079, per qualunque dubbio o informazione aggiuntiva.</p>
-                        <p class="testo3 hidden">La data esatta del giorno del Click Day verrà comunicata a partire dal 12 giugno 2017, il portale si aprirà alle ore 16. È richiesta la partecipazione dei cliccatori, davanti al proprio pc, mezz’ora prima dell’orario che comunicheremo.</p>
+                        <p class="testo3 hidden">La data esatta del giorno del Click Day verrà comunicata a partire dal 12 giugno 2017. È richiesta la partecipazione dei cliccatori, davanti al proprio pc, mezz’ora prima dell’orario che comunicheremo.</p>
                         <p class="testo3 hidden">Ogni cliccatore effettuerà il click <b><b>comodamente da casa propria</b></b>.</p>
                     </div>
                 </div>
