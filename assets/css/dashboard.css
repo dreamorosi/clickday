@@ -219,6 +219,11 @@ textarea{
 
 .user-line {
 	height: 55px;
+	transition: all 150ms ease-in-out;
+}
+
+.user-line.editMode {
+	height: 200px
 }
 
 .select_region {
@@ -501,7 +506,11 @@ textarea{
 }
 
 .table-striped > tbody > tr > td{
-     vertical-align: middle;
+	vertical-align: middle;
+}
+
+.table-striped > tbody > tr.editMode > td{
+	vertical-align: initial;
 }
 
 .table-striped .label, .table-striped .cmUsers span{

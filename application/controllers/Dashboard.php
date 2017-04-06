@@ -315,16 +315,7 @@ class Dashboard extends CI_Controller {
 		);
 
 		$data = $this->clickmaster->createNewCm($usr);
-		$data['usr'] = $usr;
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode($data);
-		}
+		echo json_encode($data);
 	}
 
 	public function getUsersByCM()
@@ -373,22 +364,13 @@ class Dashboard extends CI_Controller {
 	{
 		$usr = array(
 			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
 			'email' => $this->input->post('email'),
 			'code' => $this->input->post('code')
 		);
 		$ID = $this->input->post('ID');
 
 		$data = $this->clickmaster->editCmInfo($usr, $ID);
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode($usr);
-		}
+		echo json_encode($data);
 	}
 
 	public function printList()

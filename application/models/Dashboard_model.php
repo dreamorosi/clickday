@@ -153,7 +153,8 @@ class Dashboard_model extends CI_Model
 		foreach($cMs as $cM){
 			$obj = array();
 			$obj['ID'] = $cM->ID;
-			$obj['name'] = $cM->name .' '. $cM->surname;
+			$obj['name'] = $cM->name;
+      $obj['surname'] = $cM->surname;
 			$obj['email'] = $cM->email;
 			$obj['code'] = $cM->code;
 			$obj['users'] = count($this->getAssociatedUser($cM->ID));

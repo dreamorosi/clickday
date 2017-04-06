@@ -91,12 +91,7 @@ class Clickmaster extends CI_Model
 	function editCmInfo($usr, $ID)
 	{
 		$this->db->set($usr)->where('ID', $ID)->update('clickmasters');
-		if ($this->db->affected_rows() > 0){
-			return TRUE;
-		}else{
-			$data['code'] = 500;
-			return $data;
-		}
+    return $this->db->affected_rows() > 0;
 	}
 
 	function removeCm($ID)
