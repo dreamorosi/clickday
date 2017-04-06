@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 		$this->data['role'] = $this->session->userdata('role');
 		$this->data['lastSeen'] = $this->session->userdata('lastSeen');
 	}
-	
+
 	public function signin()
 	{
 		$email = $this->input->post('email');
@@ -24,7 +24,7 @@ class Login extends CI_Controller {
 			die(json_encode(TRUE));
 		}else{
 			if($this->clickmaster->loginClick($email, $pass)){
-				die(json_encode(TRUE));	
+				die(json_encode(TRUE));
 			}else{
 				if($this->admin->loginAdmin($email, $pass)){
 					die(json_encode(TRUE));
@@ -34,13 +34,13 @@ class Login extends CI_Controller {
 			}
 		}
 	}
-	
+
 	public function signout()
 	{
 		$this->session->sess_destroy();
 		redirect(base_url());
 	}
-	
+
 	public function forgot($code = NULL)
 	{
 		$rest = $this->user->checkForgot($code);
@@ -63,7 +63,7 @@ class Login extends CI_Controller {
 		}
 		$this->load->view('resetPass', $this->data);
 	}
-	
+
 	public function setRecoveryCode()
 	{
 		$email = $this->input->post('email');
@@ -86,16 +86,26 @@ class Login extends CI_Controller {
 			echo json_encode(TRUE);
 		}
 	}
-	
-	/*
-	public function dashboard()
+
+	public function adminFirst($code)
 	{
 		if($this->data['isLogged']){
-			$this->data['screenshot'] = $this->user->checkScreen($this->session->userdata('ID'));
 			$this->load->view('dashboard', $this->data);
 		}else{
-			$this->load->view('login', $this->data);	
+			$admin = $this->admin->checkActivation($code);
+			$this->data['success'] = TRUE;
+			$this->load->helper('string');
+			$this->data['name'] = $admin['name'];
+			$this->data['ID'] = $admin['ID'];
+			$this->load->view('adminFirstAccess', $this->data);
 		}
 	}
-	*/
+
+	function setAdminPassw()
+	{
+		$ID = $this->input->post('ID');
+		$pass = $this->input->post('pass');
+		$result = $this->admin->setAdminPass($pass, $ID);
+		echo json_encode($result);
+	}
 }
