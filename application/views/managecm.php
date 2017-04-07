@@ -97,6 +97,7 @@
 	</div>
 </div>
 	<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/pagination.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js') ?>"></script>
 	<script src="<? echo base_url('assets/js/managecm.js'); ?>"></script>

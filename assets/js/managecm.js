@@ -2,7 +2,6 @@ const $ = window.$
 let cMs = window.cMs
 
 // TODO: Set up tag for codes
-// TODO: Set loading state when adding new CM
 
 // Set event listeners and call appropriate functions
 $(document).ready(function () {
@@ -14,9 +13,13 @@ $(document).ready(function () {
   // Create new CM
   $('.addCM form').on('submit', (e) => {
     e.preventDefault()
-    let newCm = processForm(e.target)
-    if (!newCm.hasError) {
-      postNewCm(newCm.info)
+    let form = e.currentTarget
+    let $btn = $(form).find('button')
+    if (!$btn.hasClass('disabled')) {
+      let newCm = processForm(e.target)
+      if (!newCm.hasError) {
+        postNewCm(newCm.info, $btn)
+      }
     }
   })
 })
@@ -70,19 +73,23 @@ const getId = el => $(el).parent().parent().data('id').toString()
 const getUser = (ID, arr) => arr.find(usr => usr.ID === ID)
 
 // Post new CM to server
-const postNewCm = (newCm) => {
+const postNewCm = (newCm, $btn) => {
   $.ajax({
     method: 'POST',
     dataType: 'json',
     url: `${window.base_url}dashboard/addCm/`,
     data: newCm,
+    beforeSend: () => {
+      $btn.text('Caricamento').addClass('disabled')
+    },
     success: (data) => {
-      // TODO: wire up notifications
+      $btn.text('Aggiungi').removeClass('disabled')
       if (data.code === 200) {
         resetForm($('.addCM form'))
         getUpdatedCMs()
+        $.notify({type: 'success', message: 'ClickMaster aggiunto con successo'})
       } else {
-        console.log('error', data.message)
+        $.notify({type: 'error', message: data.message})
       }
     }
   })
@@ -96,13 +103,12 @@ const postEditCm = (cm, ID) => {
     url: `${window.base_url}dashboard/editCm/`,
     data: cm,
     success: (data) => {
-      // TODO: wire up notifications
       if (data) {
         resetForm($('.editMode form'))
-        restoreRow(ID)
         getUpdatedCMs()
+        $.notify({type: 'success', message: 'ClickMaster aggiornato con successo'})
       } else {
-        console.log('error', data)
+        $.notify({type: 'error', message: data})
       }
     }
   })
@@ -116,11 +122,11 @@ const postDeleteCm = (ID) => {
     url: `${window.base_url}dashboard/deleteCm/`,
     data: `ID=${ID}`,
     success: (data) => {
-      // TODO: wire up notifications
       if (data) {
         getUpdatedCMs()
+        $.notify({type: 'success', message: 'ClickMaster eliminato con successo'})
       } else {
-        console.log('error', data)
+        $.notify({type: 'error', message: data})
       }
     }
   })
@@ -130,18 +136,16 @@ const postDeleteCm = (ID) => {
 const toggleEditMode = (ID) => {
   let $this = $(`.user-line[data-id="${ID}"]`)
   if ($this.hasClass('editMode')) {
-    $this.removeClass('editMode')
+    $this
+      .removeClass('editMode')
+      .empty()
+      .append($this.data('preEdit'))
   } else {
-    $this.addClass('editMode')
+    $this
+      .addClass('editMode')
+      .data('preEdit', $this.html())
+      .empty()
   }
-  $this.empty()
-}
-
-// Restores the row as original
-const restoreRow = (ID) => {
-  let user = getUser(ID, cMs)
-  toggleEditMode(ID)
-  rowFactory($('tbody'), user)
 }
 
 // Creates a row in the table
@@ -180,7 +184,8 @@ const setRowEvents = () => {
     e.stopImmediatePropagation()
     e.stopPropagation()
     let ID = getId(e.currentTarget)
-    postDeleteCm(ID)
+    let user = getUser(ID, cMs)
+    $.prompt({type: 'error', message: `Vuoi eliminare ${user.fullName}?`, ID: ID, callback: postDeleteCm})
   })
 
   // Edit CM (triggers Edit Mode)
@@ -234,7 +239,7 @@ const editRowFactory = (user) => {
     e.stopImmediatePropagation()
     e.stopPropagation()
     let ID = $(e.currentTarget).data('id').toString()
-    restoreRow(ID)
+    toggleEditMode(ID)
   })
 }
 

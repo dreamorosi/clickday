@@ -578,7 +578,7 @@ h2.text-primary{
 	border-radius: 3px;
 }
 
-.btn-primary, .btn-primary[disabled]{
+.btn-primary, .btn-primary[disabled], .btn-primary.disabled, .btn-primary.disabled:hover{
 	background: #f58720;
 	border: none;
 	/* box-shadow: 1.362px 2.673px 4px 0px rgba(0, 0, 0, 0.4); */

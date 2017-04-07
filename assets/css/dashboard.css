@@ -217,6 +217,10 @@ textarea{
 	line-height: 17px;
 }
 
+.noty_buttons {
+	text-align: center !important;
+}
+
 .user-line {
 	height: 55px;
 	transition: all 150ms ease-in-out;
