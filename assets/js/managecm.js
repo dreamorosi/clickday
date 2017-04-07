@@ -22,6 +22,15 @@ $(document).ready(function () {
       }
     }
   })
+
+  let cod = ['php', 'js', 'not']
+
+  $('.codes').tagInput({
+    codes: cod
+  })
+
+  let codes = $('.codes').tagInput('serialize')
+  console.log(codes)
 })
 
 // Process the passed form, shallow validation and errors
@@ -210,7 +219,7 @@ const editRowFactory = (user) => {
 
   let $leftCol = `<div class="col-md-3">${$userInput}<br />${$emailInput}</div>`
 
-  let $codesInput = `<div class="col-md-3"><label>Codici</label><input type="text" name="code" class="form-control" required value="${user.code}" /></div>`
+  let $codesInput = `<div class="col-md-3"><label>Codici</label><div class="codesEdit"><input type="text" tabindex="3" autocomplete="off" /></div></div>`
 
   let $row1 = `<div class="row">${$leftCol}${$codesInput}</div>`
 
@@ -241,6 +250,8 @@ const editRowFactory = (user) => {
     let ID = $(e.currentTarget).data('id').toString()
     toggleEditMode(ID)
   })
+
+  $('.codesEdit').tagInput({codes: ['ciso']})
 }
 
 // Get updated CMs after action

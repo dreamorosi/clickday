@@ -66,21 +66,19 @@
 										<input type="text" class="form-control" name="fullName" tabindex="1" autocomplete="off" required/>
 										<small class="hidden text-danger">Per favore inserisci un Nome</small>
 									</div>
+									<div class="form-group">
+										<label>Email</label>
+										<input type="email" class="form-control" name="email" tabindex="2" autocomplete="off" required/>
+										<small class="hidden text-danger">Per favore inserisci un Email</small>
+									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Codici</label>
-										<input type="text" class="form-control" name="code" tabindex="4" autocomplete="off" required/>
+										<div class="codes">
+											<input type="text" tabindex="3" autocomplete="off" />
+										</div>
 										<small class="hidden text-danger">Per favore inserisci almeno un Codice ClickMaster</small>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Email</label>
-										<input type="email" class="form-control" name="email" tabindex="3" autocomplete="off" required/>
-										<small class="hidden text-danger">Per favore inserisci un Email</small>
 									</div>
 								</div>
 							</div>
@@ -97,6 +95,7 @@
 	</div>
 </div>
 	<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/tag-input.js')?>"></script>
 	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/pagination.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js') ?>"></script>
