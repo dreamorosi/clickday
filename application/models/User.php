@@ -36,12 +36,12 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -64,12 +64,12 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -86,12 +86,13 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    // TODO: Separate function sendmail parameters
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);

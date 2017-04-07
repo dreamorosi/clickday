@@ -1,11 +1,18 @@
 const $ = window.$
 let cMs = window.cMs
-// let pageSpan = window.pageSpan
-// let maxOffset = window.maxOffset
-// let pages = window.pages
+let pageSpan = $('select.pageSpan').val()
+let current = 1
+let offset = pageSpan * current
+
+// TODO: Set up tag for codes
 
 // Set event listeners and call appropriate functions
 $(document).ready(function () {
+  // Inser page numbers
+  paginatorFactory(cMs)
+  // Insert users
+  showCurrentSpan(cMs)
+
   // Create new CM
   $('.addCM form').on('submit', (e) => {
     e.preventDefault()
@@ -15,19 +22,26 @@ $(document).ready(function () {
     }
   })
 
-  // Delete CM
-  $('.user-line').on('click', '.deleteCm', (e) => {
-    let ID = getId(e.currentTarget)
-    postDeleteCm(ID)
+  $('.pagination').on('click', '.prev, .next', (e) => {
+    let $el = $(e.currentTarget)
+    if (!$el.hasClass('disabled')) {
+      if ($el.hasClass('next')) {
+        current++
+      } else {
+        current--
+      }
+      offset = current * pageSpan
+    }
+    paginatorFactory(cMs)
+    showCurrentSpan(cMs)
   })
 
-  // Edit CM (triggers Edit Mode)
-  $('.user-line').on('click', '.editCm', (e) => {
-    let $this = e.currentTarget
-    let ID = getId($this)
-    let user = getUser(ID, cMs)
-    toggleEditMode(ID)
-    editRowFactory(user)
+  $('.pageSpan').on('change', (e) => {
+    current = 1
+    pageSpan = $(e.currentTarget).val()
+    offset = current * pageSpan
+    paginatorFactory(cMs)
+    showCurrentSpan(cMs)
   })
 })
 
@@ -90,6 +104,7 @@ const postNewCm = (newCm) => {
       // TODO: wire up notifications
       if (data.code === 200) {
         resetForm($('.addCM form'))
+        getUpdatedCMs()
       } else {
         console.log('error', data.message)
       }
@@ -109,7 +124,7 @@ const postEditCm = (cm, ID) => {
       if (data) {
         resetForm($('.editMode form'))
         restoreRow(ID)
-        syncLocalCm('update', cm, ID)
+        getUpdatedCMs()
       } else {
         console.log('error', data)
       }
@@ -127,8 +142,7 @@ const postDeleteCm = (ID) => {
     success: (data) => {
       // TODO: wire up notifications
       if (data) {
-        // TODO: reload table
-        console.log('reload table or call fn() synclLocalCm')
+        getUpdatedCMs()
       } else {
         console.log('error', data)
       }
@@ -158,10 +172,11 @@ const restoreRow = (ID) => {
 const rowFactory = (user) => {
   let $tr = $(`.user-line[data-id="${user.ID}"]`)
 
-  let $tds = `<td><b>${user.name}</b></td>`
+  let $tds = `<td><b>${user.fullName}</b></td>`
   $tds += `<td>${user.code}</td>`
   $tds += `<td>${user.email}</td>`
   $tds += `<td>${user.users}</td>`
+  $tds += `<td>${user.projRatio}</td>`
 
   let $editBtn = '<button class="btn btn-sm btn-info editCm" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></button>'
 
@@ -176,7 +191,7 @@ const rowFactory = (user) => {
 const editRowFactory = (user) => {
   let $tr = $(`.user-line[data-id="${user.ID}"]`)
 
-  let $userInput = `<label>Full Name</label><input type="text" name="name" class="form-control" required value="${user.name}" />`
+  let $userInput = `<label>Full Name</label><input type="text" name="fullName" class="form-control" required value="${user.fullName}" />`
 
   let $emailInput = `<label>Email</label><input type="text" name="email" class="form-control" required value="${user.email}" />`
 
@@ -216,10 +231,93 @@ const editRowFactory = (user) => {
 }
 
 // Sync Local cMs array to reflect latest changes
-const syncLocalCm = (action, cm, ID) => {
-  if (action === 'update') {
-    console.log('update')
+const getUpdatedCMs = () => {
+  let url = `${window.base_url}/dashboard/getCMs`
+  $.getJSON(url, (data) => {
+    cMs = data
+    paginatorFactory(cMs)
+    showCurrentSpan(cMs)
+  })
+}
+
+const showCurrentSpan = (arr) => {
+  let offsetStart = offset - pageSpan
+  let toShow = arr.slice(offsetStart, offset)
+  if (toShow.length > 0) {
+    $('tbody').empty()
+    toShow.forEach(user => {
+      $('tbody').append(`<tr class='user-line' data-ID='${user.ID}'></tr>`)
+      rowFactory(user)
+    })
+  }
+  // Delete CM
+  $('.user-line').on('click', '.deleteCm', (e) => {
+    let ID = getId(e.currentTarget)
+    postDeleteCm(ID)
+  })
+
+  // Edit CM (triggers Edit Mode)
+  $('.user-line').on('click', '.editCm', (e) => {
+    let $this = e.currentTarget
+    let ID = getId($this)
+    let user = getUser(ID, cMs)
+    toggleEditMode(ID)
+    editRowFactory(user)
+  })
+}
+
+// Creates and manages pagination
+const paginatorFactory = (arr) => {
+  let users = arr.length
+  let pages = Math.ceil(users / pageSpan)
+  $('ul.pagination').empty()
+  $('ul.pagination').append('<li class="prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>')
+  $('ul.pagination').append('<li class="next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
+  // Check if prev & next should be disabled
+  if (current === 1) {
+    $('li.prev').addClass('disabled')
+  } else if (current === pages) {
+    $('li.next').addClass('disabled')
+  }
+  // If there's only 1 page insert it
+  if (pages === 1) {
+    $('li.prev').after('<li class="active"><a href="#">1</a></li>')
+  // If there are 2 - 5 pages show them
+  } else if (pages < 6) {
+    while (pages > 0) {
+      let active = pages === current ? 'active' : ''
+      $('li.prev').after(`<li class="${active}"><a href="#">${pages}</a></li>`)
+      pages--
+    }
+  // If there are 6+ page show always 5
   } else {
-    console.log('delete')
+    let numbers = []
+    // If current - 2 || current - 1 aren't possible
+    if (current < 3) {
+      let pointer = current
+      let remainder = 5 - current
+      while (remainder > 0) {
+        numbers.push(current + remainder)
+        remainder--
+      }
+      while (pointer > 0) {
+        numbers.push(pointer)
+        pointer--
+      }
+    // If current + 1 || current + 2 aren't possible
+    } else if (current + 1 > pages || current + 2 > pages) {
+      if (current + 1 <= pages) {
+        numbers = [current + 1, current, current - 1, current - 2, current - 3]
+      } else {
+        numbers = [current, current - 1, current - 2, current - 3, current - 4]
+      }
+    // otherwise show current -2 && current && current +2
+    } else {
+      numbers = [current + 2, current + 1, current, current - 1, current - 2]
+    }
+    numbers.forEach(number => {
+      let active = number === current ? 'active' : ''
+      $('li.prev').after(`<li class="${active}"><a href="#">${number}</a></li>`)
+    })
   }
 }

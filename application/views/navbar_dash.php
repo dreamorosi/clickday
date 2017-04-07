@@ -9,7 +9,9 @@
         </li>
         <li>
           <a href="<? echo base_url('dashboard'); ?>">
-            <? echo $name . ' ' . $surname;
+            <?
+            $title = $role=='admin' ? 'Admin ' : '';
+            echo $title . $fullName;
               if($cnots > 0):
             ?>
             <span class="badge pull-right" id="cnots2">

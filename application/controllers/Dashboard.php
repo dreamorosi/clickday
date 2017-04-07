@@ -8,8 +8,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('clickmaster','clickmaster');
 		$this->data['isLogged'] = $this->session->userdata('isLogged');
 		$this->data['email'] = $this->session->userdata('email');
-		$this->data['name'] = $this->session->userdata('name');
-		$this->data['surname'] = $this->session->userdata('surname');
+		$this->data['fullName'] = $this->session->userdata('fullName');
 		$this->data['ID'] = $this->session->userdata('ID');
 		$this->data['approved'] = $this->session->userdata('approved');
 		$this->data['clickM'] = $this->session->userdata('clickM');
@@ -307,15 +306,10 @@ class Dashboard extends CI_Controller {
 
 	public function addCM()
 	{
-		$usr = array(
-			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
-			'email' => $this->input->post('email'),
-			'code' => $this->input->post('code'),
-		);
+		$usr = $this->input->post();
 
-		$data = $this->clickmaster->createNewCm($usr);
-		echo json_encode($data);
+		$result = $this->clickmaster->createNewCm($usr);
+		echo json_encode($result);
 	}
 
 	public function getUsersByCM()
@@ -363,7 +357,7 @@ class Dashboard extends CI_Controller {
 	public function editCm()
 	{
 		$usr = array(
-			'name' => $this->input->post('name'),
+			'fullName' => $this->input->post('fullName'),
 			'email' => $this->input->post('email'),
 			'code' => $this->input->post('code')
 		);
@@ -371,6 +365,12 @@ class Dashboard extends CI_Controller {
 
 		$data = $this->clickmaster->editCmInfo($usr, $ID);
 		echo json_encode($data);
+	}
+
+	public function getCMs()
+	{
+		$cMs = $this->dashboard_model->paginateCMs($this->dashboard_model->getCMs(-1));
+		echo json_encode($cMs);
 	}
 
 	public function printList()

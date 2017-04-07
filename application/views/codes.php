@@ -10,8 +10,6 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/magnifier.css') . '"/>';
 	echo '</head>';
 
-	$name = 'Admin '. $name;
-
 	include_once 'header_dash.php';
 
 	echo "<script>window.code = '" . $code . "';</script>";

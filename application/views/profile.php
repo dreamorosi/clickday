@@ -5,10 +5,6 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
-
 	include_once 'header_dash.php';
 
 	echo "<script>window.navActive = 'profile';</script>";

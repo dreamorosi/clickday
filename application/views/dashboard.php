@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	window.role = "<?php echo $this->data['role'] = $this->session->userdata('role'); ?>";
-	window.name = "<?php if($this->data['role'] == 'admin') echo 'Admin '; if($this->data['role'] == 'clickMaster') echo 'CM '; echo  $this->session->userdata('name'); ?>";
+	window.name = "<?php if($this->data['role'] == 'admin') echo 'Admin '; if($this->data['role'] == 'clickMaster') echo 'CM '; echo  $this->session->userdata('fullName'); ?>";
 	window.ID = "<?php echo $this->data['role'] = $this->session->userdata('ID'); ?>";
 </script>
 <?php
@@ -10,15 +10,11 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
-
 	include_once 'header_dash.php';
 
 	echo "<script>window.navActive = 'dash';</script>";
 	include_once 'navbar_dash.php';
-	
+
 	echo "<script>window.mails = " . $mails . ";</script>";
 	echo "<script>window.pageSpan = " . $pageSpan . ";</script>";
 	echo "<script>window.maxOffset = " . $maxOffset . ";</script>";
@@ -54,7 +50,7 @@
 								</ul>
 								<ul class="list-group cmslist">
 									<? foreach($cmlist as $cm): ?>
-									<li class="list-group-item no-border cm-line" data-id="<? echo $cm->ID; ?>"><? echo 'CM '.$cm->name.' '.$cm->surname; ?></li>
+									<li class="list-group-item no-border cm-line" data-id="<? echo $cm->ID; ?>"><? echo 'CM '.$cm->fullName; ?></li>
 									<? endforeach; ?>
 								</ul>
 								<? endif; ?>

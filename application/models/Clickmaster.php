@@ -17,8 +17,7 @@ class Clickmaster extends CI_Model
 			$newdata = array(
 				'email'     => $email,
 				'isLogged' => TRUE,
-				'name' => $query->row()->name,
-				'surname' => $query->row()->surname,
+				'fullName' => $query->row()->fullName,
 				'ID' => $query->row()->ID,
 				'clickM' => $query->row()->code,
 				'role' => 'clickMaster',
@@ -74,10 +73,11 @@ class Clickmaster extends CI_Model
 		$password = random_string('alnum', 8);
 		$this->load->helper('security');
 		$passwordH = do_hash($password);
-		$newCm = array('name' => $usr['name'], 'surname' => $usr['surname'], 'email' => $usr['email'], 'password' => $passwordH, 'code' => $usr['code']);
+		$newCm = array('fullName' => $usr['fullName'], 'email' => $usr['email'], 'password' => $passwordH, 'code' => $usr['code']);
 		$this->db->insert('clickmasters', (object) $newCm);
 		$data['ID'] = -1;
 		$data['ID'] = $this->db->insert_id();
+    // TODO: add its code if new
 		// $this->db->insert('codes', array('ID' => $data['ID']));
 		if ($this->db->affected_rows() > 0){
 			$this->sendNotificationMail($usr['email'], $password);
@@ -97,7 +97,8 @@ class Clickmaster extends CI_Model
 	function removeCm($ID)
 	{
 		$this->db->delete('clickmasters', array('ID' => $ID));
-		$this->db->delete('codes', array('ID' => $ID));
+    // TODO: remove its codes
+    // $this->db->delete('codes', array('ID' => $ID));
 		return TRUE;
 	}
 
@@ -105,7 +106,7 @@ class Clickmaster extends CI_Model
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return $query->row()->name;
+			return $query->row()->fullName;
 		}else{
 			return '';
 		}
@@ -115,19 +116,19 @@ class Clickmaster extends CI_Model
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return $query->row()->surname;
+			return 'I AM A BUG';
 		}else{
-			return 0;
+			return 'I AM A BUG';
 		}
 	}
 
-	function getCompleteName($ID)
+	function getFullName($ID)
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return substr($query->row()->name,0,1) .'. '. $query->row()->surname;
+			return $query->row()->fullName;
 		}else{
-			return 0;
+			return '';
 		}
 	}
 

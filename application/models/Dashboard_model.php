@@ -94,9 +94,9 @@ class Dashboard_model extends CI_Model
 			$obj['region'] = $user->region;
 			$obj['join'] = date('d/m/Y', strtotime($user->joinDate));
 			if($user->clickM != -1)
-				$obj['clickM'] = $this->clickmaster->getCompleteName($user->clickM);
+				$obj['clickM'] = $this->clickmaster->getFullName($user->clickM);
 			else
-				$obj['clickM'] = 'Nessuno';
+				$obj['clickM'] = '---';
 			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
 			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
 			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
@@ -153,11 +153,12 @@ class Dashboard_model extends CI_Model
 		foreach($cMs as $cM){
 			$obj = array();
 			$obj['ID'] = $cM->ID;
-			$obj['name'] = $cM->name;
-      $obj['surname'] = $cM->surname;
+			$obj['fullName'] = $cM->fullName;
 			$obj['email'] = $cM->email;
 			$obj['code'] = $cM->code;
-			$obj['users'] = count($this->getAssociatedUser($cM->ID));
+			$users = $this->getAssociatedUser($cM->ID);
+      $obj['projRatio'] = count($users['proj']) . ' | '. count($users['noProj']);
+      $obj['users'] = count($users['proj']) + count($users['noProj']);
 			$data[] = $obj;
 		}
 		return $data;
@@ -180,7 +181,18 @@ class Dashboard_model extends CI_Model
 	public function getAssociatedUser($ID)
 	{
 		$query = $this->db->get_where('users', array('clickM' => $ID));
-		return $query->result();
+    $users = $query->result_array();
+    $users_filtered['proj'] = array();
+    $users_filtered['noProj'] = array();
+    foreach ($users as $user) {
+      if ($user['code_assigned'] == 1) {
+        $users_filtered['proj'][] = $user;
+      } else{
+        $users_filtered['noProj'][] = $user;
+      }
+      // $users_filtered[] = $user;
+    }
+		return $users_filtered;
 	}
 
 	public function getStatus($ID){
@@ -195,11 +207,11 @@ class Dashboard_model extends CI_Model
 		$this->load->helper('url');
 		//$config['protocol'] = 'sendmail';
 		$config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'notification@clickdayats.it';
-        $config['smtp_pass']    = 'Clickday1';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'notification@clickdayats.it';
+    $config['smtp_pass']    = 'Clickday1';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -522,7 +534,7 @@ class Dashboard_model extends CI_Model
 			case -23:
 				$query = $this->db->get_where('users', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return $query->row()->name.' '.$query->row()->surname;
+					return $query->row()->name . ' ' . $query->row()->surname;
 				}else{
 					return '';
 				}
@@ -535,7 +547,7 @@ class Dashboard_model extends CI_Model
 			case -26:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'CM '.$query->row()->name;
+					return 'CM '. $query->row()->fullName;
 				}else{
 					return '';
 				}
@@ -548,7 +560,7 @@ class Dashboard_model extends CI_Model
 			case -29:
 				$query = $this->db->get_where('admin', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admin '.$query->row()->name;
+					return 'Admin '.$query->row()->fullName;
 				}else{
 					return '';
 				}
@@ -566,7 +578,8 @@ class Dashboard_model extends CI_Model
 			case -8:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admins e CM '.$query->row()->name;
+          $name = explode('', $query->row()->fullName);
+					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
 				}
@@ -578,7 +591,7 @@ class Dashboard_model extends CI_Model
 			case -3:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admins e CM '.$query->row()->name;
+					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
 				}
@@ -604,7 +617,8 @@ class Dashboard_model extends CI_Model
 			case -28:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'CM '.$query->row()->name;
+          $name = explode("", $query->row()->fullName);
+					return 'CM '.$name[0];
 				}else{
 					return '';
 				}
