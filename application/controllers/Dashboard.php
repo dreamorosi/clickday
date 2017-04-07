@@ -104,12 +104,8 @@ class Dashboard extends CI_Controller {
 	{
 		if($this->data['isLogged']){
 			if($this->data['role']=='admin'){
-				$this->data['rawCMs'] = $this->dashboard_model->paginateCMs($this->dashboard_model->getCMs(-1));
-				$this->data['cMs'] = json_encode($this->data['rawCMs']);
+				$this->data['cMs'] = $this->getCMs();
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
-				$this->data['pageSpan'] = 5;
-				$this->data['pages'] = ceil(count($this->data['rawCMs'])/$this->data['pageSpan']);
-				$this->data['maxOffset'] = $this->data['pageSpan'] * ($this->data['pages']-1);
 				$this->load->view('managecm', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
@@ -367,10 +363,27 @@ class Dashboard extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function getCMs()
+	public function getCMs($dispatch = NULL)
 	{
-		$cMs = $this->dashboard_model->paginateCMs($this->dashboard_model->getCMs(-1));
-		echo json_encode($cMs);
+		$cMs = $this->dashboard_model->getCMs(-1);
+		$data = array();
+		foreach($cMs as $cM){
+			$obj = array();
+			$obj['ID'] = $cM->ID;
+			$obj['fullName'] = $cM->fullName;
+			$obj['email'] = $cM->email;
+			$obj['code'] = $cM->code;
+			$users = $this->dashboard_model->getAssociatedUser($cM->ID);
+			$obj['projRatio'] = count($users['proj']) . ' | '. count($users['noProj']);
+			$obj['users'] = count($users['proj']) + count($users['noProj']);
+			$data[] = $obj;
+		}
+		$data = json_encode($data);
+		if (isset($dispatch)) {
+			echo $data;
+		} else {
+			return $data;
+		}
 	}
 
 	public function printList()

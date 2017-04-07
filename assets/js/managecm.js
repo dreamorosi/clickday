@@ -5,6 +5,7 @@ let current = 1
 let offset = pageSpan * current
 
 // TODO: Set up tag for codes
+// TODO: Set loading state when adding new CM
 
 // Set event listeners and call appropriate functions
 $(document).ready(function () {
@@ -22,6 +23,7 @@ $(document).ready(function () {
     }
   })
 
+  // Click on prev || next in paginator
   $('.pagination').on('click', '.prev, .next', (e) => {
     let $el = $(e.currentTarget)
     if (!$el.hasClass('disabled')) {
@@ -31,11 +33,23 @@ $(document).ready(function () {
         current--
       }
       offset = current * pageSpan
+      paginatorFactory(cMs)
+      showCurrentSpan(cMs)
     }
-    paginatorFactory(cMs)
-    showCurrentSpan(cMs)
   })
 
+  // Click on number in paginator
+  $('.pagination').on('click', 'li', (e) => {
+    let $el = $(e.currentTarget)
+    if (!$el.hasClass('prev') && !$el.hasClass('next')) {
+      current = parseInt($el.find('a').text())
+      offset = current * pageSpan
+      paginatorFactory(cMs)
+      showCurrentSpan(cMs)
+    }
+  })
+
+  // Change pageSpan
   $('.pageSpan').on('change', (e) => {
     current = 1
     pageSpan = $(e.currentTarget).val()
@@ -172,19 +186,29 @@ const restoreRow = (ID) => {
 const rowFactory = (user) => {
   let $tr = $(`.user-line[data-id="${user.ID}"]`)
 
-  let $tds = `<td><b>${user.fullName}</b></td>`
-  $tds += `<td>${user.code}</td>`
-  $tds += `<td>${user.email}</td>`
-  $tds += `<td>${user.users}</td>`
-  $tds += `<td>${user.projRatio}</td>`
+  let className = 'clickable'
+  let title = `Clicca per vedere le info di ${user.fullName}`
 
-  let $editBtn = '<button class="btn btn-sm btn-info editCm" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></button>'
+  let $tds = `<td class='${className}' title='${title}'><b>${user.fullName}</b></td>`
+  $tds += `<td class='${className}' title='${title}'>${user.code}</td>`
+  $tds += `<td class='${className}' title='${title}'>${user.email}</td>`
+  $tds += `<td class='${className}' title='${title}'>${user.users}</td>`
+  $tds += `<td class='${className}' title='${title}'>${user.projRatio}</td>`
 
-  let $deleteBtn = '<button title="Elimina ClickMaster" class="btn btn-sm btn-danger deleteCm"><span class="glyphicon glyphicon-remove"></span></button>'
+  let $editBtn = `<button class="btn btn-sm btn-info editCm" title="Modifica ${user.fullName}"><span class="glyphicon glyphicon-pencil"></span></button>`
+
+  let $deleteBtn = `<button title="Elimina ${user.fullName}" class="btn btn-sm btn-danger deleteCm"><span class="glyphicon glyphicon-remove"></span></button>`
 
   $tds += `<td>${$editBtn} ${$deleteBtn}</td>`
 
   $tr.append($tds)
+  // Go to CM page when line is clicked
+  $('.user-line').on('click', 'td.clickable', (e) => {
+    e.stopImmediatePropagation()
+    e.stopPropagation()
+    let ID = $(e.target).parent().data('id')
+    window.location.href = `${window.base_url}dashboard/clickmaster/${ID}`
+  })
 }
 
 // Creates a row (in Edit Mode) in the table
@@ -230,9 +254,9 @@ const editRowFactory = (user) => {
   })
 }
 
-// Sync Local cMs array to reflect latest changes
+// Get updated CMs after action
 const getUpdatedCMs = () => {
-  let url = `${window.base_url}/dashboard/getCMs`
+  let url = `${window.base_url}/dashboard/getCMs/1`
   $.getJSON(url, (data) => {
     cMs = data
     paginatorFactory(cMs)
@@ -240,6 +264,7 @@ const getUpdatedCMs = () => {
   })
 }
 
+// Show current page
 const showCurrentSpan = (arr) => {
   let offsetStart = offset - pageSpan
   let toShow = arr.slice(offsetStart, offset)
@@ -250,6 +275,7 @@ const showCurrentSpan = (arr) => {
       rowFactory(user)
     })
   }
+
   // Delete CM
   $('.user-line').on('click', '.deleteCm', (e) => {
     let ID = getId(e.currentTarget)

@@ -13,12 +13,9 @@
 	include_once 'header_dash.php';
 
 	echo "<script>window.navActive = 'managecm';</script>";
-	// include_once 'navbar_dash.php';
+	include_once 'navbar_dash.php';
 
 	echo "<script>window.cMs = " . $cMs . ";</script>";
-	echo "<script>window.pageSpan = " . $pageSpan . ";</script>";
-	echo "<script>window.maxOffset = " . $maxOffset . ";</script>";
-	echo "<script>window.pages = " . $pages . ";</script>";
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">

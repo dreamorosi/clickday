@@ -11,7 +11,7 @@
 
 	include_once 'header_dash.php';
 
-	echo "<script>window.navActive = 'userlist';</script>";
+	echo "<script>window.navActive = 'managecm';</script>";
 	include_once 'navbar_dash.php';
 
   echo "<script>window.users = " . json_encode($users) . ";</script>";
@@ -37,6 +37,11 @@
         </div>
       </div>
     </div>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-default" href="javascript:window.history.go(-1);">Torna indietro</a>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
         <div class="panel panel-default detailsClickWidget">
