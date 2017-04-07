@@ -75,7 +75,8 @@ class Dashboard_model extends CI_Model
 			$obj['ID'] = $user->ID;
 			$obj['status'] = $this->getStatus($user->ID);
 
-			$complete_name = '';
+      // Spaghetti code much?
+      $complete_name = '';
 			$name = explode(' ', $user->name);
 			$surname = explode(' ', $user->surname);
 
@@ -90,19 +91,18 @@ class Dashboard_model extends CI_Model
 
 			$obj['inverted_name'] = $user->surname .' '.$user->name ;
 			$obj['email'] = $user->email;
-			$obj['code'] = $user->code;
 			$obj['region'] = $user->region;
 			$obj['join'] = date('d/m/Y', strtotime($user->joinDate));
-			if($user->clickM != -1)
-				$obj['clickM'] = $this->clickmaster->getFullName($user->clickM);
-			else
-				$obj['clickM'] = '---';
-			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
-			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
-			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
-            if($user->code_assigned == 1) $obj['code_ass'] = 'Si'; else $obj['code_ass'] = 'No';
-			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
-			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
+
+      $obj['clickM'] = $user->clickM !== -1 ? $this->clickmaster->getFullName($user->clickM) : '---';
+      $obj['approved'] = $user->approved === '1' ? 'Si' : 'No';
+      $obj['code_rec'] = $user->code_received === '1' ? 'Si' : 'No';
+			$obj['code_ass'] = $user->code_assigned === '1' ? 'Si' : 'No';
+      $obj['screen'] = $user->screen_uploaded === '1' ? 'Si' : 'No';
+      $obj['contract'] = $user->cont_uploaded === '1' ? 'Si' : 'No';
+      $obj['code'] = $user->code !== NULL ? $user->code : '---';
+
+      $obj['lastSeen'] = date('d/m/Y', strtotime($user->lastSeen));
 
 			$obj['pos'] = $p;
 			$p++;

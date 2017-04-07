@@ -319,10 +319,7 @@ class Dashboard extends CI_Controller {
 
 	function fetchUsersByCM($ID)
 	{
-		$data['users'] = $this->dashboard_model->paginateUsers($this->dashboard_model->getCMusers($ID, -1));
-		$data['pageSpan'] = 10;
-		$data['pages'] = ceil(count($data['users'])/$data['pageSpan']);
-		$data['maxOffset'] = $data['pageSpan'] * ($data['pages']-1);
+		$data = $this->dashboard_model->paginateUsers($this->dashboard_model->getCMusers($ID, -1));
 		return $data;
 	}
 
