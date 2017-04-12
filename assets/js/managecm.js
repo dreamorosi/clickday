@@ -157,13 +157,22 @@ const toggleEditMode = (ID) => {
   }
 }
 
+// Renders a string like "88UU e altri 3" for codes
+const renderCodes = (codes) => {
+  console.log(codes)
+  let s = codes[0] ? codes[0] : 0
+  s += codes.length === 2 ? ` <small>e un altro</small>` : ''
+  s += codes.length > 2 ? ` <small>e altri ${codes.length - 1}</small>` : ''
+  return s
+}
+
 // Creates a row in the table
 const rowFactory = (container, user) => {
   let className = 'clickable'
   let title = `Clicca per vedere le info di ${user.fullName}`
 
   let $tds = `<td class='${className}' title='${title}'><b>${user.fullName}</b></td>`
-  $tds += `<td class='${className}' title='${title}'>${user.code}</td>`
+  $tds += `<td class='${className}' title='${title}'>${renderCodes(user.codes)}</td>`
   $tds += `<td class='${className}' title='${title}'>${user.email}</td>`
   $tds += `<td class='${className}' title='${title}'>${user.users}</td>`
   $tds += `<td class='${className}' title='${title}'>${user.projRatio}</td>`
@@ -251,7 +260,7 @@ const editRowFactory = (user) => {
     toggleEditMode(ID)
   })
 
-  $('.codesEdit').tagInput({codes: ['ciso']})
+  $('.codesEdit').tagInput({codes: user.codes})
 }
 
 // Get updated CMs after action

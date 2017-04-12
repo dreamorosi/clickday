@@ -113,23 +113,14 @@ class User extends CI_Model
 
 	function createNewUser($usr)
 	{
-		$data['code'] = 200;
 		$query = $this->db->get_where('users', array('email' => $usr['email']));
+    $data = array(
+      'success' => TRUE
+    );
 		if($query->num_rows() > 0){
-			$data['code'] = 409;
-			$data['message'] = "L'indirizzo mail inserito è già in uso";
+      $data['success'] = FALSE;
+      $data['message'] = "L'indirizzo mail inserito è già in uso";
 			return $data;
-		}
-		$clickM = -1;
-		if($usr['clickM'] != "-1"){
-			$query = $this->db->get_where('clickmasters', array('code' => $usr['clickM']));
-			if ($query->num_rows() > 0){
-				$clickM = $query->row()->ID;
-			}else{
-				$data['code'] = 409;
-				$data['message'] = "Il codice ClickMaster inserito non è valido";
-				return $data;
-			}
 		}
 		$this->load->helper('security');
 		$password = do_hash($usr['password']);
@@ -153,13 +144,13 @@ class User extends CI_Model
       'prov' => $usr['prov'],
       'cap' => $usr['cap'],
       'work' => $usr['work'],
-      'clickM' => $clickM,
+      'clickM' => $usr['clickM'],
       'activation' => $activation
     );
 		$this->db->insert('users', (object) $newUser);
 		if ($this->db->affected_rows() > 0){
-			if($clickM != -1){
-				$cmEmail = $this->clickmaster->getCMemail($clickM);
+			if($usr['clickM'] != -1){
+				$cmEmail = $this->clickmaster->getCMemail($usr['clickM']);
 				if($cmEmail != ''){
 					$name = $usr['name']. ' ' .$usr['surname'];
 					$this->sendActivationMail($cmEmail, 'cm', $name);
@@ -168,7 +159,8 @@ class User extends CI_Model
 			$this->sendActivationMail($usr['email'], 'usr', $activation);
 			return $data;
 		}else{
-			$data['code'] = 500;
+      $data['success'] = FALSE;
+      $data['message'] = "Si è verificato un errore inaspettato, riprovare tra qualche istante";
 			return $data;
 		}
 	}

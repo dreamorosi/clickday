@@ -17,42 +17,36 @@ class Users extends CI_Controller {
 
 	public function signup($code = NULL)
 	{
-		$this->data['code'] = null;
-		if(isset($code)){
-			$this->data['code'] = $code;
-		}
-		//$this->data['open_signup'] = $this->dashboard->checkTime();
+		$this->data['code'] = $code;
 		$this->load->view('signup', $this->data);
 	}
 
 	public function newUser()
 	{
 		$usr = array(
-			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
-			'email' => $this->input->post('emailS'),
-			'dateBirth' => $this->input->post('dateBirth'),
-			'country' => $this->input->post('country'),
+			'name' => ucfirst($this->input->post('name')),
+			'surname' => ucfirst($this->input->post('surname')),
+			'email' => $this->input->post('email'),
+			'dateBirth' => $this->input->post('bday-day') .'/'. $this->input->post('bday-month') .'/'. $this->input->post('bday-year'),
+			'country' => ucfirst($this->input->post('country')),
 			'address' => $this->input->post('address') . ' ' . $this->input->post('door'),
 			'cap' => $this->input->post('cap'),
-			'prov' => $this->input->post('prov'),
+			'prov' => strtoupper($this->input->post('prov')),
 			'cf' => strtoupper($this->input->post('cf')),
-			'work' => $this->input->post('work'),
+			'work' => ucfirst($this->input->post('work')),
 			'phone' => $this->input->post('phone'),
-			'password' => $this->input->post('passwordS'),
-			'clickM' => $this->input->post('clickM'),
+			'password' => $this->input->post('password'),
+			'clickM' => $this->input->post('code'),
 		);
 
-		$data = $this->user->createNewUser($usr);
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode(TRUE);
+		if ($usr['clickM'] === '') {
+			$usr['clickM'] = -1;
+		} else {
+			$usr['clickM'] = intval($this->clickmaster->checkCMCode($usr['clickM']));
 		}
+
+		$data = $this->user->createNewUser($usr);
+		echo json_encode($data);
 	}
 
 	public function editUser()

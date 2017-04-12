@@ -19,7 +19,6 @@ class Clickmaster extends CI_Model
 				'isLogged' => TRUE,
 				'fullName' => $query->row()->fullName,
 				'ID' => $query->row()->ID,
-				'clickM' => $query->row()->code,
 				'role' => 'clickMaster',
 				'lastSeen' => $query->row()->lastSeen
 			);
@@ -63,7 +62,7 @@ class Clickmaster extends CI_Model
 			$data['message'] = "L'indirizzo mail inserito è già in uso.";
 			return $data;
 		}
-		$query = $this->db->get_where('clickmasters', array('code' => $usr['code']));
+		$query = $this->db->get_where('codes', array('code' => $usr['code']));
 		if ($query->num_rows() > 0){
 			$data['code'] = 409;
 			$data['message'] = "Il codice inserito è già in uso.";
@@ -73,7 +72,7 @@ class Clickmaster extends CI_Model
 		$password = random_string('alnum', 8);
 		$this->load->helper('security');
 		$passwordH = do_hash($password);
-		$newCm = array('fullName' => $usr['fullName'], 'email' => $usr['email'], 'password' => $passwordH, 'code' => $usr['code']);
+		$newCm = array('fullName' => $usr['fullName'], 'email' => $usr['email'], 'password' => $passwordH);
 		$this->db->insert('clickmasters', (object) $newCm);
 		$data['ID'] = -1;
 		$data['ID'] = $this->db->insert_id();
@@ -150,6 +149,21 @@ class Clickmaster extends CI_Model
 		}else{
 			return '';
 		}
+	}
+// TODO: mappare user <-> cm
+  function getCMcodes($ID = -1)
+	{
+		if ($ID === -1) {
+			$query = $this->db->get('codes');
+		} else {
+      $query = $this->db->get_where('codes', array('cmID' => $ID));
+		}
+    $codes = $query->result_array();
+    $data = array();
+    foreach ($codes as $code) {
+      $data[] = $code['code'];
+    }
+    return $data;
 	}
 
 	function checkForgot($code)
@@ -272,12 +286,14 @@ class Clickmaster extends CI_Model
 		}
 	}
 
-	function getCodes($ID)
+	function checkCMCode($code)
 	{
-		$query = $this->db->get_where('codes', array('ID' => $ID));
+		$query = $this->db->get_where('codes', array('code' => $code));
 		if($query->num_rows()>0){
-			return unserialize($query->row()->payload);
-		}
+			return $query->row()->cmID;
+		} else {
+      return -1;
+    }
 	}
 }
 

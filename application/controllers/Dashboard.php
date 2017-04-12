@@ -369,7 +369,7 @@ class Dashboard extends CI_Controller {
 			$obj['ID'] = $cM->ID;
 			$obj['fullName'] = $cM->fullName;
 			$obj['email'] = $cM->email;
-			$obj['code'] = $cM->code;
+			$obj['codes'] = $this->clickmaster->getCMcodes($cM->ID);
 			$users = $this->dashboard_model->getAssociatedUser($cM->ID);
 			$obj['projRatio'] = count($users['proj']) . ' | '. count($users['noProj']);
 			$obj['users'] = count($users['proj']) + count($users['noProj']);
