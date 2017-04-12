@@ -1,5 +1,6 @@
 const $ = window.$
 let cMs = window.cMs
+let allCodes = []
 
 // TODO: Set up tag for codes
 
@@ -23,14 +24,12 @@ $(document).ready(function () {
     }
   })
 
-  let cod = ['php', 'js', 'not']
+  // Create pool of all codes
+  cMs.forEach(cm => (allCodes = allCodes.concat(cm.codes)))
 
   $('.codes').tagInput({
-    codes: cod
+    allCodes: allCodes
   })
-
-  let codes = $('.codes').tagInput('serialize')
-  console.log(codes)
 })
 
 // Process the passed form, shallow validation and errors
@@ -38,7 +37,8 @@ const processForm = (form) => {
   let $form = $(form)
   let error = false
   let info = {}
-  $.each($form.find('input'), (i, el) => {
+  let inputs = $form.find('input.form-control')
+  $.each(inputs, (i, el) => {
     let $el = $(el)
     $el.parent().removeClass('has-error')
     $el.siblings('small').addClass('hidden')
@@ -53,6 +53,12 @@ const processForm = (form) => {
       info[$el.attr('name')] = value
     }
   })
+  let codes = $('.codes').tagInput('getTags')
+  if (codes.length === 0) {
+    error = true
+  } else {
+    info.codes = codes
+  }
   if (!error) {
     return {
       hasError: false,
@@ -159,7 +165,6 @@ const toggleEditMode = (ID) => {
 
 // Renders a string like "88UU e altri 3" for codes
 const renderCodes = (codes) => {
-  console.log(codes)
   let s = codes[0] ? codes[0] : 0
   s += codes.length === 2 ? ` <small>e un altro</small>` : ''
   s += codes.length > 2 ? ` <small>e altri ${codes.length - 1}</small>` : ''
@@ -260,7 +265,10 @@ const editRowFactory = (user) => {
     toggleEditMode(ID)
   })
 
-  $('.codesEdit').tagInput({codes: user.codes})
+  $('.codesEdit').tagInput({
+    codes: user.codes,
+    allCodes: allCodes
+  })
 }
 
 // Get updated CMs after action
@@ -268,6 +276,7 @@ const getUpdatedCMs = () => {
   let url = `${window.base_url}/dashboard/getCMs/1`
   $.getJSON(url, (data) => {
     cMs = data
+    allCodes
     $('table').paginator('refresh', cMs)
   })
 }

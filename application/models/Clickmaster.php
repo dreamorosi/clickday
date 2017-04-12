@@ -62,12 +62,6 @@ class Clickmaster extends CI_Model
 			$data['message'] = "L'indirizzo mail inserito è già in uso.";
 			return $data;
 		}
-		$query = $this->db->get_where('codes', array('code' => $usr['code']));
-		if ($query->num_rows() > 0){
-			$data['code'] = 409;
-			$data['message'] = "Il codice inserito è già in uso.";
-			return $data;
-		}
 		$this->load->helper('string');
 		$password = random_string('alnum', 8);
 		$this->load->helper('security');
@@ -76,8 +70,9 @@ class Clickmaster extends CI_Model
 		$this->db->insert('clickmasters', (object) $newCm);
 		$data['ID'] = -1;
 		$data['ID'] = $this->db->insert_id();
-    // TODO: add its code if new
-		// $this->db->insert('codes', array('ID' => $data['ID']));
+    foreach ($usr['codes'] as $code) {
+      $this->db->insert('codes', array('cmID' => $data['ID'], 'code' => $code));
+    }
 		if ($this->db->affected_rows() > 0){
 			$this->sendNotificationMail($usr['email'], $password);
 			return $data;
@@ -89,9 +84,38 @@ class Clickmaster extends CI_Model
 
 	function editCmInfo($usr, $ID)
 	{
-		$this->db->set($usr)->where('ID', $ID)->update('clickmasters');
+		$this->db->set(array('fullName' => $usr['fullName'], 'email' => $usr['email']))->where('ID', $ID)->update('clickmasters');
+    $this->syncCodes($ID, $usr['codes']);
+    // return $this->syncCodes($ID, $usr['codes']);
     return $this->db->affected_rows() > 0;
 	}
+
+  function syncCodes($ID, $codes)
+  {
+    // foreach ($codes as $code) {
+    //   $this->db->insert('codes', array('cmID' => $ID, 'code' => $code));
+    // }
+    $query = $this->db->get_where('codes', array('cmID' => $ID));
+    $preSync = $query->result_array();
+    $tmp = array();
+    foreach ($preSync as $code) {
+      $tmp[] = $code['code'];
+    }
+    $toDelete = array_diff($tmp, $codes);
+    foreach($toDelete as $code){
+      $this->db->delete('codes', array('code' => $code));
+    }
+    $query = $this->db->get_where('codes', array('cmID' => $ID));
+    $postSync = $query->result_array();
+    $tmp = array();
+    foreach ($postSync as $code) {
+      $tmp[] = $code['code'];
+    }
+    $toAdd = array_diff($codes, $tmp);
+    foreach($toAdd as $code){
+      $this->db->insert('codes', array('cmID' => $ID, 'code' => $code));
+    }
+  }
 
 	function removeCm($ID)
 	{

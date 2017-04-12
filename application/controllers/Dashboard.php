@@ -352,7 +352,7 @@ class Dashboard extends CI_Controller {
 		$usr = array(
 			'fullName' => $this->input->post('fullName'),
 			'email' => $this->input->post('email'),
-			'code' => $this->input->post('code')
+			'codes' => $this->input->post('codes')
 		);
 		$ID = $this->input->post('ID');
 
