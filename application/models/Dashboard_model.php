@@ -578,7 +578,7 @@ class Dashboard_model extends CI_Model
 			case -8:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-          $name = explode('', $query->row()->fullName);
+          			$name = explode(' ', $query->row()->fullName);
 					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
@@ -591,6 +591,7 @@ class Dashboard_model extends CI_Model
 			case -3:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
+					$name = explode(' ', $query->row()->fullName);
 					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
@@ -617,7 +618,7 @@ class Dashboard_model extends CI_Model
 			case -28:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-          $name = explode("", $query->row()->fullName);
+          			$name = explode(" ", $query->row()->fullName);
 					return 'CM '.$name[0];
 				}else{
 					return '';
@@ -628,7 +629,8 @@ class Dashboard_model extends CI_Model
 			case -27:
 				$query = $this->db->get_where('admin', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admin '.$query->row()->name;
+                    $name = explode(' ', $query->row()->fullName);
+					return 'Admin '.$name[0];
 				}else{
 					return '';
 				}

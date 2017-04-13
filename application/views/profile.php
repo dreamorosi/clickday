@@ -41,7 +41,7 @@
 								</div>
 								<div class="col-md-7">
 									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $name; ?>" name="name" autocomplete="off" tabindex="1">
+										<input type="text" class="form-control" value="<? echo $user->name; ?>" name="name" autocomplete="off" tabindex="1">
 									</div>
 								</div>
 							</div>
@@ -63,7 +63,7 @@
 								</div>
 								<div class="col-md-7">
 									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $surname; ?>" name="surname" autocomplete="off" tabindex="2">
+										<input type="text" class="form-control" value="<? echo $user->surname; ?>" name="surname" autocomplete="off" tabindex="2">
 									</div>
 								</div>
 							</div>
