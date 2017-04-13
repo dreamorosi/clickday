@@ -37,6 +37,7 @@ class Users extends CI_Controller {
 			'phone' => $this->input->post('phone'),
 			'password' => $this->input->post('password'),
 			'clickM' => $this->input->post('code'),
+            'clickM_code' => $this->input->post('code'),
 		);
 
 		if ($usr['clickM'] === '') {

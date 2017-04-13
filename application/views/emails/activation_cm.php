@@ -19,7 +19,7 @@
 										<table class="twelve columns">
 											<tr>
 												<td class="text-pad">
-													<p><strong><? echo $name; ?></strong> si è registrato come nuovo utente nella tua lista.</p>
+													<p><strong><? echo $name; ?></strong> si è registrato come nuovo utente nella tua lista con codice <b><? echo $code; ?></b>.</p>
 													<p>Accedi al tuo profilo per visionare lo status dei tuoi utenti.</p>
 												</td>
 												<td class="expander"></td>

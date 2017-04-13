@@ -52,8 +52,9 @@ class User extends CI_Model
 			$data = array( 'base_url' => base_url(), 'code' => base_url('users/activate/'.$activation));
 			$content = $this->load->view('emails/activation', $data, TRUE);
 		}elseif($role=='cm'){
+			$split = explode("***", $activation);
 			$this->email->subject('Nuovo Utente Registrato ClickDay 2017');
-			$data = array( 'base_url' => base_url(), 'name' => $activation);
+			$data = array( 'base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
 			$content = $this->load->view('emails/activation_cm', $data, TRUE);
 		}
 		$this->email->message($content);
@@ -145,6 +146,7 @@ class User extends CI_Model
       'cap' => $usr['cap'],
       'work' => $usr['work'],
       'clickM' => $usr['clickM'],
+	  'clickM_code' => $usr['clickM_code'],
       'activation' => $activation
     );
 		$this->db->insert('users', (object) $newUser);
@@ -153,7 +155,9 @@ class User extends CI_Model
 				$cmEmail = $this->clickmaster->getCMemail($usr['clickM']);
 				if($cmEmail != ''){
 					$name = $usr['name']. ' ' .$usr['surname'];
-					$this->sendActivationMail($cmEmail, 'cm', $name);
+					$code = $usr['clickM_code'];
+					$payload = $name.'***'.$code;
+					$this->sendActivationMail($cmEmail, 'cm', $payload);
 				}
 			}
 			$this->sendActivationMail($usr['email'], 'usr', $activation);
