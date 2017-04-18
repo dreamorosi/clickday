@@ -16,11 +16,11 @@ $(document).ready(function () {
     if ($(this).hasClass('loadMore')) {
       currentOffset = loadMore(currentOffset, currentType)
     } else {
-      var child = $(this).get(0);
-      var parent = child.parentNode;
+      var child = $(this).get(0)
+      var parent = child.parentNode
       $('.leftCol ul').find('.active').removeClass('active')
       $(this).addClass('active')
-      var index = Array.prototype.indexOf.call(parent.children, child);
+      var index = Array.prototype.indexOf.call(parent.children, child)
       var project = {}
 
       if (querying) {
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
   /* Manage project type selection and reinitialises the list */
   $('.projectsWidget thead').on('click', '.projectHandle', function () {
-    newType = $(this).data('project')
+    let newType = $(this).data('project')
     currentType = newType ? 1 : 0
     currentOffset = 10
 
@@ -105,32 +105,39 @@ function initProjectList (type) {
 
 /* Takes an offset and project type and loads the next 10 elements */
 function loadMore (currentOffset, type) {
-  var $loadButton = $('.leftCol ul li.loadMore')
+  let $box = $('.leftCol ul')
+  var $loadButton = $box.find('li.loadMore')
   currentOffset += 10
   $loadButton.text('Caricando..')
 
   var projectsMarkup = ''
+  let maxL
   if (type) {
     projectsMarkup = getProjectChunk(projectsClassic, currentOffset)
+    maxL = projectsClassic.length
   } else {
     projectsMarkup = getProjectChunk(projectsSc, currentOffset)
+    maxL = projectsSc.length
   }
 
   $loadButton
     .remove()
     .text('Load More')
 
-  $('.leftCol ul')
+  $box
     .append(projectsMarkup)
-    .append($loadButton)
 
+  if (currentOffset <= maxL) {
+    $box
+      .append($loadButton)
+  }
   return currentOffset
 }
 
 /* Takes an optional project argument. If provided it'll show the project info
  * otherwise it'll show a message */
 function showProjectInfo (project = null) {
-  $infoBox = $('.projectsWidget tbody .projectInfo');
+  let $infoBox = $('.projectsWidget tbody .projectInfo')
   $infoBox.empty()
 
   if (project === null) {
@@ -167,12 +174,12 @@ function filterProjects (type, query) {
   var queried = []
   queried = projects.filter(function (project) {
     var text = project.proj
-    if (text.toLowerCase().indexOf(query.toLowerCase()) !== -1){
+    if (text.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
       return project
     }
   })
   currentQuery = queried
-  queriedMarkup = queried.map(function (project) {
+  let queriedMarkup = queried.map(function (project) {
     return '<li>' + project.proj + '</li>'
   })
   $('.projectsWidget tbody .leftCol ul')
