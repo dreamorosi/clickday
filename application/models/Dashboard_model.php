@@ -117,11 +117,12 @@ class Dashboard_model extends CI_Model
     $data = array();
 		$this->load->helper('date');
     $headers = array(
-      'User',
+      'Utente',
       'Data registrazione',
-      'ClickMaster associato',
+      'ClickMaster',
+      'Codice ClickMaster',
       'Conferma registrazione',
-      'Codice ricevuto',
+      'Codice Progetto',
       'Screenshot',
       'Contratto',
       'Email',
@@ -133,11 +134,12 @@ class Dashboard_model extends CI_Model
       $obj['name'] = $user->name .' '. $user->surname;
       $obj['join'] = date('d/m/Y', strtotime($user->joinDate));
       if($user->clickM != -1)
-				$obj['clickM'] = $this->clickmaster->getCompleteName($user->clickM);
+				$obj['clickM'] = $this->clickmaster->getFullName($user->clickM);
 			else
 				$obj['clickM'] = 'Nessuno';
+      $obj['cmCode'] = $user->clickM_code;
       if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
-      ($user->code == NULL) ? $obj['code_rec'] = 'No' : $obj['code_rec'] = $user->code;
+      ($user->code == NULL) ? $obj['code_rec'] = 'Nessuno' : $obj['code_rec'] = $user->code;
 			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
 			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
 			$obj['email'] = $user->email;

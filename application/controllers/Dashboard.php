@@ -394,26 +394,26 @@ class Dashboard extends CI_Controller {
 		$this->excel->setActiveSheetIndex(0);
 		$this->excel->getActiveSheet()->setTitle('Lista utenti');
 		$users = $this->dashboard_model->prepareExcel($users);
-		$this->excel->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
-		$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+		$this->excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
+		$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(22);
+		$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(19);
 		$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+		$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(19);
+		$this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(24);
+		$this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
+		$this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
 		$this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+		$this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(28);
+		$this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
 		$c = count($users);
 		$this->excel->getActiveSheet()->getStyle("I1:I$c")->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
-		/*$this->excel->getActiveSheet()->setCellValueExplicit('A1', '0029', PHPExcel_Cell_DataType::TYPE_STRING);*/
 		$this->excel->getActiveSheet()->fromArray($users);
 		$filename = 'lista_utenti.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'.$filename.'"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
-        $objWriter->save('php://output');
+    $objWriter->save('php://output');
 	}
 
 	public function getDetailsUs()
