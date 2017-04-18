@@ -8,8 +8,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('clickmaster','clickmaster');
 		$this->data['isLogged'] = $this->session->userdata('isLogged');
 		$this->data['email'] = $this->session->userdata('email');
-		$this->data['name'] = $this->session->userdata('name');
-		$this->data['surname'] = $this->session->userdata('surname');
+		$this->data['fullName'] = $this->session->userdata('fullName');
 		$this->data['ID'] = $this->session->userdata('ID');
 		$this->data['approved'] = $this->session->userdata('approved');
 		$this->data['clickM'] = $this->session->userdata('clickM');
@@ -105,12 +104,8 @@ class Dashboard extends CI_Controller {
 	{
 		if($this->data['isLogged']){
 			if($this->data['role']=='admin'){
-				$this->data['rawCMs'] = $this->dashboard_model->paginateCMs($this->dashboard_model->getCMs(-1));
-				$this->data['cMs'] = json_encode($this->data['rawCMs']);
+				$this->data['cMs'] = $this->getCMs();
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
-				$this->data['pageSpan'] = 5;
-				$this->data['pages'] = ceil(count($this->data['rawCMs'])/$this->data['pageSpan']);
-				$this->data['maxOffset'] = $this->data['pageSpan'] * ($this->data['pages']-1);
 				$this->load->view('managecm', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
@@ -307,24 +302,10 @@ class Dashboard extends CI_Controller {
 
 	public function addCM()
 	{
-		$usr = array(
-			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
-			'email' => $this->input->post('email'),
-			'code' => $this->input->post('code'),
-		);
+		$usr = $this->input->post();
 
-		$data = $this->clickmaster->createNewCm($usr);
-		$data['usr'] = $usr;
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode($data);
-		}
+		$result = $this->clickmaster->createNewCm($usr);
+		echo json_encode($result);
 	}
 
 	public function getUsersByCM()
@@ -338,10 +319,7 @@ class Dashboard extends CI_Controller {
 
 	function fetchUsersByCM($ID)
 	{
-		$data['users'] = $this->dashboard_model->paginateUsers($this->dashboard_model->getCMusers($ID, -1));
-		$data['pageSpan'] = 10;
-		$data['pages'] = ceil(count($data['users'])/$data['pageSpan']);
-		$data['maxOffset'] = $data['pageSpan'] * ($data['pages']-1);
+		$data = $this->dashboard_model->paginateUsers($this->dashboard_model->getCMusers($ID, -1));
 		return $data;
 	}
 
@@ -372,22 +350,36 @@ class Dashboard extends CI_Controller {
 	public function editCm()
 	{
 		$usr = array(
-			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
+			'fullName' => $this->input->post('fullName'),
 			'email' => $this->input->post('email'),
-			'code' => $this->input->post('code')
+			'codes' => $this->input->post('codes')
 		);
 		$ID = $this->input->post('ID');
 
 		$data = $this->clickmaster->editCmInfo($usr, $ID);
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode($usr);
+		echo json_encode($data);
+	}
+
+	public function getCMs($dispatch = NULL)
+	{
+		$cMs = $this->dashboard_model->getCMs(-1);
+		$data = array();
+		foreach($cMs as $cM){
+			$obj = array();
+			$obj['ID'] = $cM->ID;
+			$obj['fullName'] = $cM->fullName;
+			$obj['email'] = $cM->email;
+			$obj['codes'] = $this->clickmaster->getCMcodes($cM->ID);
+			$users = $this->dashboard_model->getAssociatedUser($cM->ID);
+			$obj['projRatio'] = count($users['proj']) . ' | '. count($users['noProj']);
+			$obj['users'] = count($users['proj']) + count($users['noProj']);
+			$data[] = $obj;
+		}
+		$data = json_encode($data);
+		if (isset($dispatch)) {
+			echo $data;
+		} else {
+			return $data;
 		}
 	}
 

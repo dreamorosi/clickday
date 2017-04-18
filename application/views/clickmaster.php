@@ -9,13 +9,9 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
-
 	include_once 'header_dash.php';
 
-	echo "<script>window.navActive = 'userlist';</script>";
+	echo "<script>window.navActive = 'managecm';</script>";
 	include_once 'navbar_dash.php';
 
   echo "<script>window.users = " . json_encode($users) . ";</script>";
@@ -43,43 +39,54 @@
     </div>
 		<div class="row">
 			<div class="col-md-12">
+				<a class="btn btn-default" href="javascript:window.history.go(-1);">Torna indietro</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
         <div class="panel panel-default detailsClickWidget">
 					<div class="panel-heading">
             <span>Lista Cliccatori associati</span>
           </div>
 					<div class="panel-body table-responsive">
-            <p class="emptyDetails">Sembra che questo ClickMaster non abbia ancora nessun utente associato.</p>
-            <table class="table table-striped hidden">
+            <table class="table table-striped">
               <thead>
 								<tr>
 									<th></th>
-									<th>Utente</th>
+									<th>Nome Completo</th>
 									<th>Data registrazione</th>
-									<th>Conferma registrazione</th>
+									<th>Codice assegnato</th>
 									<th>Codice ricevuto</th>
 									<th>Screenshot</th>
+									<th>Ultimo accesso</th>
 								</tr>
 							</thead>
 							<tbody>
+								<tr><td colspan='7'><p class="emptyDetails text-center">Sembra che questo ClickMaster non abbia ancora nessun utente associato.</p></td></tr>
 							</tbody>
             </table>
           </div>
-          <div class="panel-footer text-center hidden">
+          <div class="panel-footer text-center">
 						<nav>
-							<ul class="pagination" id="usrPages">
-							</ul>
+							<ul class="pagination"></ul>
 						</nav>
+						<span class="pull-right">
+							<small>Utenti per pagina</small>
+							<select class="pageSpan">
+								<option val="5" selected>5</option>
+								<option val="10">10</option>
+								<option val="20">20</option>
+							</select>
+						</span>
 					</div>
         </div>
 			</div>
 		</div>
-    </div>
-<?
-	include_once 'footer_dash.php';
-  echo '<script src="' . base_url('assets/js/jquery.animateNumber.min.js') . '"></script>';
-	echo '</div>';
-?>
-
+  </div>
+</div>
+<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
+<script src="<? echo base_url('assets/js/jquery.animateNumber.min.js'); ?>"></script>
+<script src="<? echo base_url('assets/js/pagination.js'); ?>"></script>
 <script src="<? echo base_url('assets/js/clickmaster.js'); ?>"></script>
 
 </body>

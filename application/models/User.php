@@ -36,12 +36,12 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -52,8 +52,9 @@ class User extends CI_Model
 			$data = array( 'base_url' => base_url(), 'code' => base_url('users/activate/'.$activation));
 			$content = $this->load->view('emails/activation', $data, TRUE);
 		}elseif($role=='cm'){
+			$split = explode("***", $activation);
 			$this->email->subject('Nuovo Utente Registrato ClickDay 2017');
-			$data = array( 'base_url' => base_url(), 'name' => $activation);
+			$data = array( 'base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
 			$content = $this->load->view('emails/activation_cm', $data, TRUE);
 		}
 		$this->email->message($content);
@@ -64,12 +65,12 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -86,12 +87,13 @@ class User extends CI_Model
 	{
 		$this->load->library('email');
 		$this->load->helper('url');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'info@clickdayats.it';
-        $config['smtp_pass']    = 'YUcd_2016!';
+    // TODO: Separate function sendmail parameters
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'info@clickdayats.it';
+    $config['smtp_pass']    = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -112,23 +114,14 @@ class User extends CI_Model
 
 	function createNewUser($usr)
 	{
-		$data['code'] = 200;
 		$query = $this->db->get_where('users', array('email' => $usr['email']));
+    $data = array(
+      'success' => TRUE
+    );
 		if($query->num_rows() > 0){
-			$data['code'] = 409;
-			$data['message'] = "L'indirizzo mail inserito è già in uso";
+      $data['success'] = FALSE;
+      $data['message'] = "L'indirizzo mail inserito è già in uso";
 			return $data;
-		}
-		$clickM = -1;
-		if($usr['clickM'] != "-1"){
-			$query = $this->db->get_where('clickmasters', array('code' => $usr['clickM']));
-			if ($query->num_rows() > 0){
-				$clickM = $query->row()->ID;
-			}else{
-				$data['code'] = 409;
-				$data['message'] = "Il codice ClickMaster inserito non è valido";
-				return $data;
-			}
 		}
 		$this->load->helper('security');
 		$password = do_hash($usr['password']);
@@ -152,22 +145,26 @@ class User extends CI_Model
       'prov' => $usr['prov'],
       'cap' => $usr['cap'],
       'work' => $usr['work'],
-      'clickM' => $clickM,
+      'clickM' => $usr['clickM'],
+	  'clickM_code' => $usr['clickM_code'],
       'activation' => $activation
     );
 		$this->db->insert('users', (object) $newUser);
 		if ($this->db->affected_rows() > 0){
-			if($clickM != -1){
-				$cmEmail = $this->clickmaster->getCMemail($clickM);
+			if($usr['clickM'] != -1){
+				$cmEmail = $this->clickmaster->getCMemail($usr['clickM']);
 				if($cmEmail != ''){
 					$name = $usr['name']. ' ' .$usr['surname'];
-					$this->sendActivationMail($cmEmail, 'cm', $name);
+					$code = $usr['clickM_code'];
+					$payload = $name.'***'.$code;
+					$this->sendActivationMail($cmEmail, 'cm', $payload);
 				}
 			}
 			$this->sendActivationMail($usr['email'], 'usr', $activation);
 			return $data;
 		}else{
-			$data['code'] = 500;
+      $data['success'] = FALSE;
+      $data['message'] = "Si è verificato un errore inaspettato, riprovare tra qualche istante";
 			return $data;
 		}
 	}

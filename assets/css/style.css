@@ -192,7 +192,7 @@ body .navbar-default .navbar-nav li .active {
 
 .container-fluid .jumbotron{
 	border-radius: 3px;
-	background-color: #F7A623;
+	background-color: #F8B13F;
 	box-shadow: 1.5px 2.598px 4px 0px rgba(0, 0, 0, 0.094);
 	color: #fff;
 }
@@ -578,7 +578,7 @@ h2.text-primary{
 	border-radius: 3px;
 }
 
-.btn-primary, .btn-primary[disabled]{
+.btn-primary, .btn-primary[disabled], .btn-primary.disabled, .btn-primary.disabled:hover{
 	background: #f58720;
 	border: none;
 	/* box-shadow: 1.362px 2.673px 4px 0px rgba(0, 0, 0, 0.4); */
@@ -617,16 +617,45 @@ h2.text-primary{
 	font-weight: normal;
 }
 
-a, a:hover, .text-danger{
-	color: #fd2a09
+a, a:hover, .text-danger, label.has-error{
+	color: #F7403D
 }
 
 .cc_more_info{
-	color: #fd2a09 !important;
+	color: #F7403D !important;
 }
 
-.has-error .form-control, .has-error .form-control:focus{
-	border-color: #fd2a09;
+.has-error .form-control, .has-error .form-control:focus, .has-error.form-control, .has-error.form-control:focus{
+	border-color: #F7403D;
+  border-width: 2px;
+}
+
+.form-control{
+  padding: 6px 6px;
+}
+
+.bday-day, .bday-month{
+  padding-left: 0
+}
+
+.bday-year{
+  padding: 0
+}
+
+.door{
+  padding-left: 0
+}
+
+.cap{
+  padding-right: 0
+}
+
+input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 .form-control:focus{
@@ -760,20 +789,6 @@ a, a:hover, .text-danger{
 
 /* Desktop and up */
 @media (min-width: 1145px) {
-
-	.birthDate .col-md-4:first-child{
-		padding-right: 3px;
-	}
-
-	.birthDate .col-md-4:nth-child(2){
-		padding-left: 0px;
-		padding-right: 0px;
-	}
-
-	.birthDate .col-md-4:last-child{
-		padding-left: 3px;
-	}
-
 	#navbarItems, #subNavItems{
 		margin-top: 0px;
 	}
@@ -805,9 +820,6 @@ a, a:hover, .text-danger{
 }
 .fix1{
 	width: 43%;
-}
-.birthDate > .form-group > input{
-	padding: 6px 7px;
 }
 
 @media (min-width: 1330px) {

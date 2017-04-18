@@ -75,7 +75,8 @@ class Dashboard_model extends CI_Model
 			$obj['ID'] = $user->ID;
 			$obj['status'] = $this->getStatus($user->ID);
 
-			$complete_name = '';
+      // Spaghetti code much?
+      $complete_name = '';
 			$name = explode(' ', $user->name);
 			$surname = explode(' ', $user->surname);
 
@@ -90,19 +91,18 @@ class Dashboard_model extends CI_Model
 
 			$obj['inverted_name'] = $user->surname .' '.$user->name ;
 			$obj['email'] = $user->email;
-			$obj['code'] = $user->code;
 			$obj['region'] = $user->region;
 			$obj['join'] = date('d/m/Y', strtotime($user->joinDate));
-			if($user->clickM != -1)
-				$obj['clickM'] = $this->clickmaster->getCompleteName($user->clickM);
-			else
-				$obj['clickM'] = 'Nessuno';
-			if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
-			//if($user->code != NULL) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
-			if($user->code_received == 1) $obj['code_rec'] = 'Si'; else $obj['code_rec'] = 'No';
-            if($user->code_assigned == 1) $obj['code_ass'] = 'Si'; else $obj['code_ass'] = 'No';
-			if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
-			if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
+
+      $obj['clickM'] = $user->clickM !== -1 ? $this->clickmaster->getFullName($user->clickM) : '---';
+      $obj['approved'] = $user->approved === '1' ? 'Si' : 'No';
+      $obj['code_rec'] = $user->code_received === '1' ? 'Si' : 'No';
+			$obj['code_ass'] = $user->code_assigned === '1' ? 'Si' : 'No';
+      $obj['screen'] = $user->screen_uploaded === '1' ? 'Si' : 'No';
+      $obj['contract'] = $user->cont_uploaded === '1' ? 'Si' : 'No';
+      $obj['code'] = $user->code !== NULL ? $user->code : '---';
+
+      $obj['lastSeen'] = date('d/m/Y', strtotime($user->lastSeen));
 
 			$obj['pos'] = $p;
 			$p++;
@@ -153,10 +153,12 @@ class Dashboard_model extends CI_Model
 		foreach($cMs as $cM){
 			$obj = array();
 			$obj['ID'] = $cM->ID;
-			$obj['name'] = $cM->name .' '. $cM->surname;
+			$obj['fullName'] = $cM->fullName;
 			$obj['email'] = $cM->email;
 			$obj['code'] = $cM->code;
-			$obj['users'] = count($this->getAssociatedUser($cM->ID));
+			$users = $this->getAssociatedUser($cM->ID);
+      $obj['projRatio'] = count($users['proj']) . ' | '. count($users['noProj']);
+      $obj['users'] = count($users['proj']) + count($users['noProj']);
 			$data[] = $obj;
 		}
 		return $data;
@@ -179,7 +181,18 @@ class Dashboard_model extends CI_Model
 	public function getAssociatedUser($ID)
 	{
 		$query = $this->db->get_where('users', array('clickM' => $ID));
-		return $query->result();
+    $users = $query->result_array();
+    $users_filtered['proj'] = array();
+    $users_filtered['noProj'] = array();
+    foreach ($users as $user) {
+      if ($user['code_assigned'] == 1) {
+        $users_filtered['proj'][] = $user;
+      } else{
+        $users_filtered['noProj'][] = $user;
+      }
+      // $users_filtered[] = $user;
+    }
+		return $users_filtered;
 	}
 
 	public function getStatus($ID){
@@ -194,11 +207,11 @@ class Dashboard_model extends CI_Model
 		$this->load->helper('url');
 		//$config['protocol'] = 'sendmail';
 		$config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-        $config['smtp_port']    = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'notification@clickdayats.it';
-        $config['smtp_pass']    = 'Clickday1';
+    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port']    = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user']    = 'notification@clickdayats.it';
+    $config['smtp_pass']    = 'Clickday1';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -521,7 +534,7 @@ class Dashboard_model extends CI_Model
 			case -23:
 				$query = $this->db->get_where('users', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return $query->row()->name.' '.$query->row()->surname;
+					return $query->row()->name . ' ' . $query->row()->surname;
 				}else{
 					return '';
 				}
@@ -534,7 +547,7 @@ class Dashboard_model extends CI_Model
 			case -26:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'CM '.$query->row()->name;
+					return 'CM '. $query->row()->fullName;
 				}else{
 					return '';
 				}
@@ -547,7 +560,7 @@ class Dashboard_model extends CI_Model
 			case -29:
 				$query = $this->db->get_where('admin', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admin '.$query->row()->name;
+					return 'Admin '.$query->row()->fullName;
 				}else{
 					return '';
 				}
@@ -565,7 +578,8 @@ class Dashboard_model extends CI_Model
 			case -8:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admins e CM '.$query->row()->name;
+          			$name = explode(' ', $query->row()->fullName);
+					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
 				}
@@ -577,7 +591,8 @@ class Dashboard_model extends CI_Model
 			case -3:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admins e CM '.$query->row()->name;
+					$name = explode(' ', $query->row()->fullName);
+					return 'Admins e CM '.$name[0];
 				}else{
 					return '';
 				}
@@ -603,7 +618,8 @@ class Dashboard_model extends CI_Model
 			case -28:
 				$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'CM '.$query->row()->name;
+          			$name = explode(" ", $query->row()->fullName);
+					return 'CM '.$name[0];
 				}else{
 					return '';
 				}
@@ -613,7 +629,8 @@ class Dashboard_model extends CI_Model
 			case -27:
 				$query = $this->db->get_where('admin', array('ID' => $ID));
 				if($query->num_rows() > 0){
-					return 'Admin '.$query->row()->name;
+                    $name = explode(' ', $query->row()->fullName);
+					return 'Admin '.$name[0];
 				}else{
 					return '';
 				}

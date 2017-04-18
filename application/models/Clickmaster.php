@@ -17,10 +17,8 @@ class Clickmaster extends CI_Model
 			$newdata = array(
 				'email'     => $email,
 				'isLogged' => TRUE,
-				'name' => $query->row()->name,
-				'surname' => $query->row()->surname,
+				'fullName' => $query->row()->fullName,
 				'ID' => $query->row()->ID,
-				'clickM' => $query->row()->code,
 				'role' => 'clickMaster',
 				'lastSeen' => $query->row()->lastSeen
 			);
@@ -64,21 +62,17 @@ class Clickmaster extends CI_Model
 			$data['message'] = "L'indirizzo mail inserito è già in uso.";
 			return $data;
 		}
-		$query = $this->db->get_where('clickmasters', array('code' => $usr['code']));
-		if ($query->num_rows() > 0){
-			$data['code'] = 409;
-			$data['message'] = "Il codice inserito è già in uso.";
-			return $data;
-		}
 		$this->load->helper('string');
 		$password = random_string('alnum', 8);
 		$this->load->helper('security');
 		$passwordH = do_hash($password);
-		$newCm = array('name' => $usr['name'], 'surname' => $usr['surname'], 'email' => $usr['email'], 'password' => $passwordH, 'code' => $usr['code']);
+		$newCm = array('fullName' => $usr['fullName'], 'email' => $usr['email'], 'password' => $passwordH);
 		$this->db->insert('clickmasters', (object) $newCm);
 		$data['ID'] = -1;
 		$data['ID'] = $this->db->insert_id();
-		// $this->db->insert('codes', array('ID' => $data['ID']));
+    foreach ($usr['codes'] as $code) {
+      $this->db->insert('codes', array('cmID' => $data['ID'], 'code' => $code));
+    }
 		if ($this->db->affected_rows() > 0){
 			$this->sendNotificationMail($usr['email'], $password);
 			return $data;
@@ -90,19 +84,44 @@ class Clickmaster extends CI_Model
 
 	function editCmInfo($usr, $ID)
 	{
-		$this->db->set($usr)->where('ID', $ID)->update('clickmasters');
-		if ($this->db->affected_rows() > 0){
-			return TRUE;
-		}else{
-			$data['code'] = 500;
-			return $data;
-		}
+		$this->db->set(array('fullName' => $usr['fullName'], 'email' => $usr['email']))->where('ID', $ID)->update('clickmasters');
+    $this->syncCodes($ID, $usr['codes']);
+    // return $this->syncCodes($ID, $usr['codes']);
+    return $this->db->affected_rows() > 0;
 	}
+
+  function syncCodes($ID, $codes)
+  {
+    // foreach ($codes as $code) {
+    //   $this->db->insert('codes', array('cmID' => $ID, 'code' => $code));
+    // }
+    $query = $this->db->get_where('codes', array('cmID' => $ID));
+    $preSync = $query->result_array();
+    $tmp = array();
+    foreach ($preSync as $code) {
+      $tmp[] = $code['code'];
+    }
+    $toDelete = array_diff($tmp, $codes);
+    foreach($toDelete as $code){
+      $this->db->delete('codes', array('code' => $code));
+    }
+    $query = $this->db->get_where('codes', array('cmID' => $ID));
+    $postSync = $query->result_array();
+    $tmp = array();
+    foreach ($postSync as $code) {
+      $tmp[] = $code['code'];
+    }
+    $toAdd = array_diff($codes, $tmp);
+    foreach($toAdd as $code){
+      $this->db->insert('codes', array('cmID' => $ID, 'code' => $code));
+    }
+  }
 
 	function removeCm($ID)
 	{
 		$this->db->delete('clickmasters', array('ID' => $ID));
-		$this->db->delete('codes', array('ID' => $ID));
+    // TODO: remove its codes
+    // $this->db->delete('codes', array('ID' => $ID));
 		return TRUE;
 	}
 
@@ -110,7 +129,7 @@ class Clickmaster extends CI_Model
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return $query->row()->name;
+			return $query->row()->fullName;
 		}else{
 			return '';
 		}
@@ -120,19 +139,19 @@ class Clickmaster extends CI_Model
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return $query->row()->surname;
+			return 'I AM A BUG';
 		}else{
-			return 0;
+			return 'I AM A BUG';
 		}
 	}
 
-	function getCompleteName($ID)
+	function getFullName($ID)
 	{
 		$query = $this->db->get_where('clickmasters', array('ID' => $ID));
 		if($query->num_rows() > 0){
-			return substr($query->row()->name,0,1) .'. '. $query->row()->surname;
+			return $query->row()->fullName;
 		}else{
-			return 0;
+			return '';
 		}
 	}
 
@@ -154,6 +173,21 @@ class Clickmaster extends CI_Model
 		}else{
 			return '';
 		}
+	}
+// TODO: mappare user <-> cm
+  function getCMcodes($ID = -1)
+	{
+		if ($ID === -1) {
+			$query = $this->db->get('codes');
+		} else {
+      $query = $this->db->get_where('codes', array('cmID' => $ID));
+		}
+    $codes = $query->result_array();
+    $data = array();
+    foreach ($codes as $code) {
+      $data[] = $code['code'];
+    }
+    return $data;
 	}
 
 	function checkForgot($code)
@@ -276,12 +310,14 @@ class Clickmaster extends CI_Model
 		}
 	}
 
-	function getCodes($ID)
+	function checkCMCode($code)
 	{
-		$query = $this->db->get_where('codes', array('ID' => $ID));
+		$query = $this->db->get_where('codes', array('code' => $code));
 		if($query->num_rows()>0){
-			return unserialize($query->row()->payload);
-		}
+			return $query->row()->cmID;
+		} else {
+      return -1;
+    }
 	}
 }
 

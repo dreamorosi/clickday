@@ -17,7 +17,7 @@ class Admin extends CI_Model
 			$newdata = array(
 				'email'     => $email,
 				'isLogged' => TRUE,
-				'name' => $query->row()->name,
+				'fullName' => $query->row()->fullName,
 				'ID' => $query->row()->ID,
 				'role' => 'admin',
 				'lastSeen' => $query->row()->lastSeen

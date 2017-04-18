@@ -217,8 +217,17 @@ textarea{
 	line-height: 17px;
 }
 
+.noty_buttons {
+	text-align: center !important;
+}
+
 .user-line {
 	height: 55px;
+	transition: all 150ms ease-in-out;
+}
+
+.user-line.editMode {
+	height: 200px
 }
 
 .select_region {
@@ -361,7 +370,50 @@ textarea{
 
 .cmslist {
 	height: 105px;
-    overflow-y: scroll;
+  overflow-y: scroll;
+}
+
+.codes, .codesEdit{
+	background: #fff;
+  padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.codes > span, .codesEdit > span{
+  cursor: pointer;
+  display: block;
+  float: left;
+  color: #fff;
+  background: #F8A622;
+  padding: 5px;
+  padding-right: 25px;
+  margin: 4px;
+}
+
+.codes > span:hover, .codesEdit > span:hover{
+  background: #F68720
+}
+
+.codes > span:after, .codesEdit > span:after{
+ position:absolute;
+ content:"×";
+ padding:2px 5px;
+ margin-left:3px;
+ font-size:11px;
+}
+
+.codes > input, .codesEdit > input{
+  background: #fff;
+  border:1px;
+  margin:4px;
+}
+
+.codes > input:active, .codesEdit > input:active, .codes > input:focus, .codesEdit > input:focus{
+	outline: none;
 }
 
 .sendmessage .modal-content, .responsemessage .modal-content, .readmessage .modal-content {
@@ -501,7 +553,11 @@ textarea{
 }
 
 .table-striped > tbody > tr > td{
-     vertical-align: middle;
+	vertical-align: middle;
+}
+
+.table-striped > tbody > tr.editMode > td{
+	vertical-align: initial;
 }
 
 .table-striped .label, .table-striped .cmUsers span{

@@ -5,10 +5,6 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
-
 	include_once 'header_dash.php';
 
 	echo "<script>window.navActive = 'profile';</script>";
@@ -45,7 +41,7 @@
 								</div>
 								<div class="col-md-7">
 									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $name; ?>" name="name" autocomplete="off" tabindex="1">
+										<input type="text" class="form-control" value="<? echo $user->name; ?>" name="name" autocomplete="off" tabindex="1">
 									</div>
 								</div>
 							</div>
@@ -67,7 +63,7 @@
 								</div>
 								<div class="col-md-7">
 									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $surname; ?>" name="surname" autocomplete="off" tabindex="2">
+										<input type="text" class="form-control" value="<? echo $user->surname; ?>" name="surname" autocomplete="off" tabindex="2">
 									</div>
 								</div>
 							</div>

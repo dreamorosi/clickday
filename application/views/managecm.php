@@ -10,19 +10,12 @@
 	echo '<link rel="stylesheet" type="text/css" href="' . base_url('assets/css/dashboard.css') . '"/>';
 	echo '</head>';
 
-	if($role=='admin'):
-		$name = 'Admin '. $name;
-	endif;
-
 	include_once 'header_dash.php';
 
 	echo "<script>window.navActive = 'managecm';</script>";
 	include_once 'navbar_dash.php';
 
 	echo "<script>window.cMs = " . $cMs . ";</script>";
-	echo "<script>window.pageSpan = " . $pageSpan . ";</script>";
-	echo "<script>window.maxOffset = " . $maxOffset . ";</script>";
-	echo "<script>window.pages = " . $pages . ";</script>";
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
@@ -33,51 +26,27 @@
 						<table class="table table-striped cmT">
 							<thead>
 								<tr>
-									<th>Click Master</th>
-									<th>Codice ClickMaster</th>
+									<th>Nome Completo</th>
+									<th>Codici ClickMaster</th>
 									<th>Email</th>
 									<th>Utenti associati</th>
-									<th></th>
-									<th></th>
+									<th>Con | Senza Progetto</th>
+									<th>
+										<small>Utenti per pagina</small>
+										<select class="pageSpan">
+											<option val="5" selected>5</option>
+											<option val="10">10</option>
+											<option val="20">20</option>
+										</select>
+									</th>
 								</tr>
 							</thead>
-							<tbody>
-								<?
-									$k = 0;
-									while(($k < $pageSpan)&&($k <count($rawCMs))) :
-										$tr = '<tr class="user-line" data-ID="'. $rawCMs[$k]['ID'] .'" title="Clicca per vedere gli utenti associati a ' . $rawCMs[$k]['name'] . '">';
-
-										$tr .= '<td class="cmName"><b>'. $rawCMs[$k]['name'] .'</b></td>';
-										$tr .= '<td class="cmCode">'. $rawCMs[$k]['code'] .'</td>';
-										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
-										$tr .= '<td class="cmEmail">'. $rawCMs[$k]['email'] .'</td>';
-										$tr .= '<td class="cmUsers"><span>'. $rawCMs[$k]['users'] .'</span><span class="glyphicon glyphicon-search"></span></td>';
-
-										$tr .= '<td class="cmActions"><span class="label label-info" title="Modifica Clickmaster"><span class="glyphicon glyphicon-pencil"></span></span>';
-										$tr .= '<span title="Elimina ClickMaster" data-toggle="modal" data-target=".confirm" data-action="delete" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span></td>';
-
-										$tr .= '</tr>';
-										echo $tr;
-										$k++;
-									endwhile;
-								?>
-							</tbody>
+							<tbody></tbody>
 						</table>
 					</div>
 					<div class="panel-footer text-center">
 						<nav>
-							<ul class="pagination" id="cmPages">
-								<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-								<?
-									echo '<li id="pag1" class="active" data-offset="0"><a href="#">1</a></li>';
-									$k = 1;
-									while($k < $pages):
-										echo '<li id="pag'. ($k+1) .'" data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
-										$k++;
-									endwhile;
-								?>
-								<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a data-toggle="tooltip" data-trigger="manual" data-html="true" data-placement="bottom" title='<span class="glyphicon glyphicon-ok"></span>' href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-							</ul>
+							<ul class="pagination"></ul>
 						</nav>
 					</div>
 				</div>
@@ -89,71 +58,47 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Aggiungi Click Master</div>
 					<div class="panel-body addCM">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Nome</label>
-									<input type="text" class="form-control" name="name" tabindex="1" autocomplete="off" />
+						<form>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Nome Completo</label>
+										<input type="text" class="form-control" name="fullName" tabindex="1" autocomplete="off" required/>
+										<small class="hidden text-danger">Per favore inserisci un Nome</small>
+									</div>
+									<div class="form-group">
+										<label>Email</label>
+										<input type="email" class="form-control" name="email" tabindex="2" autocomplete="off" required/>
+										<small class="hidden text-danger">Per favore inserisci un Email</small>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Codici</label>
+										<div class="codes">
+											<input type="text" tabindex="3" autocomplete="off" />
+										</div>
+										<small class="hidden text-danger">Per favore inserisci almeno un Codice ClickMaster</small>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Cognome</label>
-									<input type="text" class="form-control" name="surname" tabindex="2" autocomplete="off" />
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+									<button type="submit" class="btn btn-primary btn-block newCm"><span>Aggiungi</span></button>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>eMail</label>
-									<input type="email" class="form-control" name="email" tabindex="3" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Codice</label>
-									<input type="text" class="form-control" name="code" tabindex="4" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 text-right">
-								<p class="text-danger hidden"></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-md-offset-3">
-								<button class="btn btn-primary btn-block newCm"><span>Aggiungi</span></button>
-							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade sendmessage confirm" tabindex="-1" role="dialog" aria-labelledby="confirm" data-backdrop="static">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header text-center">
-					<h4 class="modal-title">Attenzione</h4>
-				</div>
-				<div class="modal-body">
-					<p></p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
-					<button type="button" data-loading-text="Caricamento" class="btn btn-primary">Conferma</button>
-				</div>
-			</div>
-		</div>
-	</div>
-<?
-	include_once 'footer_dash.php';
-	echo '</div>';
-?>
-
+</div>
+	<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/tag-input.js')?>"></script>
+	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/pagination.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js') ?>"></script>
 	<script src="<? echo base_url('assets/js/managecm.js'); ?>"></script>
 
 </body>
