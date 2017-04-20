@@ -435,8 +435,12 @@ class Dashboard extends CI_Controller {
 
 	public function getPlaceBirth($code)
 	{
-		$b =(array)  simplexml_load_file("http://webservices.dotnethell.it/codicefiscale.asmx/NomeComune?CodiceComune=$code");
-		return ucfirst(strtolower($b[0]));
+		$comune =(array)  simplexml_load_file("http://webservices.dotnethell.it/codicefiscale.asmx/NomeComune?CodiceComune=$code");
+		if (isset($comune[0])) {
+			return ucfirst(strtolower($comune[0]));
+		} else {
+    	return '';
+		}
 	}
 
 	public function printContract()
