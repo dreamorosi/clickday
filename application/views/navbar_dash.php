@@ -10,8 +10,12 @@
         <li>
           <a href="<? echo base_url('dashboard'); ?>">
             <?
-            $title = $role=='admin' ? 'Admin ' : '';
-            echo $title . $fullName;
+            if ($role === 'user') {
+              echo $user->name . ' ' . $user->surname;
+            } else {
+              $title = $role=='admin' ? 'Admin ' : '';
+              echo $title . ' ' . $fullName;
+            }
               if($cnots > 0):
             ?>
             <span class="badge pull-right" id="cnots2">
