@@ -184,7 +184,17 @@ class User extends CI_Model
     $deletedUser = array(
       'name' => 'Utente',
       'surname' => 'Cancellato',
-      'ghost' => '1'
+      'ghost' => '1',
+      'email' => '',
+      'phone' => '',
+      'password' => '',
+      'dateBirth' => '',
+      'country' => '',
+      'address' => '',
+      'cf' => '',
+      'prov' => '',
+      'cap' => '',
+      'work' => ''
     );
     $this->db->delete('contracts', array('user' => $ID));
     $this->db->delete('screenshots', array('user' => $ID));
