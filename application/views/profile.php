@@ -9,226 +9,114 @@
 
 	echo "<script>window.navActive = 'profile';</script>";
 	include_once 'navbar_dash.php';
-
-	if($role=='clickMaster'):
 ?>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Click Master</div>
+				<div class="panel panel-default profile">
+					<div class="panel-heading">Modifica Dati Utente</div>
 					<div class="panel-body">
-
+						<form class="editForm">
+							<div class="row">
+								<div class="col-lg-5 col-lg-offset-1 col-md-6">
+									<input type="hidden" name="ID" value="<? echo $user->ID; ?>" />
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Nome</label>
+										<input type="text" class="form-control" name="name" autocomplete="off" tabindex="1" title="Inserisci il tuo nome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" value="<? echo $user->name ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Cognome</label>
+										<input type="text" class="form-control" name="surname" autocomplete="off" tabindex="2" title="Inserisci il tuo cognome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" value="<? echo $user->surname ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12 bday">
+										<div class="col-md-12 bday-day" data-birthDate="<? echo $user->dateBirth ?>">
+											<label>Data di nascita</label>
+										</div>
+										<div class="col-xs-4 bday-day">
+											<input type="number" class="form-control" name="bday-day" autocomplete="off" tabindex="3" title="Inserisci la tuo giorno di nascita" pattern="[1-9]{1,2}" min="1" max="31" step="1" required />
+										</div>
+										<div class="col-xs-4 bday-month">
+											<input type="number" class="form-control" name="bday-month" autocomplete="off" min="1" max="12" step="1" tabindex="4" title="Inserisci la tuo mese di nascita" pattern="[1-9]{1,2}" required />
+										</div>
+										<div class="col-xs-4 bday-year">
+											<input type="number" class="form-control" name="bday-year" autocomplete="off" min="1930" max="2000" step="1" tabindex="5" title="Inserisci il tuo anno di nascita" pattern="[1-9]{4,4}" required />
+										</div>
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Nazione</label>
+										<input type="text" class="form-control" name="country" autocomplete="off" tabindex="6" title="Inserisci la tua Nazione" value="<? echo $user->country ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Indirizzo</label>
+										<input type="text" class="form-control" name="address" autocomplete="off" tabindex="7" title="Inserisci il tuo indirizzo" value="<? echo $user->address ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<div class="col-xs-6 bday-month">
+											<label>Provincia</label>
+											<input type="text" class="form-control" maxlength="2" name="prov" autocomplete="off" tabindex="9" title="Inserisci la tua provincia" value="<? echo $user->prov ?>" required />
+										</div>
+										<div class="col-xs-6 bday-year">
+											<label>CAP</label>
+											<input type="text" class="form-control" name="cap" autocomplete="off" tabindex="10" maxlength="5" title="Inserisci il tuo Codice di avviamento postale" value="<? echo $user->cap ?>" required />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-5 col-lg-offset-1 col-md-6">
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Email</label>
+										<input type="email" class="form-control" name="email" autocomplete="off" tabindex="11" title="Inserisci una password" value="<? echo $user->email ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>N. Telefono</label>
+										<input type="tel" class="form-control" name="phone" autocomplete="off" tabindex="12" maxlength="11" title="Inserisci il tuo numero di telefono" value="<? echo $user->phone ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Professione</label>
+										<input type="text" class="form-control" name="work" autocomplete="off" tabindex="13" title="Inserisci la tua professione" value="<? echo $user->work ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Codice Fiscale</label>
+										<input type="text" class="form-control" name="cf" autocomplete="off" tabindex="14" maxlength="16" title="Inserisci il tuo codice fiscale" value="<? echo $user->cf ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<button class="btn btn-primary btn-block text-uppercase btn-lg">Salva</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel-heading">Eliminazione Profilo</div>
+					<div class="panel-body">
+						<form class="deleteForm">
+							<input type="hidden" name="ID" value="<? echo $user->ID; ?>" />
+							<div class="row">
+								<div class="col-lg-10 col-lg-offset-1">
+									<div class="form-group col-md-12 text-center">
+										<p class="text-danger">Stai per eliminare il tuo profilo, <strong>l'azione è irreversibile</strong>.</p>
+										<p>Se desideri continuare scrivi il tuo <strong>Nome Completo</strong> e premi il tasto <label class="label label-xs label-danger text-uppercase">Cancella il mio profilo</label></p>
+									</div>
+									<div class="form-group col-md-12">
+										<div class="col-md-4 col-md-offset-3">
+											<label></label>
+											<input type="text" class="form-control" name="name" autocomplete="off" tabindex="1" title="Inserisci il tuo nome" pattern="<? echo $user->name . ' ' . $user->surname; ?>" required />
+										</div>
+										<div class="col-md-2">
+											<button class="btn btn-danger btn-sm text-uppercase btn-lg">Cancella il mio profilo</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?
-	elseif($role=='user'):
-?>
-
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Dati Utente</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Nome*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $user->name; ?>" name="name" autocomplete="off" tabindex="1">
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>eMail*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="email" class="form-control" value="<? echo $email; ?>" name="emailS" autocomplete="off" tabindex="14">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Cognome*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $user->surname; ?>" name="surname" autocomplete="off" tabindex="2">
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>N. telefono*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="tel" class="form-control" value="<? echo $user->phone; ?>" name="phone" autocomplete="off" tabindex="16">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Data di nascita*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $user->dateBirth; ?>" name="dateBirth" autocomplete="off" tabindex="2">
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Codice Fiscale*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $user->cf; ?>" name="cf" autocomplete="off" tabindex="11"/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Nazione*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control"  value="<? echo $user->country; ?>"name="country" autocomplete="off" tabindex="6"/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Professione*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control" value="<? echo $user->work; ?>" name="work" autocomplete="off" tabindex="17">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Indirizzo*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control"  value="<? echo $user->address; ?>"name="address" autocomplete="off" tabindex="7"/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>CAP*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control"  value="<? echo $user->cap; ?>"name="cap" autocomplete="off" tabindex="9"/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="col-md-5 text-left">
-									<label>Provincia*</label>
-								</div>
-								<div class="col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control"  value="<? echo $user->prov; ?>"name="prov" autocomplete="off" tabindex="7"/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="col-md-6">
-									<p class="text-danger hidden">Attenzione! Il form non è stato compilato correttamente.</br>Correggere i campi contrassegnati per proseguire.</p>
-								</div>
-								<div class="col-md-6">
-									<button class="btn btn-primary btn-block text-uppercase btn-lg signup">Modifica</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-<?
-	//Admin section
-	else:
-?>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default userlistWidget">
-					<div class="panel-heading text-right"><span class="pull-left">Lista utenti</span> <a href="<? echo base_url('dashboard/test'); ?>" target="_blank" class="btn btn-sm btn-default"><span class="print glyphicon glyphicon-print"></span> Stampa</a</div>
-					<div class="panel-body">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th></th>
-									<th>User</th>
-									<th>Data registrazione</th>
-									<th>ClickMaster Associato</th>
-									<th>Conferma registrazione</th>
-									<th>Codice ricevuto</th>
-									<th>Screenshot</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?
-									$k = 0;
-									while(($k < $pageSpan)&&($k <count($rawUsers))) :
-										echo '<tr class="user-line" data-ID="'. $rawUsers[$k]['ID'] .'"><td><div class="status-circle status'. $rawUsers[$k]['status'] .'"></div></td><td><b>'. $rawUsers[$k]['name'] .'</b></td><td>'. $rawUsers[$k]['join'] .'</td><td>'. $rawUsers[$k]['clickM'] .'</td><td>'. $rawUsers[$k]['approved'] .'</td><td>'. $rawUsers[$k]['code'] .'</td><td>'. $rawUsers[$k]['screen'] .'</td>';
-										$k++;
-									endwhile;
-								?>
-							</tbody>
-						</table>
-					</div>
-					<div class="panel-footer text-center">
-						<nav>
-							<ul class="pagination">
-								<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-								<?
-									echo '<li class="active" data-offset="0"><a href="#">1</a></li>';
-									$k = 1;
-									while($k < $pages):
-										echo '<li data-offset="'. $k*$pageSpan .'"><a href="#">'. ($k+1) .'</a></li>';
-										$k++;
-									endwhile;
-								?>
-								<li class="<? if($pages==1) echo 'disabled'; ?> ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<?
-	endif;
-	include_once 'footer_dash.php';
-	echo '</div>';
-?>
-
+</div>
+	<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js') ?>"></script>
+	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/form-utils.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/profile.js'); ?>"></script>
 
 </body>

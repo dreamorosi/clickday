@@ -124,6 +124,7 @@ li.divider{
 	padding: 20px;
 	background: #E5ECF7;
 	border-top: 1px solid #D9DFEA;
+	min-height: 100vh;
 }
 
 .navbar-right li a{
@@ -657,6 +658,14 @@ tr.user-line, li.list-group-item.no-border{
 .codesWidget form label{
 	font-weight: 300;
 	cursor: pointer;
+}
+
+.profile form button{
+	margin-top: 20px;
+}
+
+.profile .panel-heading {
+	border-top: 1px solid #ddd;
 }
 
 @media (min-width: 768px) {

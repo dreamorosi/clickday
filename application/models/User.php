@@ -146,7 +146,7 @@ class User extends CI_Model
       'cap' => $usr['cap'],
       'work' => $usr['work'],
       'clickM' => $usr['clickM'],
-	  'clickM_code' => $usr['clickM_code'],
+	    'clickM_code' => $usr['clickM_code'],
       'activation' => $activation
     );
 		$this->db->insert('users', (object) $newUser);
@@ -169,12 +169,17 @@ class User extends CI_Model
 		}
 	}
 
-	function editUserInfo($usr)
+	function editUserInfo($ID, $usr)
 	{
-		$data['code'] = 200;
-		$this->db->set($usr)->where('ID', $usr['ID'])->update('users');
-		return $data;
+		$this->db->set($usr)->where('ID', $ID)->update('users');
+    return $this->db->affected_rows() > 0;
 	}
+
+  function deleteUser($ID)
+  {
+    // TODO: Actually delete user
+    return TRUE;
+  }
 
 	function activateUser($code)
 	{
