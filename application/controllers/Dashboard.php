@@ -14,6 +14,7 @@ class Dashboard extends CI_Controller {
 		$this->data['clickM'] = $this->session->userdata('clickM');
 		$this->data['role'] = $this->session->userdata('role');
 		$this->data['lastSeen'] = $this->session->userdata('lastSeen');
+		$this->data['user'] = $this->user->getUserById($this->data['ID']);
 	}
 
 	public function index()
@@ -90,7 +91,6 @@ class Dashboard extends CI_Controller {
 			if($this->data['role']=='user'){
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
 				$this->data['user'] = $this->user->getUserById($this->data['ID']);
-				$this->data['videoLink'] = $this->config->item('videoTut');
 				$this->load->view('profile', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
