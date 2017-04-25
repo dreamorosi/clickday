@@ -68,7 +68,9 @@ window.FormUtils = function (methodOrOptions) {
   // @private
   this.addError = (input) => {
     let label = this.nodeBefore(input)
-    window.scrollTo(0, 0)
+    if (this.settings.scrollTop) {
+      window.scrollTo(0, 0)
+    }
     input.classList.add(this.settings.errorClass)
     // input.setCustomValidity(input.title)
     if (label !== null) {
@@ -131,6 +133,7 @@ window.FormUtils = function (methodOrOptions) {
     }
     this.settings.extendValidation = options.extendValidation || []
     this.settings.errorClass = options.errorClass || 'has-error'
+    this.settings.scrollTop = options.scrollTop !== undefined ? options.scrollTop : true
     this.setEventListeners(options.form)
   }
 
