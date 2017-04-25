@@ -11,9 +11,9 @@ class Dashboard_model extends CI_Model
 	public function getCMusers($ID, $limit){
 		$this->db->order_by("joinDate", "desc");
 		if($limit==-1)
-			$query = $this->db->get_where('users', array('clickM' => $ID));
+			$query = $this->db->get_where('users', array('clickM' => $ID, 'ghost' => 0));
 		else
-			$query = $this->db->get_where('users', array('clickM' => $ID), $limit);
+			$query = $this->db->get_where('users', array('clickM' => $ID, 'ghost' => 0), $limit);
 		return $query->result();
 
 	}
@@ -23,7 +23,7 @@ class Dashboard_model extends CI_Model
 		$this->db->order_by('joinDate', "desc");
 		if($limit!=-1)
 			$this->db->limit($limit);
-		$query = $this->db->get('users');
+		$query = $this->db->get_where('users', array('ghost' => 0));
 		return $query->result();
 	}
 

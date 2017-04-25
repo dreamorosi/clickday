@@ -14,19 +14,23 @@ class User extends CI_Model
 		$password = do_hash($password);
 		$query = $this->db->get_where('users', array('email' => $email, 'password' => $password));
 		if ($query->num_rows() > 0){
-			$newdata = array(
-				'email'     => $email,
-				'isLogged' => TRUE,
-				'name' => $query->row()->name,
-				'surname' => $query->row()->surname,
-				'ID' => $query->row()->ID,
-				'approved' => $query->row()->approved,
-				'clickM' => $query->row()->clickM,
-				'role' => 'user',
-				'lastSeen' => $query->row()->lastSeen
-			);
-			$this->session->set_userdata($newdata);
-			return TRUE;
+      if ($query->row()->ghost === '0') {
+        $loggedUser = array(
+  				'email'     => $email,
+  				'isLogged' => TRUE,
+  				'name' => $query->row()->name,
+  				'surname' => $query->row()->surname,
+  				'ID' => $query->row()->ID,
+  				'approved' => $query->row()->approved,
+  				'clickM' => $query->row()->clickM,
+  				'role' => 'user',
+  				'lastSeen' => $query->row()->lastSeen
+  			);
+  			$this->session->set_userdata($loggedUser);
+  			return TRUE;
+      } else {
+        return FALSE;
+      }
 		}else{
 			return FALSE;
 		}
@@ -177,8 +181,15 @@ class User extends CI_Model
 
   function deleteUser($ID)
   {
-    // TODO: Actually delete user
-    return TRUE;
+    $deletedUser = array(
+      'name' => 'Utente',
+      'surname' => 'Cancellato',
+      'ghost' => '1'
+    );
+    $this->db->delete('contracts', array('user' => $ID));
+    $this->db->delete('screenshots', array('user' => $ID));
+    $this->db->set($deletedUser)->where('ID', $ID)->update('users');
+    return $this->db->affected_rows() > 0;
   }
 
 	function activateUser($code)
