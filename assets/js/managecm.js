@@ -2,8 +2,6 @@ const $ = window.$
 let cMs = window.cMs
 let allCodes = []
 
-// TODO: Set up tag for codes
-
 // Set event listeners and call appropriate functions
 $(document).ready(function () {
   $('table').paginator({

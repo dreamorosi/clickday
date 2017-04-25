@@ -120,14 +120,13 @@ class Dashboard extends CI_Controller {
 		if($this->data['isLogged']){
 			if($this->data['role']!='user'){
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+				$rawScreens = array();
 				if($this->data['role']=='clickMaster'){
-					$this->data['screens'] = $this->dashboard_model->paginateScreens($this->dashboard_model->getScreens($this->session->userdata('ID')));
+					$rawScreens = $this->dashboard_model->paginateScreens($this->dashboard_model->getScreens($this->session->userdata('ID')));
 				}else{
-					$this->data['screens'] = $this->dashboard_model->paginateScreens($this->dashboard_model->getScreens(-1));
+					$rawScreens = $this->dashboard_model->paginateScreens($this->dashboard_model->getScreens(-1));
 				}
-				$this->data['pageSpan'] = 2;
-				$this->data['pages'] = ceil(count($this->data['screens'])/$this->data['pageSpan']);
-				$this->data['maxOffset'] = $this->data['pageSpan'] * ($this->data['pages']-1);
+				$this->data['screens'] = json_encode($rawScreens);
 				$this->load->view('screens', $this->data);
 			}else{
 				redirect(base_url('signup'));
@@ -424,9 +423,11 @@ class Dashboard extends CI_Controller {
 
 	public function changeScreen()
 	{
-		$data = $this->dashboard_model->controlScreen($this->input->post('ID'), $this->input->post('action'), $this->input->post('userid'));
-		if(!$data){
-			$this->output->set_status_header('500');
+		$ID = $this->input->post('ID');
+		$action = $this->input->post('action');
+		$userID = $this->input->post('userID');
+		$result = $this->dashboard_model->controlScreen($ID, $action, $userID);
+		if(!$result){
 			echo json_encode(FALSE);
 		}else{
 			echo json_encode(TRUE);

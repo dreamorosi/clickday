@@ -1,140 +1,93 @@
-$(document).ready(function(){
-	screens = window.screens;
-	pageSpan = window.pageSpan;
-	maxOffset = window.maxOffset;
-	current = 0;
-	
-	
-	$( ".thumb" ).each(function( index ) {
-		//this.
-	  //console.log( index + ": " + $( this ).text() );
-	});
-	
-	var evt = new Event(),
-    m = new Magnifier(evt);
-	
-	m.attach({
-		thumb: '.thumb',
-		zoom: 2,
-		zoomable: true
-		
-	});
-	
-	console.log(window.screens);
-	
-	function showPage(offset){
-		offset = parseInt(offset);
-		$('.prev, .next').removeClass('disabled');
-		if(offset==0)$('.prev').addClass('disabled');
-		if(offset==maxOffset) $('.next').addClass('disabled');
-		if(offset<maxOffset){
-			$('.table-striped tbody').empty();
-			for(var i = offset; i < offset+pageSpan; i++){
-				$('.table-striped tbody').append('<tr class="screen-line"><td>'+screens[i].name+'</td><td><div class="magnifier-thumb-wrapper"><img class="thumb" style="width: 298px;" src="'+window.base_url+'assets/uploads/screenshots/thumbs/'+screens[i].filename+'" data-large-img-url="'+window.base_url+'assets/uploads/screenshots/'+screens[i].filename+'" data-large-img-wrapper="preview'+screens[i].ID+'"/></div></td><td><div class="magnifier-preview" id="preview'+screens[i].ID+'" style="width: 298px;"></div></td><td><span class="label label-success" data-action="2" data-id="'+screens[i].ID+'" data-userid="'+screens[i].userID+'"><span class="glyphicon glyphicon-ok"></span></span> <span class="label label-danger" data-action="-1" data-id="'+screens[i].ID+'" data-userID="'+screens[i].userID+'"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
-			}
-		}else{
-			$('.table-striped tbody').empty()
-			for(var i = offset; i < screens.length; i++){
-				$('.table-striped tbody').append('<tr class="screen-line"><td>'+screens[i].name+'</td><td><div class="magnifier-thumb-wrapper"><img class="thumb" style="width: 298px;" src="'+window.base_url+'assets/uploads/screenshots/thumbs/'+screens[i].filename+'" data-large-img-url="'+window.base_url+'assets/uploads/screenshots/'+screens[i].filename+'" data-large-img-wrapper="preview'+screens[i].ID+'"/></div></td><td><div class="magnifier-preview" id="preview'+screens[i].ID+'" style="width: 298px;"></div></td><td><span class="label label-success" data-action="2" data-id="'+screens[i].ID+'" data-userid="'+screens[i].userID+'"><span class="glyphicon glyphicon-ok"></span></span> <span class="label label-danger" data-action="-1" data-id="'+screens[i].ID+'" data-userid="'+screens[i].userID+'"><span class="glyphicon glyphicon-remove"></span></span></td></tr>');
-			};
-		}
-		current = offset;
-		var evt = new Event(),
-		m = new Magnifier(evt);
-		m.attach({
-			thumb: '.thumb',
-			zoom: 2,
-			zoomable: true
-		});
-	}
-	
-	function nextPage(el){
-		if(el.hasClass('disabled')) return;
-		else
-		if(el.hasClass('prev')){
-			if(current>0){
-				el = $('.pagination .active').prev();
-				$('.pagination li').removeClass('active');
-				el.addClass('active');
-			}
-			showPage(current-pageSpan)
-		}else{
-			if(current<maxOffset){
-				el = $('.pagination .active').next();
-				$('.pagination li').removeClass('active');
-				el.addClass('active');
-			}
-			showPage(current+pageSpan);
-		}
-	}
-	
-	function updatePaginator(ac){
-		$('#scrPages').empty().append('<li class="disabled ext prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
-		var c = 0;
-		if(ac>pages)
-			ac=(pages-1)*pageSpan;
-		while(c < pages){
-			if(eval(c*pageSpan)==eval(ac)){
-				$('#scrPages').append('<li class="active" id="pag'+(c+1)+'" data-offset="'+ (c*pageSpan) +'"><a href="#">'+ (c+1) +'</a></li>');
-			}else{
-				$('#scrPages').append('<li id="pag'+(c+1)+'" data-offset="'+ (c*pageSpan) +'"><a href="#">'+ (c+1) +'</a></li>');
-			}
-			c++;
-		}
-		k = '';
-		if(pages==1) k='disabled';
-		$('#scrPages').append('<li class="'+k+' ext next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
-	}
-	
-	$('#scrPages').on('click','li', function(){
-		if($(this).hasClass('active')) return;
-		else if($(this).hasClass('ext')){
-			nextPage($(this));
-		}
-		else{
-			$('#scrPages li').removeClass('active');
-			$(this).addClass('active');
-			showPage($(this).attr('data-offset'));
-		}
-	});
-	
-	function rebuild(chosen){
-		var tmp = [];
-		for(i=0; i<screens.length; i++){
-			if(screens[i].ID!=chosen)
-				tmp.push(screens[i]);
-		}
-		screens = tmp;
-	}
-	
-	$('body').on('click', '.label', function(){
-		console.log('ok');
-		$rowEl = $(this).parent().parent();
-		action = $(this).data('action');
-		id = $(this).data('id');
-		userid = $(this).data('userid');
-		$.ajax({
-			method: 'POST',
-			dataType: 'json',
-			url: window.base_url + 'dashboard/changeScreen/',
-			data: 'ID='+id+'&action='+action+'&userid='+userid,
-			beforeSend: function(){
-				
-			},
-			success: function(data){
-				rebuild(id);
-				$rowEl.fadeOut('750', function(){
-					$(this).remove();
-					pages = Math.ceil(screens.length/pageSpan);
-					maxOffset = pageSpan * (pages-1);
-					el = $('#scrPages .active');
-					ofst = el.data('offset');
-					if(ofst>maxOffset)
-					ofst=maxOffset;
-					updatePaginator(ofst);
-					showPage(ofst);
-				});
-			}
-		});
-	});
-});
+const $ = window.$
+const Event = window.Event
+const Magnify = window.Magnifier
+let screens = window.screens
+
+$(document).ready(function () {
+  $('table').paginator({
+    factory: rowFactory,
+    list: screens
+  })
+
+  let evt = new Event()
+  let m = new Magnify(evt)
+
+  m.attach({
+    thumb: '.thumb',
+    zoom: 2,
+    zoomable: true
+  })
+})
+
+const renderImage = (filename, ID) => {
+  let url = `${window.base_url}assets/uploads/screenshots/thumbs/${filename}`
+  let image = `<img class="thumb" style="width: 298px;" src="${url}" data-large-img-url="${url}" data-large-img-wrapper="preview${ID}" />`
+  return `<div class="magnifier-thumb-wrapper">${image}</div>`
+}
+
+const renderPreview = (ID) => `<div class="magnifier-preview" id="preview${ID}" style="width: 298px;"></div>`
+
+// Creates a row in the table
+const rowFactory = (container, screen) => {
+  let $tds = `<td><b>${screen.name}</b></td>`
+  $tds += `<td>${renderImage(screen.filename, screen.ID)}</td>`
+  $tds += `<td>${renderPreview(screen.ID)}</td>`
+
+  let $editBtn = `<button class="btn btn-sm btn-success approveScreen" data-userid="${screen.userID}" title="Approva"><span class="glyphicon glyphicon-ok"></span></button>`
+
+  let $deleteBtn = `<button class="btn btn-sm btn-danger rejectScreen" data-userid="${screen.userID}" title="Rifiuta"><span class="glyphicon glyphicon-remove"></span></button>`
+
+  $tds += `<td>${$editBtn} ${$deleteBtn}</td>`
+
+  let $tr = `<tr class='screen-line' data-ID='${screen.ID}'>${$tds}</tr>`
+  container.append($tr)
+  setRowEvents()
+}
+
+// Get the ID of the pressed button's row
+const getId = el => $(el).parent().parent().data('id').toString()
+
+// Get the userID of the button
+const getUserID = el => el.dataset.userid
+
+const setRowEvents = () => {
+  // Reject Screen
+  $('.screen-line').on('click', '.rejectScreen', (e) => {
+    e.stopImmediatePropagation()
+    e.stopPropagation()
+    let el = e.currentTarget
+    let ID = getId(el)
+    let userID = getUserID(el)
+    postChangeScreen(ID, userID, -1)
+  })
+
+  // Approve Screen
+  $('.screen-line').on('click', '.approveScreen', (e) => {
+    e.stopImmediatePropagation()
+    e.stopPropagation()
+    let el = e.currentTarget
+    let ID = getId(el)
+    let userID = getUserID(el)
+    postChangeScreen(ID, userID, 2)
+  })
+}
+
+// Approve or Reject Screen
+const postChangeScreen = (ID, userID, action) => {
+  // TODO: Test and update list
+  $.ajax({
+    method: 'POST',
+    dataType: 'json',
+    url: `${window.base_url}dashboard/changeScreen/`,
+    data: `ID=${ID}&userid=${userID}&action=${action}`,
+    beforeSend: () => {},
+    success: (data) => {
+      console.log(data)
+      if (data) {
+        $.notify({type: 'success', message: 'Operazione avvenuta con successo'})
+      } else {
+        $.notify({type: 'error', message: 'Si è verificato un errore, aggiornare e riprovare.'})
+      }
+    }
+  })
+}
