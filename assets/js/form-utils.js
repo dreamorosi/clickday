@@ -128,8 +128,11 @@ window.FormUtils = function (methodOrOptions) {
     this.isInit = 1
     this.settings.form = options.form
     this.settings.extendValidation = options.extendValidation
+    if (this.settings.form === null) {
+      console.error(`${this.pluginName}No Form provided in options`)
+      return
+    }
     this.setEventListeners(options.form)
-    // console.log(options)
   }
 
   // Process form aka returns a new object
