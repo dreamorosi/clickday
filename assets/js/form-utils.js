@@ -5,9 +5,7 @@ window.FormUtils = function (methodOrOptions) {
 
   this.pluginName = 'fn.formUtils() - '
   this.isInit = 0
-  this.settings = {
-    errorClass: 'has-error'
-  }
+  this.settings = {}
   this.isValid = 1
 
   /*
@@ -127,11 +125,12 @@ window.FormUtils = function (methodOrOptions) {
   this.init = (options) => {
     this.isInit = 1
     this.settings.form = options.form
-    this.settings.extendValidation = options.extendValidation
     if (this.settings.form === null) {
       console.error(`${this.pluginName}No Form provided in options`)
       return
     }
+    this.settings.extendValidation = options.extendValidation || []
+    this.settings.errorClass = options.errorClass || 'has-error'
     this.setEventListeners(options.form)
   }
 
