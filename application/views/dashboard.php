@@ -100,48 +100,7 @@
 	<? if($role == 'user'): ?>
 
 		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-default uploadWidget">
-					<div class="panel-heading">Screenshot</div>
-					<div class="panel-body">
-						<? if($screen_uploaded==0): ?>
-							<div class="form-group uploadbtn2">
-								<span class="btn btn-default btn-file uploadbtn">
-									<span>Carica screenshot</span>
-									<input type="file" name="userfile" id="userfile" size="20" />
-								</span>
-							</div>
-						<? elseif($screen_uploaded==1): ?>
-							<div class="form-group uploadbtn2">
-								<span class="btn btn-default btn-file uploadbtn">
-									<span>Cambia screenshot</span>
-									<input type="file" name="userfile" id="userfile" size="20" />
-								</span></br></br>
-								<img src="<? echo base_url('assets/uploads/screenshots'). "/" . $screenshot; ?>">
-							</div>
-						<? elseif($screen_uploaded==-1): ?>
-							<div class="form-group uploadbtn2">
-								ATTENZIONE: il tuo screenshot non è stato approvato, prova a caricarne uno nuovo e attendi una nuova approvazione.
-								<span class="btn btn-default btn-file uploadbtn">
-									<span>Cambia screenshot</span>
-									<input type="file" name="userfile" id="userfile" size="20" />
-								</span></br></br>
-								<img src="<? echo base_url('assets/uploads/screenshots'). "/" . $screenshot; ?>">
-							</div>
-						<? elseif($screen_uploaded==2): ?>
-							<div class="form-group uploadbtn2">
-								Complimenti, il tuo screen è stato approvato.
-								<br></br>
-								<img src="<? echo base_url('assets/uploads/screenshots'). "/" . $screenshot; ?>">
-							</div>
-						<? endif ?>
-					<div class="errorBox"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-		    <div class="col-md-6">
+	    <div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">Scarica contratto</div>
 					<div class="panel-body">
@@ -150,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-		    </div>
+	    </div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">Carica contratto firmato</div>
@@ -175,6 +134,42 @@
 							<? endif; ?>
 						<div class="errorBox2"></div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12">
+				<div class="panel panel-default uploadWidget">
+					<div class="panel-heading">Screenshot</div>
+					<div class="panel-body">
+						<? if ($screen_uploaded == 2): ?>
+						<p>Complimenti, il tuo screen è stato approvato.</p>
+						<? else: ?>
+							<div class="col-md-6">
+								<? if ($screen_uploaded == -1): ?>
+									<p>ATTENZIONE: il tuo screenshot non è stato approvato, prova a caricarne uno nuovo e attendi una nuova approvazione.</p>
+								<? endif; ?>
+								<div class="form-group uploadbtn2">
+									<span class="btn btn-default btn-file uploadbtn">
+										<?
+											if ($screen_uploaded == 0) {
+												echo '<span>Carica screenshot</span>';
+											} elseif ($screen_uploaded == 1 || $screen_uploaded == -1){
+												echo '<span>Cambia screenshot</span>';
+											}
+										?>
+										<input type="file" name="userfile" id="userfile" size="20" />
+									</span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<? if($screen_uploaded == 1 || $screen_uploaded == -1): ?>
+								<img src="<? echo base_url('assets/uploads/screenshots'). "/" . $screenshot; ?>">
+								<? endif; ?>
+							</div>
+						<? endif; ?>
+					</div>
+					<div class="errorBox"></div>
 				</div>
 			</div>
 		</div>
@@ -214,10 +209,6 @@
 				</div>
 			</div>
 		</div>
-<?
-	//Admin section
-	else:
-?>
 <?
 	endif;
 ?>
