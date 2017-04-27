@@ -17,11 +17,20 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
-<?
-					echo '<li><a href="' . base_url('dashboard') . '">' . $name . ' ' . $surname;
-
-					if($cnots > 0) echo '<span class="badge pull-right">' . $cnots . '<span class="glyphicon glyphicon-envelope"></span>';
-
+					<?
+					if ($role === 'user') {
+						echo $user->name . ' ' . $user->surname;
+					} else {
+						$title = $role=='admin' ? 'Admin ' : '';
+						echo $title . ' ' . $fullName;
+					}
+					if($cnots > 0):
+						?>
+						<span class="badge pull-right" id="cnots2">
+							<? echo $cnots; ?>
+							<span class="glyphicon glyphicon-envelope"></span>
+						</span>
+					<? endif;
 					echo '</span></a></li><li role="separator" class="divider"></li>';
 					if($role != 'user'):
 						echo '<li><a href="#">Home</a></li>';

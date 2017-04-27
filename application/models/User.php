@@ -32,84 +32,60 @@ class User extends CI_Model
 		}
 	}
 
-	function sendActivationMail($email, $role, $activation)
-	{
-		$this->load->library('email');
+  function shotMail($email, $subject, $payload, $template)
+  {
+    $this->load->library('email');
 		$this->load->helper('url');
-    $config['protocol']    = 'smtp';
-    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port']    = '25';
+    $config['protocol'] = 'smtp';
+    $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port'] = '25';
     $config['smtp_timeout'] = '7';
-    $config['smtp_user']    = 'info@clickdayats.it';
-    $config['smtp_pass']    = 'YUcd_2016!';
+    $config['smtp_user'] = 'info@clickdayats.it';
+    $config['smtp_pass'] = 'YUcd_2016!';
 		$config['validate'] = 'FALSE';
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
 		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
 		$this->email->to($email);
-		if($role == 'usr'){
-			$this->email->subject('Registrazione ClickDay 2017');
-			$data = array( 'base_url' => base_url(), 'code' => base_url('users/activate/'.$activation));
-			$content = $this->load->view('emails/activation', $data, TRUE);
-		}elseif($role=='cm'){
-			$split = explode("***", $activation);
-			$this->email->subject('Nuovo Utente Registrato ClickDay 2017');
-			$data = array( 'base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
-			$content = $this->load->view('emails/activation_cm', $data, TRUE);
-		}
-		$this->email->message($content);
+    $this->email->subject($subject);
+    $content = $this->load->view($template, $payload, TRUE);
+    $this->email->message($content);
 		$this->email->send();
+  }
+
+	function sendActivationMail($email, $role, $activation)
+	{
+		$subject = 'Registrazione ClickDay 2017';
+		$data = array( 'base_url' => base_url(), 'code' => base_url('users/activate/'.$activation));
+		$template = 'emails/activation';
+		if ($role === 'cm') {
+			$split = explode("***", $activation);
+			$subject = 'Nuovo Utente Registrato ClickDay 2017';
+			$data = array( 'base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
+			$template = 'emails/activation_cm';
+		}
+		$this->shotMail($email, $subject, $data, $template);
 	}
 
 	function sendRecoveryMail($email, $code)
 	{
-		$this->load->library('email');
-		$this->load->helper('url');
-    $config['protocol']    = 'smtp';
-    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port']    = '25';
-    $config['smtp_timeout'] = '7';
-    $config['smtp_user']    = 'info@clickdayats.it';
-    $config['smtp_pass']    = 'YUcd_2016!';
-		$config['validate'] = 'FALSE';
-		$config['mailtype'] = 'html';
-		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
-		$this->email->to($email);
-		$this->email->subject('Recupero Password ClickDay 2017');
+		$subject = 'Recupero Password ClickDay 2017';
 		$data = array( 'base_url' => base_url(), 'recovery' => base_url('login/forgot/'.$code));
-		$content = $this->load->view('emails/recovery', $data, TRUE);
-		$this->email->message($content);
-		$this->email->send();
+		$template = 'emails/recovery';
+		$this->shotMail($email, $subject, $data, $template);
 	}
 
 	function sendConfirmActivation($email, $role, $payload)
 	{
-		$this->load->library('email');
-		$this->load->helper('url');
-    // TODO: Separate function sendmail parameters
-    $config['protocol']    = 'smtp';
-    $config['smtp_host']    = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port']    = '25';
-    $config['smtp_timeout'] = '7';
-    $config['smtp_user']    = 'info@clickdayats.it';
-    $config['smtp_pass']    = 'YUcd_2016!';
-		$config['validate'] = 'FALSE';
-		$config['mailtype'] = 'html';
-		$this->email->initialize($config);
-		$this->email->from('info@clickdayats.it', 'ClickDay 2017');
-		$this->email->to($email);
-		if($role == 'usr'){
-			$this->email->subject('Conferma Attivazione ClickDay 2017');
-			$data = array( 'base_url' => base_url());
-			$content = $this->load->view('emails/confirm_usr', $data, TRUE);
-		}elseif($role == 'cm'){
-			$this->email->subject('Nuovo Utente Verificato ClickDay 2017');
-			$data = array( 'base_url' => base_url(), 'name' => $payload);
-			$content = $this->load->view('emails/confirm_cm', $data, TRUE);
-		}
-		$this->email->message($content);
-		$this->email->send();
+    $subject = 'Conferma Attivazione ClickDay 2017';
+    $data = array( 'base_url' => base_url());
+    $template = 'emails/confirm_usr';
+    if ($role === 'cm') {
+      $subject = 'Nuovo Utente Verificato ClickDay 2017';
+      $data = array( 'base_url' => base_url(), 'name' => $payload);
+      $template = 'emails/confirm_cm';
+    }
+    $this->shotMail($email, $subject, $data, $template);
 	}
 
 	function createNewUser($usr)
@@ -146,7 +122,7 @@ class User extends CI_Model
       'cap' => $usr['cap'],
       'work' => $usr['work'],
       'clickM' => $usr['clickM'],
-	  'clickM_code' => $usr['clickM_code'],
+	    'clickM_code' => $usr['clickM_code'],
       'activation' => $activation
     );
 		$this->db->insert('users', (object) $newUser);
@@ -275,6 +251,7 @@ class User extends CI_Model
 			}
 			return $query->row();
 		}else{
+      log_message('error', 'ERROR: I am :bug: you have been hunting since 27/4 2:50. The $ID was ' . $ID . ' type ' . gettype($ID));
 			return FALSE;
 		}
 	}

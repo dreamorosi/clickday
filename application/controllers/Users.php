@@ -37,7 +37,7 @@ class Users extends CI_Controller {
 			'phone' => $this->input->post('phone'),
 			'password' => $this->input->post('password'),
 			'clickM' => $this->input->post('code'),
-            'clickM_code' => $this->input->post('code'),
+      'clickM_code' => $this->input->post('code'),
 		);
 
 		if ($usr['clickM'] === '') {
@@ -118,9 +118,9 @@ class Users extends CI_Controller {
 		$ID = $this->session->userdata('ID');
 		$this->load->library('upload', $config);
 
-		$config2['image_library'] = 'gd2';
-		$config2['maintain_ratio'] = TRUE;
-		$config2['width']	= 298;
+		$imageLib['image_library'] = 'gd2';
+		$imageLib['maintain_ratio'] = TRUE;
+		$imageLib['width']	= 298;
 
 
 
@@ -134,10 +134,12 @@ class Users extends CI_Controller {
 			//	$this->output->set_status_header('500');
 				echo json_encode(FALSE);
 			}else{
-				$config2['source_image']	= $_SERVER['DOCUMENT_ROOT'] .'/assets/uploads/screenshots/' . $filename;
-				$config2['new_image']	= $_SERVER['DOCUMENT_ROOT'] .'/assets/uploads/screenshots/thumbs/';
-				$this->load->library('image_lib', $config2);
+				$imageLib['source_image']	= $_SERVER['DOCUMENT_ROOT'] .'/assets/uploads/screenshots/' . $filename;
+				$imageLib['new_image']	= $_SERVER['DOCUMENT_ROOT'] .'/assets/uploads/screenshots/thumbs/';
+				$this->load->library('image_lib');
+				$this->image_lib->initialize($imageLib);
 				$this->image_lib->resize();
+				$this->image_lib->clear();
 				echo json_encode($filename);
 			}
 		}
@@ -145,7 +147,7 @@ class Users extends CI_Controller {
 
 	public function upload2(){
 		$config['upload_path']	= './assets/uploads/contratti/';
-		$config['allowed_types']= '*';
+		$config['allowed_types']= 'pdf|jpg|png|doc|docx';
 		$config['max_size']		= 5000;
 		$config['encrypt_name']	= TRUE;
 		$ID = $this->session->userdata('ID');
