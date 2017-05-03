@@ -50,32 +50,29 @@ class Users extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function editUser()
+	public function editUser($ID)
 	{
 		$usr = array(
 			'ID' => $this->data['ID'],
-			'name' => $this->input->post('name'),
-			'surname' => $this->input->post('surname'),
-			'email' => $this->input->post('emailS'),
-			'dateBirth' => $this->input->post('dateBirth'),
+			'name' => ucfirst($this->input->post('name')),
+ 			'surname' => ucfirst($this->input->post('surname')),
+ 			'email' => $this->input->post('email'),
+ 			'dateBirth' => $this->input->post('bday-day') .'/'. $this->input->post('bday-month') .'/'. $this->input->post('bday-year'),
 			'country' => $this->input->post('country'),
 			'address' => $this->input->post('address'),
 			'cap' => $this->input->post('cap'),
-			'prov' => $this->input->post('prov'),
-			'cf' => $this->input->post('cf'),
-			'work' => $this->input->post('work'),
+			'prov' => strtoupper($this->input->post('prov')),
+			'cf' =>strtoupper( $this->input->post('cf')),
+			'work' => ucfirst($this->input->post('work')),
 			'phone' => $this->input->post('phone')
 		);
-		$data = $this->user->editUserInfo($usr);
-		if($data['code']==409){
-			$this->output->set_status_header('409');
-			echo json_encode($data['message']);
-		}elseif($data['code']==500){
-			$this->output->set_status_header('500');
-			echo json_encode(FALSE);
-		}else{
-			echo json_encode(TRUE);
+		$data = array();
+ 		if ($this->data['ID'] === $ID) {
+			$data['success'] = $this->user->editUserInfo($ID, $usr);
+		} else {
+			$data['success'] = FALSE;
 		}
+		echo json_encode($data);
 	}
 
 	public function activate($code = NULL)

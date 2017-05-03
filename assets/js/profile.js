@@ -1,60 +1,47 @@
-$(document).ready(function(){
+const $ = window.$
+const FormUtils = window.FormUtils
 
-	$('button.signup').click(function(){
-		removeErrors();
-		valid = true;
-		if(!checkNamePunct($('.form-control[name=name]'))){valid = false}
-		if(!checkNamePunct($('.form-control[name=surname]'))){valid = false}
-		if(!checkDigits($('.form-control[name=phone]'))){valid = false};
-		if(!checkEmail($('.form-control[name=emailS]'))){valid = false};
+$(document).ready(function () {
+  prepareDate()
 
-		if($.trim($('.form-control[name=dateBirth]').val()) == ""){valid = false};
+  let editForm = new FormUtils()
+  editForm.init({
+    form: document.querySelector('.editForm')
+  })
 
-		if($.trim($('.form-control[name=address]').val())==""){valid = false}
+  $('.editForm').on('submit', (e) => {
+    e.preventDefault()
+    let form = e.currentTarget
+    let $btn = $(form).find('button')
+    if (!$btn.hasClass('disabled')) {
+      let updatedUser = editForm.process()
+      if (updatedUser.valid) {
+        $.ajax({
+          method: 'POST',
+          url: `${window.base_url}users/editUser/${updatedUser.payload.ID}`,
+          dataType: 'json',
+          data: updatedUser.payload,
+          beforeSend: () => $btn.text('Caricamento').addClass('disabled'),
+          success: (data) => {
+            $btn.text('Salva').removeClass('disabled')
+            if (data.success) {
+              $.notify({type: 'success', message: 'Profilo aggiornato con successo!'})
+            } else {
+              $.notify({type: 'error', message: 'Si è verificato un errore inaspettato, aggiornare la pagina.'})
+            }
+          }
+        })
+      } else {
+        return
+      }
+    }
+  })
+})
 
-		if(!checkDigits($('.form-control[name=cap]'))){valid = false}
-		if(!checkNamePunct($('.form-control[name=prov]'))){valid = false}
-		if(!checkCF($('.form-control[name=cf]'))){valid = false}
-
-		if(!checkNamePunct($('.form-control[name=country]'))){valid = false}
-		if(!checkNamePunct($('.form-control[name=work]'))){valid = false}
-		if(valid){
-			$.ajax({
-				method: 'POST',
-				dataType: 'json',
-				url: window.base_url + 'users/editUser/',
-				data: $('.form-control[name=name]').serialize()+'&'+$('.form-control[name=surname]').serialize()+'&'+$('.form-control[name=dateBirth]').serialize()+'&'+$('.form-control[name=country]').serialize()+'&'+$('.form-control[name=address]').serialize()+'&'+$('.form-control[name=cap]').serialize()+'&'+$('.form-control[name=prov]').serialize()+'&'+$('.form-control[name=cf]').serialize()+'&'+$('.form-control[name=emailS]').serialize()+'&'+$('.form-control[name=phone]').serialize()+'&'+$('.form-control[name=work]').serialize(),
-				beforeSend: function(){
-					$('button.signup').button('loading');
-				},
-				success: function(data){
-					$('button.signup').button('reset');
-					window.location.href = window.base_url+"dashboard";
-				},
-				error: function(data){
-					$('button.signup').button('reset');
-					if(data.status == 409){
-						$(' .text-danger').removeClass('hidden').text(data.responseJSON);
-					}else{
-						$(' .text-danger').removeClass('hidden').text('Si è verificato un errore inaspettato, aggiornare la pagina e ritentare');
-					}
-				}
-			});
-		}else{
-			$('.text-danger').removeClass('hidden');
-			return
-		}
-	});
-
-	$('body').on('click', '.winners .modal-footer a', function(e){
-		$.ajax({
-			method: 'POST',
-			dataType: 'json',
-			url: window.base_url + 'dashboard/confirmWinner/',
-			data: 'role='+$(this).data('role')+'&ID='+$(this).data('id'),
-			success: function(data){
-				$('.winners').modal('toggle');
-			}
-		});
-	});
-});
+const prepareDate = () => {
+  const bday = document.querySelector('.editForm .bday')
+  const label = bday.querySelectorAll('.bday-day')
+  const date = label[0].dataset.birthdate.split('/')
+  const inputs = Array.from(bday.querySelectorAll('input'))
+  inputs.forEach((input, i) => (input.value = parseInt(date[i])))
+}

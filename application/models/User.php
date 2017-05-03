@@ -145,11 +145,10 @@ class User extends CI_Model
 		}
 	}
 
-	function editUserInfo($usr)
+	function editUserInfo($ID, $usr)
 	{
-		$data['code'] = 200;
-		$this->db->set($usr)->where('ID', $usr['ID'])->update('users');
-		return $data;
+		$this->db->set($usr)->where('ID', $ID)->update('users');
+		return $this->db->affected_rows() > 0;
 	}
 
 	function activateUser($code)
