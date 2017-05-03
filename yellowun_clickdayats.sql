@@ -2110,6 +2110,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `prov` varchar(20) NOT NULL,
   `work` varchar(100) NOT NULL,
   `clickM` int(11) NOT NULL,
+  `subCm` int(11) DEFAULT NULL,
   `clickM_code` varchar(11) NOT NULL DEFAULT '',
   `joinDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lastSeen` timestamp NULL DEFAULT NULL,

@@ -403,6 +403,12 @@ class User extends CI_Model
       }
     }
   }
+
+  function getReferredUsers($ID)
+  {
+    $query = $this->db->get_where('users', array('subCm' => $ID));
+    return $query->num_rows();
+  }
 }
 
 ?>

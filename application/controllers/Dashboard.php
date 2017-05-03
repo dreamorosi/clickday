@@ -92,6 +92,7 @@ class Dashboard extends CI_Controller {
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
 				$this->data['user'] = $this->user->getUserById($this->data['ID']);
 				$this->data['referral'] = $this->session->userdata('referral');
+				$this->data['referredUsers'] = $this->user->getReferredUsers($this->data['ID']);
 				$this->load->view('profile', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
