@@ -236,6 +236,16 @@ class User extends CI_Model
 		}
 	}
 
+  function getFullName($ID)
+	{
+		$query = $this->db->get_where('users', array('ID' => $ID));
+		if($query->num_rows() > 0){
+			return $query->row()->name . ' ' . $query->row()->surname;
+		}else{
+			return '';
+		}
+	}
+
 	function getUserById($ID)
 	{
 		$query = $this->db->get_where('users', array('ID' => $ID));
