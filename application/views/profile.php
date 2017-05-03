@@ -89,7 +89,15 @@
 					<div class="panel-body">
 						<div class="form-group col-md-6">
 							<p>Invita i tuoi amici ad iscriversi utilizzando questo url.</p>
-							<input class="form-control" value="<? echo base_url('signup/' . $referral); ?>" />
+							<div class="input-group">
+								<input type="text" class="form-control referralCode" placeholder="Referral Url" value="<? echo base_url('signup/' . $referral); ?>">
+								<span class="input-group-btn">
+									<button class="btn btn-default referralBtn" type="button" data-clipboard-target=".referralCode">
+										Copia
+										<i class="glyphicon glyphicon-copy"></i>
+									</button>
+								</span>
+							</div>
 						</div>
 						<div class="form-group col-md-6">
 							<p>Utenti raccomandati con successo</p>
@@ -103,6 +111,7 @@
 </div>
 	<script src="<? echo base_url('assets/js/jquery-1.11.3.min.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/jquery.noty.packaged.min.js') ?>"></script>
+	<script src="<? echo base_url('assets/js/clipboard.min.js') ?>"></script>
 	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/form-utils.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/profile.js'); ?>"></script>

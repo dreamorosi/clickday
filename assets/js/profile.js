@@ -1,5 +1,6 @@
 const $ = window.$
 const FormUtils = window.FormUtils
+const Clipboard = window.Clipboard
 
 $(document).ready(function () {
   prepareDate()
@@ -35,6 +36,12 @@ $(document).ready(function () {
         return
       }
     }
+  })
+
+  const Referral = new Clipboard('.referralBtn')
+
+  Referral.on('success', function (e) {
+    $.notify({type: 'success', message: 'Url copiato con successo!'})
   })
 })
 
