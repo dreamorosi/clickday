@@ -323,15 +323,17 @@ class Dashboard extends CI_Controller {
 		return $data;
 	}
 
+	// Delete Cm by ID and then deletes its messages and codes
 	public function deleteCm()
 	{
-		$data = $this->clickmaster->removeCm($this->input->post('ID'));
+		$ID = $this->input->post('ID');
+		$data = $this->clickmaster->removeCm($ID);
 		if(!$data){
-			$this->output->set_status_header('500');
 			echo json_encode(FALSE);
 		}else{
-			$this->dashboard_model->deleteMessages($this->input->post('ID'), 'clickmaster');
-			echo json_encode(TRUE);
+			$result = $this->dashboard_model->deleteMessages($ID, 'clickmaster');
+			$result = $this->clickmaster->deleteCodes($ID);
+			echo json_encode($result);
 		}
 	}
 

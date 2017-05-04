@@ -2,8 +2,6 @@ const $ = window.$
 let cMs = window.cMs
 let allCodes = []
 
-// TODO: Set up tag for codes
-
 // Set event listeners and call appropriate functions
 $(document).ready(function () {
   $('table').paginator({
@@ -106,6 +104,10 @@ const postNewCm = (newCm, $btn) => {
       } else {
         $.notify({type: 'error', message: data.message})
       }
+    },
+    error: () => {
+      $btn.text('Aggiungi').removeClass('disabled')
+      $.notify({type: 'error', message: 'Si è verificato un errore inaspettato, aggiornare e riprovare'})
     }
   })
 }
@@ -125,6 +127,9 @@ const postEditCm = (cm, ID) => {
       } else {
         $.notify({type: 'error', message: data})
       }
+    },
+    error: () => {
+      $.notify({type: 'error', message: 'Si è verificato un errore inaspettato, aggiornare e riprovare.'})
     }
   })
 }
