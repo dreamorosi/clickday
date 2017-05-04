@@ -448,9 +448,9 @@ class Dashboard extends CI_Controller {
 
 	public function printContract()
 	{
-		$data['user'] = get_object_vars($this->user->getUserById($this->data['ID']));
-		$data['user']['loc'] = $this->getPlaceBirth(substr($data['user']['cf'], 11,14));
-		$html=$this->load->view('pdf_contract', $data, true);
+		$user = (array) $this->data['user'];
+		$user['loc'] = $this->getPlaceBirth(substr($user['cf'], 11,14));
+		$html=$this->load->view('pdf_contract', $user, true);
 		$pdfFilePath = "ContrattoClickday.pdf";
 		$this->load->library('m_pdf');
 		$pdf = $this->m_pdf->load();
