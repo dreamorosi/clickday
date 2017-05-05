@@ -55,19 +55,6 @@ class User extends CI_Model
     $this->email->send();
   }
 
-  function sendMail($email, $template, $role, $activation)
-  {
-    $subject = 'Registrazione ClickDay 2017';
-    $data = array('base_url' => base_url(), 'code' => base_url('users/activate/' . $activation));
-    if ($role === 'cm') {
-      $split = explode("***", $activation);
-      $subject = 'Nuovo Utente Registrato ClickDay 2017';
-      $data = array('base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
-    }
-
-    $this->shotMail($email, $subject, $data, $template);
-  }
-
   function sendRecoveryMail($email, $code)
   {
     $subject = 'Recupero Password ClickDay 2017';
