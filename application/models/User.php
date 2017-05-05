@@ -38,13 +38,13 @@ class User extends CI_Model
   {
     $this->load->library('email');
     $this->load->helper('url');
-    $config['protocol'] = 'sendmail';
-    // $config['protocol'] = 'smtp';
-    // $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
-    // $config['smtp_port'] = '25';
-    // $config['smtp_timeout'] = '7';
-    // $config['smtp_user'] = 'info@clickdayats.it';
-    // $config['smtp_pass'] = 'YUcd_2016!';
+    // $config['protocol'] = 'sendmail';
+    $config['protocol'] = 'smtp';
+    $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
+    $config['smtp_port'] = '25';
+    $config['smtp_timeout'] = '7';
+    $config['smtp_user'] = 'info@clickdayats.it';
+    $config['smtp_pass'] = 'YUcd_2016!';
     $config['validate'] = 'FALSE';
     $config['mailtype'] = 'html';
     $this->email->initialize($config);
@@ -133,14 +133,10 @@ class User extends CI_Model
       }
       if ($usr['subCm'] !== 'NULL') {
         $usrEmail = $this->getEmail($usr['subCm']);
-        log_message('error', 'User mail is ' . $usrEmail);
         if ($usrEmail != '') {
           $subject = 'Nuovo Utente Registrato ClickDay 2017';
-          log_message('error', 'Subject mail is ' . $subject);
           $fullName = $usr['name'] . ' ' . $usr['surname'];
-          log_message('error', 'User name is ' . $fullName);
           $referredUsers = $this->user->getReferredUsers($usr['subCm']);
-          log_message('error', 'Referred count is ' . $referredUsers);
           $data = array('base_url' => base_url(), 'name' => $fullName, 'referredUsers' => $referredUsers);
           $template = 'emails/activation_subcm';
           $this->shotMail($usrEmail, $subject, $data, $template);
