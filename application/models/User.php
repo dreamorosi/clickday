@@ -133,24 +133,28 @@ class User extends CI_Model
       }
       if ($usr['subCm'] !== 'NULL') {
         $usrEmail = $this->getEmail($usr['subCm']);
+        log_message('error', 'User mail is ' . $usrEmail);
         if ($usrEmail != '') {
           $subject = 'Nuovo Utente Registrato ClickDay 2017';
-          $name = $usr['name'] . ' ' . $usr['surname'];
+          log_message('error', 'Subject mail is ' . $subject);
+          $fullName = $usr['name'] . ' ' . $usr['surname'];
+          log_message('error', 'User name is ' . $fullName);
           $referredUsers = $this->user->getReferredUsers($usr['subCm']);
-          $data = array('base_url' => base_url(), 'name' => $name, 'referredUsers' => $referredUsers);
+          log_message('error', 'Referred count is ' . $referredUsers);
+          $data = array('base_url' => base_url(), 'name' => $fullName, 'referredUsers' => $referredUsers);
           $template = 'emails/activation_subcm';
           $this->shotMail($usrEmail, $subject, $data, $template);
         }
-        $subject = 'Registrazione ClickDay 2017';
-        $data = array('base_url' => base_url(), 'code' => base_url('users/activate/' . $activation));
-        $template = 'emails/activation';
-        $this->shotMail($usr['email'], $subject, $data, $template);
-        return $response;
-      } else {
-        $response['success'] = FALSE;
-        $response['message'] = "Si è verificato un errore inaspettato, riprovare tra qualche istante";
-        return $response;
       }
+      $subject = 'Registrazione ClickDay 2017';
+      $data = array('base_url' => base_url(), 'code' => base_url('users/activate/' . $activation));
+      $template = 'emails/activation';
+      $this->shotMail($usr['email'], $subject, $data, $template);
+      return $response;
+    } else {
+      $response['success'] = FALSE;
+      $response['message'] = "Si è verificato un errore inaspettato, riprovare tra qualche istante";
+      return $response;
     }
   }
 
