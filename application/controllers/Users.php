@@ -36,29 +36,20 @@ class Users extends CI_Controller {
 			'work' => ucfirst($this->input->post('work')),
 			'phone' => $this->input->post('phone'),
 			'password' => $this->input->post('password'),
-			// 'clickM' => $this->input->post('code'),
-            'clickM_code' => $this->input->post('code'),
+			'clickM_code' => $this->input->post('code'),
 		);
-
-        if ($usr['clickM_code'] === '') {
-            $usr['clickM'] = -1;
-            $usr['subCm'] = 'NULL';
-        } else {
-            if (strlen($usr['clickM_code']) == 4 ) {
-                $usr['clickM'] = intval($this->clickmaster->checkCMCode($usr['clickM_code']));
-                $usr['subCm'] = 'NULL';
-            } else {
-                $usr['subCm'] = intval($this->user->checkSubCode($usr['clickM_code']));
-                $usr['clickM'] = -1;
-            }
-        }
-        /*
-		if ($usr['clickM'] === '') {
-			$usr['clickM'] = -1;
-		} else {
-			$usr['clickM'] = intval($this->clickmaster->checkCMCode($usr['clickM']));
-		}
-        */
+		if ($usr['clickM_code'] === '') {
+      $usr['clickM'] = -1;
+      $usr['subCm'] = 'NULL';
+    } else {
+      if (strlen($usr['clickM_code']) == 4 ) {
+        $usr['clickM'] = intval($this->clickmaster->checkCMCode($usr['clickM_code']));
+        $usr['subCm'] = 'NULL';
+      } else {
+        $usr['subCm'] = intval($this->user->checkSubCode($usr['clickM_code']));
+        $usr['clickM'] = -1;
+      }
+    }
 		$data = $this->user->createNewUser($usr);
 		echo json_encode($data);
 	}
