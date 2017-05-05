@@ -55,16 +55,14 @@ class User extends CI_Model
         $this->email->send();
     }
 
-    function sendActivationMail($email, $role, $activation)
+    function sendMail($email, $template, $role, $activation)
     {
         $subject = 'Registrazione ClickDay 2017';
         $data = array('base_url' => base_url(), 'code' => base_url('users/activate/' . $activation));
-        $template = 'emails/activation';
         if ($role === 'cm') {
             $split = explode("***", $activation);
             $subject = 'Nuovo Utente Registrato ClickDay 2017';
             $data = array('base_url' => base_url(), 'name' => $split[0], 'code' => $split[1]);
-            $template = 'emails/activation_cm';
         }
 
         $this->shotMail($email, $subject, $data, $template);
@@ -135,23 +133,29 @@ class User extends CI_Model
         $this->db->insert('users', (object)$newUser);
         if ($this->db->affected_rows() > 0) {
             if ($usr['clickM'] != -1) {
-                $cmEmail = $this->clickmaster->getCMemail($usr['clickM']);
-                if ($cmEmail != '') {
+              $cmEmail = $this->clickmaster->getCMemail($usr['clickM']);
+              if ($cmEmail != '') {
+                 $subject = 'Nuovo Utente Registrato ClickDay 2017';
                     $name = $usr['name'] . ' ' . $usr['surname'];
                     $code = $usr['clickM_code'];
-                    $payload = $name . '***' . $code;
-                    $this->sendActivationMail($cmEmail, 'cm', $payload);
+                    $template = 'emails/activation_cm';
+                    $data = array('base_url' => base_url(), 'name' => $name, 'code' => $code);
+                    $this->shotMail($cmEmail, $subject, $data, $template);
                 }
             }
             if ($usr['subCm'] != 'NULL') {
                 $usrEmail = $this->getEmail($usr['subCm']);
                 if ($usrEmail != '') {
                     $name = $usr['name'] . ' ' . $usr['surname'];
-                    $code = $usr['subCm'];
-                    $payload = $name . '***' . $code;
-                    $this->sendActivationMail($usrEmail, 'cm', $payload);
+                      $referredUsers = $this->user->getReferredUsers($usr['subCm']);
+                      $data = array('base_url' => base_url(), 'name' => $name, 'referredUsers' => $referredUsers);
+                      $template = 'emails/activation_subcm';
+                      $this->shotMail($usrEmail, $subject, $data, $template);
                 }
-                $this->sendActivationMail($usr['email'], 'usr', $activation);
+              $subject = 'Registrazione ClickDay 2017';
+              $data = array('base_url' => base_url(), 'code' => base_url('users/activate/' . $activation));
+              $template = 'emails/activation';
+                $this->shotMail($usr['email'], $subject, $data, $template);
                 return $data;
             } else {
                 $data['success'] = FALSE;
@@ -163,8 +167,14 @@ class User extends CI_Model
 
     function generateSubCode()
     {
-        return '00002';
+      do{
+          $subcode = substr(str_shuffle(str_repeat($x='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(5/strlen($x)) )),1,5);
+      } while($this->db->get_where('users', array('referral' => $subcode))->num_rows()!=0);
+      return $subcode;
     }
+
+  function generateRandomString($length = 10) {
+  }
 
     function editUserInfo($ID, $usr)
     {
