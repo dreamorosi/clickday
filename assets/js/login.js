@@ -5,19 +5,19 @@ $(document).ready(function(){
 		$('.modal-body .form-control').val(null);
 		removeErrors();
 	})
-	
+
 	$('.modal-body .form-control').keypress(function (e) {
 		key = e.which;
 		if(key == 13){
 			if($('button.loginDo').is(':visible')) {
 				$('button.loginDo').click();
 			}else{
-				$('button.forgotDo').click();	
-			}			
-			return;  
+				$('button.forgotDo').click();
+			}
+			return;
 		}
-	}); 
-	
+	});
+
 	$('button.loginDo').click(function(){
 		removeErrors();
 		checkEmail($('.modal-body .form-control[name=email]'));
@@ -29,7 +29,7 @@ $(document).ready(function(){
 			$.ajax({
 				method: 'POST',
 				dataType: 'json',
-				
+
 				url: window.base_url + 'login/signin/',
 				data: $('.modal-body .log').serialize()+'&'+$('.modal-body .form-control[name=password]').serialize(),
 				beforeSend: function(){
@@ -52,7 +52,7 @@ $(document).ready(function(){
 			return
 		}
 	});
-	
+
 	$('button.forgotDo').click(function(){
 		removeErrors();
 		checkEmail($('.forgotMail'));
@@ -69,6 +69,7 @@ $(document).ready(function(){
 					$('button.forgotDo').button('reset');
 					$('.text-justify').text("Le istruzioni per reimpostare la tua password sono state inviate all'indirizzo indicato.");
 					$('.forgotForm').addClass('hidden');
+					console.log(data)
 				},
 				error: function(data){
 					$('button.forgotDo').button('reset');

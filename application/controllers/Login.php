@@ -81,13 +81,13 @@ class Login extends CI_Controller {
 				$this->output->set_status_header('500');
 				echo json_encode(FALSE);
 			}else{
-				echo json_encode(TRUE);
+				echo json_encode($data);
 			}
 		}elseif($data['code']==500){
 			$this->output->set_status_header('500');
 			echo json_encode(FALSE);
 		}else{
-			echo json_encode(TRUE);
+			echo json_encode($data);
 		}
 	}
 
