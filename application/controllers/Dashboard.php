@@ -14,7 +14,9 @@ class Dashboard extends CI_Controller {
 		$this->data['clickM'] = $this->session->userdata('clickM');
 		$this->data['role'] = $this->session->userdata('role');
 		$this->data['lastSeen'] = $this->session->userdata('lastSeen');
-		$this->data['user'] = $this->user->getUserById($this->data['ID']);
+		if ($this->data['role'] === 'user') {
+			$this->data['user'] = $this->user->getUserById($this->data['ID']);
+		}
 	}
 
 	public function index()
@@ -325,15 +327,17 @@ class Dashboard extends CI_Controller {
 		return $data;
 	}
 
+	// Delete Cm by ID and then deletes its messages and codes
 	public function deleteCm()
 	{
-		$data = $this->clickmaster->removeCm($this->input->post('ID'));
+		$ID = $this->input->post('ID');
+		$data = $this->clickmaster->removeCm($ID);
 		if(!$data){
-			$this->output->set_status_header('500');
 			echo json_encode(FALSE);
 		}else{
-			$this->dashboard_model->deleteMessages($this->input->post('ID'), 'clickmaster');
-			echo json_encode(TRUE);
+			$result = $this->dashboard_model->deleteMessages($ID, 'clickmaster');
+			$result = $this->clickmaster->deleteCodes($ID);
+			echo json_encode($result);
 		}
 	}
 
@@ -448,9 +452,9 @@ class Dashboard extends CI_Controller {
 
 	public function printContract()
 	{
-		$data['user'] = get_object_vars($this->user->getUserById($this->data['ID']));
-		$data['user']['loc'] = $this->getPlaceBirth(substr($data['user']['cf'], 11,14));
-		$html=$this->load->view('pdf_contract', $data, true);
+		$user = (array) $this->data['user'];
+		$user['loc'] = $this->getPlaceBirth(substr($user['cf'], 11,14));
+		$html=$this->load->view('pdf_contract', $user, true);
 		$pdfFilePath = "ContrattoClickday.pdf";
 		$this->load->library('m_pdf');
 		$pdf = $this->m_pdf->load();

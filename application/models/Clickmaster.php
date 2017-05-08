@@ -117,13 +117,17 @@ class Clickmaster extends CI_Model
     }
   }
 
+  // Deletes a CM
 	function removeCm($ID)
 	{
-		$this->db->delete('clickmasters', array('ID' => $ID));
-    // TODO: remove its codes
-    // $this->db->delete('codes', array('ID' => $ID));
-		return TRUE;
+		return $this->db->delete('clickmasters', array('ID' => $ID));
 	}
+
+  // Deletes CM's codes
+  function deleteCodes($ID)
+  {
+    return $this->db->delete('codes', array('cmID' => $ID));
+  }
 
 	function getName($ID)
 	{
@@ -174,7 +178,7 @@ class Clickmaster extends CI_Model
 			return '';
 		}
 	}
-// TODO: mappare user <-> cm
+
   function getCMcodes($ID = -1)
 	{
 		if ($ID === -1) {
