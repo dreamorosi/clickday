@@ -92,6 +92,9 @@ class Dashboard extends CI_Controller {
 		if($this->data['isLogged']){
 			if($this->data['role']=='user'){
 				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+				$this->data['user'] = $this->user->getUserById($this->data['ID']);
+				$this->data['referral'] = $this->session->userdata('referral');
+				$this->data['referredUsers'] = $this->user->getReferredUsers($this->data['ID']);
 				$this->load->view('profile', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
@@ -397,17 +400,18 @@ class Dashboard extends CI_Controller {
 		$this->excel->setActiveSheetIndex(0);
 		$this->excel->getActiveSheet()->setTitle('Lista utenti');
 		$users = $this->dashboard_model->prepareExcel($users);
-		$this->excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
+		$this->excel->getActiveSheet()->getStyle('A1:K1')->getFont()->setBold(true);
 		$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(22);
 		$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(19);
 		$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(19);
-		$this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(24);
-		$this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
-		$this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-		$this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
-		$this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(28);
-		$this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+		$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+		$this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(19);
+		$this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(24);
+		$this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(18);
+		$this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+		$this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+		$this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(28);
+		$this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 		$c = count($users);
 		$this->excel->getActiveSheet()->getStyle("I1:I$c")->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
 		$this->excel->getActiveSheet()->fromArray($users);

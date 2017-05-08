@@ -120,6 +120,7 @@ class Dashboard_model extends CI_Model
       'Utente',
       'Data registrazione',
       'ClickMaster',
+      'SubClickMaster',
       'Codice ClickMaster',
       'Conferma registrazione',
       'Codice Progetto',
@@ -136,7 +137,11 @@ class Dashboard_model extends CI_Model
       if($user->clickM != -1)
 				$obj['clickM'] = $this->clickmaster->getFullName($user->clickM);
 			else
-				$obj['clickM'] = 'Nessuno';
+				$obj['clickM'] = 'No';
+      if($user->subCm != NULL)
+				$obj['subCm'] = $this->user->getFullName($user->subCm);
+			else
+				$obj['subCm'] = 'No';
       $obj['cmCode'] = $user->clickM_code;
       if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
       ($user->code == NULL) ? $obj['code_rec'] = 'Nessuno' : $obj['code_rec'] = $user->code;
