@@ -162,9 +162,6 @@ class User extends CI_Model
     return $subcode;
   }
 
-  function generateRandomString($length = 10) {
-  }
-
   function editUserInfo($ID, $usr)
   {
     $this->db->set($usr)->where('ID', $ID)->update('users');
