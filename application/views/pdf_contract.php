@@ -7,10 +7,10 @@
 <body>
 <h4 style='text-align:center; text-decoration: underline'>CONTRATTO DI PRESTAZIONE DI SERVIZIO</h4>
 <p>Tra il Legale Rappresentante dell'impresa <b>ATS - CONSULENTI ASSOCIATI S.R.L. (il committente)</b>, con sede in Reggio Emilia via Kennedy, 17, P. IVA n° 01645400357 e</p>
-<p>il sig./sig.ra <? echo $name .' '. $surname; ?></p>
-<p>nato/a a <? echo $loc; ?> il <? echo $dateBirth ?></p>
-<p>residente in <? echo $address.' '.$cap.' '.$prov ?></p>
-<p>codice fiscale <? echo $cf; ?> recapito telefonico <? echo $phone ?></p>
+<p>il sig./sig.ra <? echo $user['name'] .' '. $user['surname']; ?></p>
+<p>nato/a a <? echo $user['loc']; ?> il <? echo $user['dateBirth'] ?></p>
+<p>residente in <? echo $user['address'].' '.$user['cap'].' '.$user['prov'] ?></p>
+<p>codice fiscale <? echo $user['cf']; ?> recapito telefonico <? echo $user['phone'] ?></p>
 <p>di seguito denominato (<b>il prestatore</b>),</p>
 <h4 style='text-align:center'>SI CONVIENE QUANTO SEGUE</h4>
 <p>1. Il Prestatore si impegna a svolgere in favore del Committente il seguente servizio: invio telematico delle domande di richiesta contributo relative al BANDO ISI INAIL 2016 (AVVISO PUBBLICO QUADRO 2016 - INCENTIVI ALLE IMPRESE PER LA REALIZZAZIONE DI INTERVENTI IN MATERIA DI SALUTE E SICUREZZA SUL LAVORO in attuazione dell’articolo 11, comma 5, D.Lgs. 81/2008 s.m.i.) da cui consegua il RISULTATO POSITIVO del collocamento del progetto inviato in posizione utile per l’ottenimento del contributo negli Elenchi Pubblici Cronologici INAIL; </p>
