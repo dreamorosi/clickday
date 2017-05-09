@@ -49,11 +49,11 @@
 					<div class="col-lg-5 col-lg-offset-1 col-md-6">
 						<div class="form-group col-lg-9 col-md-12">
 							<label>Nome</label>
-							<input type="text" class="form-control" name="name" autocomplete="off" tabindex="1" title="Inserisci il tuo nome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required />
+							<input type="text" class="form-control" name="name" autocomplete="off" tabindex="1" title="Inserisci il tuo nome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$" required />
 						</div>
 						<div class="form-group col-lg-9 col-md-12">
 							<label>Cognome</label>
-							<input type="text" class="form-control" name="surname" autocomplete="off" tabindex="2" title="Inserisci il tuo cognome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required />
+							<input type="text" class="form-control" name="surname" autocomplete="off" tabindex="2" title="Inserisci il tuo cognome" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$" required />
 						</div>
 						<div class="form-group col-lg-9 col-md-12">
 							<div class="col-md-12 bday-day">
