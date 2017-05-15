@@ -241,6 +241,10 @@ class Dashboard_model extends CI_Model
 		return $this->db->insert_id();
 	}
 
+  public function putNot($ID, $mittID, $destID) {
+    $this->db->insert('not_mail', array('destID' => $destID, 'mailID' => $ID, 'role' => 'user'));
+  }
+
 	public function createNot($id, $type, $mittID, $destID, $oggetto, $testo) {
 		$mitt = $this->getMittName($mittID, $type);
 		switch($type){

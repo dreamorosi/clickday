@@ -139,6 +139,10 @@ class User extends CI_Model
           $referredUsers = $this->user->getReferredUsers($usr['subCm']);
           $data = array('base_url' => base_url(), 'name' => $fullName, 'referredUsers' => $referredUsers);
           $template = 'emails/activation_subcm';
+          $text = 'Un nuovo utente si è registrato come tuo referral. Il suo nome è ' . $fullName . '. Adesso hai ' . $referredUsers . ' referral.';
+          $this->load->model('dashboard_model');
+          $ID = $this->dashboard_model->sendmessage($subject, $text, -1, $usr['subCm'], -27, -1);
+      		$this->dashboard_model->putNot($ID, -1, $usr['subCm']);
           $this->shotMail($usrEmail, $subject, $data, $template);
         }
       }
