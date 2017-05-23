@@ -137,7 +137,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row hidden">
+		<div class="row">
 			<div class="col-md-8 col-md-offset-2 col-sm-12">
 				<div class="panel panel-default uploadWidget">
 					<div class="panel-heading">Screenshot</div>
