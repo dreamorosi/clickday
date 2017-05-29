@@ -36,7 +36,7 @@ class Users extends CI_Controller {
 			'work' => ucfirst($this->input->post('work')),
 			'phone' => $this->input->post('phone'),
 			'password' => $this->input->post('password'),
-			'clickM_code' => $this->input->post('code'),
+			'clickM_code' => strtoupper($this->input->post('code')),
 		);
 		if ($usr['clickM_code'] === '') {
       $usr['clickM'] = -1;
@@ -45,9 +45,15 @@ class Users extends CI_Controller {
       if (strlen($usr['clickM_code']) == 4 ) {
         $usr['clickM'] = intval($this->clickmaster->checkCMCode($usr['clickM_code']));
         $usr['subCm'] = 'NULL';
+				if ($usr['clickM'] === -1) {
+					$usr['clickM_code'] = '';
+				}
       } else {
         $usr['subCm'] = intval($this->user->checkSubCode($usr['clickM_code']));
         $usr['clickM'] = -1;
+				if ($usr['subCm'] === -1) {
+					$usr['clickM_code'] = '';
+				}
       }
     }
 		$data = $this->user->createNewUser($usr);
