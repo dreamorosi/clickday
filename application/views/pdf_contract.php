@@ -2,15 +2,15 @@
 <!doctype>
 <html>
 <head>
-    <title></title>
+  <title></title>
 </head>
 <body>
 <h4 style='text-align:center; text-decoration: underline'>CONTRATTO DI PRESTAZIONE DI SERVIZIO</h4>
 <p>Tra il Legale Rappresentante dell'impresa <b>ATS - CONSULENTI ASSOCIATI S.R.L. (il committente)</b>, con sede in Reggio Emilia via Kennedy, 17, P. IVA n° 01645400357 e</p>
-<p>il sig./sig.ra <? echo $user['name'] .' '. $user['surname']; ?></p>
-<p>nato/a a <? echo $user['loc']; ?> il <? echo $user['dateBirth'] ?></p>
-<p>residente in <? echo $user['address'].' '.$user['cap'].' '.$user['prov'] ?></p>
-<p>codice fiscale <? echo $user['cf']; ?> recapito telefonico <? echo $user['phone'] ?></p>
+<p>il sig./sig.ra <? echo $user->name .' '. $user->surname; ?></p>
+<p>nato/a a <? echo $user->loc; ?> il <? echo $user->dateBirth ?></p>
+<p>residente in <? echo $user->address.' '.$user->cap.' '.$user->prov ?></p>
+<p>codice fiscale <? echo $user->cf; ?> recapito telefonico <? echo $user->phone ?></p>
 <p>di seguito denominato (<b>il prestatore</b>),</p>
 <h4 style='text-align:center'>SI CONVIENE QUANTO SEGUE</h4>
 <p>1. Il Prestatore si impegna a svolgere in favore del Committente il seguente servizio: invio telematico delle domande di richiesta contributo relative al BANDO ISI INAIL 2016 (AVVISO PUBBLICO QUADRO 2016 - INCENTIVI ALLE IMPRESE PER LA REALIZZAZIONE DI INTERVENTI IN MATERIA DI SALUTE E SICUREZZA SUL LAVORO in attuazione dell’articolo 11, comma 5, D.Lgs. 81/2008 s.m.i.) da cui consegua il RISULTATO POSITIVO del collocamento del progetto inviato in posizione utile per l’ottenimento del contributo negli Elenchi Pubblici Cronologici INAIL; </p>
@@ -19,11 +19,11 @@
 <p>4. La prestazione avrà luogo il giorno del <i>“Click-Day ISI INAIL”</i>. La data e l’orario esatti verranno comunicati ufficialmente dall’INAIL a partire dal giorno 12 giugno 2017 e prontamente segnalati al Prestatore. La suddetta prestazione avrà una durata massima di 5 minuti. La prestazione potrà essere effettuata presso qualunque sede a discrezione del prestatore in quanto sarà necessaria solamente una connessione internet ed un personal computer per l’invio telematico del codice della domanda; </p>
 <p>5.1 Il corrispettivo della prestazione viene pattuito in <b>€ 375,00 lordi</b> (oltre IVA se dovuta) pari a <b>€ 300,00 netti</b> (detratta la ritenuta di acconto), nel caso in cui all’invio telematico effettuato da parte del prestatore consegua il collocamento del progetto assegnato in posizione utile per l’ottenimento del contributo negli Elenchi Pubblici Cronologici INAIL. Tale evenienza verrà certificata sia dalla stampa della schermata (print screen/stamp) che il prestatore provvederà ad effettuare al termine dell’invio telematico a comprova di essere stato il cliccatore più veloce sul progetto assegnato, sia dalla pubblicazione dei risultati sul sito dell’INAIL <a href="http://www.inail.it">www.inail.it</a>. Il Compenso verrà quindi corrisposto, se ricorrono le condizioni suelencate, solo successivamente alla pubblicazione dei risultati. Il Committente si impegna a versare quanto di sua competenza stabilito dalle normative in essere;</p>
 <p>5.2 <b>Compenso per i cliccatori più veloci.</b><br>
-    In caso in cui l’invio telematico effettuato dal prestatore risultasse dagli Elenchi Pubblici Cronologici INAIL fra i primi tre fra tutti quelli gestiti da ATS CONSULENTI ASSOCIATI srl, avrà diritto al seguente compenso aggiuntivo:
+  In caso in cui l’invio telematico effettuato dal prestatore risultasse dagli Elenchi Pubblici Cronologici INAIL fra i primi tre fra tutti quelli gestiti da ATS CONSULENTI ASSOCIATI srl, avrà diritto al seguente compenso aggiuntivo:
 <ol>
-    <li>Primo classificato <b>€ 4.500,00 lordi</b> (oltre IVA se dovuta) pari a € 3.600,00 netti (detratta la ritenuta di acconto);</li>
-    <li>Secondo classificato <b>€ 2.500 lordi</b> (oltre IVA se dovuta) pari a € 2.000,00 netti (detratta la ritenuta di acconto);</li>
-    <li>Terzo classificato <b>€ 1.500 lordi</b> (oltre IVA se dovuta) pari a € 1.200,00 netti (detratta la ritenuta di acconto);</li>
+  <li>Primo classificato <b>€ 4.500,00 lordi</b> (oltre IVA se dovuta) pari a € 3.600,00 netti (detratta la ritenuta di acconto);</li>
+  <li>Secondo classificato <b>€ 2.500 lordi</b> (oltre IVA se dovuta) pari a € 2.000,00 netti (detratta la ritenuta di acconto);</li>
+  <li>Terzo classificato <b>€ 1.500 lordi</b> (oltre IVA se dovuta) pari a € 1.200,00 netti (detratta la ritenuta di acconto);</li>
 </ol>
 </p>
 <p>6. Il prestatore potrà recedere in qualsiasi momento dal presente contratto a mezzo di semplice comunicazione tramite posta elettronica. Il Committente potrà recedere con preavviso di almeno dieci giorni a mezzo raccomandata A/R;</p>
@@ -36,9 +36,9 @@
 <p><b>ATS - CONSULENTI ASSOCIATI S.R.L.</b> con sede legale ed operativa ubicata in Reggio Emilia via Kennedy, 17, P. IVA n° 01645400357 in qualità di Titolare del trattamento dei Suoi dati personali, ai sensi e per gli effetti del D.Lgs. 30 Giugno 2003 n. 196 “Codice in materia di protezione dei dati personali”, di seguito 'Codice Privacy', con la presente La informa che la citata normativa prevede la tutela delle persone e di altri soggetti rispetto al trattamento dei dati personali e che tale trattamento sarà improntato ai principi di correttezza, liceità, trasparenza e di tutela della Sua riservatezza e dei Suoi diritti. I Suoi dati personali verranno trattati in accordo alle disposizioni legislative della normativa sopra richiamata e degli obblighi di riservatezza ivi previsti.</p>
 <p><b>Finalità di trattamento</b> - i Suoi dati verranno trattati per finalità connesse:
 <ul style='list-style-type:none'>
-    <li><b>a)</b> alla corretta gestione del presente incarico;</li>
-    <li><b>b)</b> ad obblighi previsti da leggi, regolamenti e dalla normativa comunitaria, di natura amministrativo-contabile, fiscale, tributaria nonché da disposizioni impartite da autorità ed organi di controllo e vigilanza nonché alla corretta;</li>
-    <li><br/>Il trattamento dei dati da lei forniti compilando la presente modulistica sono funzionali per una corretta gestione del rapporto e il loro conferimento è obbligatorio per attuare le finalità sopra indicate. Il Titolare rende noto, inoltre, che l'eventuale non comunicazione, o comunicazione errata, di una delle informazioni obbligatorie, può causare l'impossibilità del Titolare di garantire la congruità del trattamento stesso. <u>Nessuno di questi dati sarà oggetto di diffusione.</u></li>
+  <li><b>a)</b> alla corretta gestione del presente incarico;</li>
+  <li><b>b)</b> ad obblighi previsti da leggi, regolamenti e dalla normativa comunitaria, di natura amministrativo-contabile, fiscale, tributaria nonché da disposizioni impartite da autorità ed organi di controllo e vigilanza nonché alla corretta;</li>
+  <li><br/>Il trattamento dei dati da lei forniti compilando la presente modulistica sono funzionali per una corretta gestione del rapporto e il loro conferimento è obbligatorio per attuare le finalità sopra indicate. Il Titolare rende noto, inoltre, che l'eventuale non comunicazione, o comunicazione errata, di una delle informazioni obbligatorie, può causare l'impossibilità del Titolare di garantire la congruità del trattamento stesso. <u>Nessuno di questi dati sarà oggetto di diffusione.</u></li>
 </ul></p>
 <p><b>Modalità del trattamento</b> - i suoi dati personali potranno essere trattati sia a mezzo di calcolatori elettronici sia a mezzo di archivi cartacei. Ogni trattamento avviene nel rispetto delle modalità di cui agli artt. 11, 31 e seguenti del Codice della Privacy e mediante l'adozione delle misure minime di sicurezza previste dal disciplinare tecnico (Allegato B del Codice Privacy).</p>
 <p><b>Comunicazione</b> - i suoi dati saranno conservati presso la nostra sede e saranno comunicati esclusivamente ai soggetti competenti per l'espletamento dei servizi necessari ad una corretta gestione del rapporto, con garanzia di tutela dei diritti dell'interessato. Tali dati saranno trattati unicamente da personale espressamente autorizzato dal Titolare ed, in particolare, Personale dipendente e collaboratori. I suoi dati potranno essere comunicati a soggetti pubblici e/o privati per i quali la comunicazione dei dati è obbligatoria o necessaria in adempimento ad obblighi di legge o sia comunque funzionale all'amministrazione del rapporto.</p>
