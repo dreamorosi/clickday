@@ -3468,6 +3468,33 @@ INSERT INTO `users` (`ID`, `name`, `surname`, `email`, `phone`, `password`, `dat
 (3398, 'Michele', 'Mazza', 'maki@maki.com', '3892163148', 'caec475925e1c17ea2b871ac0a461f7573f25e2f', '24/11/1992', 'Via della Bastia 30 30', 'MZZMHL92S24L259M', 'Italia', '57122', 'LI', 'Studente', '00002', -1, 1344, '00001', '2017-05-05 13:51:00', NULL, 0, 0, 0, 0, 0, NULL, 'imJF4IyGoeufQk23', NULL, '', '0000-00-00 00:00:00');
 
 --
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `feature` varchar(50) NOT NULL,
+  `active` tinyint(4) NOT NULL,
+  `meta` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`feature`, `active`, `meta`) VALUES
+('screenshots', 1, ''),
+('subclickmaster', 0, '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`feature`);
+--
 -- Indexes for dumped tables
 --
 

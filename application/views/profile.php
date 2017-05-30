@@ -85,6 +85,7 @@
 							</div>
 						</form>
 					</div>
+					<? if($settings[1]['active'] === '1'): ?>
 					<div class="panel-heading">Codice Referral</div>
 					<div class="panel-body">
 						<div class="form-group col-md-6">
@@ -104,6 +105,7 @@
 							<p class="lead"><? echo $referredUsers; ?></p>
 						</div>
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
 		</div>

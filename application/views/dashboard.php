@@ -138,7 +138,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-sm-12">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 <? if($settings[0]['active'] !== '1') echo 'hidden'; ?>">
 				<div class="panel panel-default uploadWidget">
 					<div class="panel-heading">Screenshot</div>
 					<div class="panel-body">

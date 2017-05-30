@@ -867,6 +867,23 @@ class Dashboard_model extends CI_Model
     $query = $this->db->get("$type");
     return $query->result_array();
   }
+
+  public function getSettings()
+	{
+		$query = $this->db->get('settings');
+		return $query->result_array();
+	}
+
+  public function updateSettings($settings)
+	{
+    $update = array('active' => json_decode($settings['screenshots']));
+    $this->db->set($update)->where(array('feature' => 'screenshots'))->update('settings');
+
+    $update = array('active' => json_decode($settings['subclickmaster']));
+    $this->db->set($update)->where(array('feature' => 'subclickmaster'))->update('settings');
+
+    return TRUE;
+	}
 }
 
 ?>

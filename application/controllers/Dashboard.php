@@ -29,6 +29,7 @@ class Dashboard extends CI_Controller {
 				$this->data['contract_uploaded'] = $this->user->contStat($this->session->userdata('ID'));
 				$cm = $this->data['clickM'];
 				$this->data['videoLink'] = $this->config->item('videoTut');
+				$this->data['settings'] = $this->dashboard_model->getSettings();
 			}
 			if($this->data['role']=='clickMaster'){
 				$users = $this->dashboard_model->getCMusers($this->data['ID'], 3);
@@ -95,6 +96,7 @@ class Dashboard extends CI_Controller {
 				$this->data['user'] = $this->user->getUserById($this->data['ID']);
 				$this->data['referral'] = $this->session->userdata('referral');
 				$this->data['referredUsers'] = $this->user->getReferredUsers($this->data['ID']);
+				$this->data['settings'] = $this->dashboard_model->getSettings();
 				$this->load->view('profile', $this->data);
 			}else{
 				redirect(base_url('dashboard'));
@@ -152,6 +154,23 @@ class Dashboard extends CI_Controller {
 				$this->data['code'] = $code;
 
 				$this->load->view('codes', $this->data);
+			} else {
+				redirect(base_url('signin'));
+			}
+		}else{
+			redirect(base_url('signin'));
+		}
+	}
+
+	public function settings()
+	{
+		if($this->data['isLogged']){
+			if($this->data['role'] == 'admin'){
+				$this->data['cnots'] = count($this->dashboard_model->getNot($this->data['ID'], $this->data['role']));
+
+				$this->data['settings'] = $this->dashboard_model->getSettings();
+
+				$this->load->view('admin_settings', $this->data);
 			} else {
 				redirect(base_url('signin'));
 			}
@@ -533,6 +552,13 @@ class Dashboard extends CI_Controller {
 			}
 		}
 		echo json_encode($codeAssigned);
+	}
+
+	function updateSettings()
+	{
+		$data = $this->input->get();
+		$res = $this->dashboard_model->updateSettings($data);
+		echo json_encode($res);
 	}
 }
 

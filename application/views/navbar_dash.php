@@ -36,6 +36,7 @@
               <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
               <li data-nav="projects"><a href="<? echo base_url('dashboard/projects'); ?>">Elenco Progetti</a></li>
               <li data-nav="codes"><a href="<? echo base_url('dashboard/codes'); ?>">Codici</a/></li>
+              <li data-nav="settings"><a href="<? echo base_url('dashboard/settings'); ?>">Impostazioni</a/></li>  
             <? endif; ?>
           <? endif; ?>
         <? else: ?>
