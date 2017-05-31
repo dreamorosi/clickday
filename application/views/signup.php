@@ -66,7 +66,7 @@
 								<input type="number" class="form-control" name="bday-month" autocomplete="off" min="1" max="12" step="1" tabindex="4" title="Inserisci la tuo mese di nascita" pattern="[1-9]{1,2}" required />
 							</div>
 							<div class="col-xs-4 bday-year">
-								<input type="number" class="form-control" name="bday-year" autocomplete="off" min="1930" max="2000" step="1" tabindex="5" title="Inserisci il tuo anno di nascita"  pattern="[1-9]{4,4}" required />
+								<input type="number" class="form-control" name="bday-year" autocomplete="off" min="1930" max="2001" step="1" tabindex="5" title="Inserisci il tuo anno di nascita"  pattern="[1-9]{4,4}" required />
 							</div>
 						</div>
 						<div class="form-group col-lg-9 col-md-12">
