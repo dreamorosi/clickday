@@ -23,9 +23,30 @@ $(document).ready(function () {
     return code.value !== '' || notCode.checked !== false
   }
 
+  const checkDate = (inputs, that) => {
+    let day = inputs.find(input => input.name === 'bday-day')
+    let month = inputs.find(input => input.name === 'bday-month')
+    let year = inputs.find(input => input.name === 'bday-year')
+    let today = new Date()
+    let birthDate = new Date(`${year.value}-${month.value}-${day.value}`)
+    let age = today.getFullYear() - birthDate.getFullYear()
+    let m = today.getMonth() - birthDate.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    if (age >= 16) {
+      return true
+    } else {
+      that.addError(day)
+      that.addError(month)
+      that.addError(year)
+      return false
+    }
+  }
+
   formUt.init({
     form: form,
-    extendValidation: [checkCmCode]
+    extendValidation: [checkCmCode, checkDate]
   })
 
   $('.signupForm').on('submit', (e) => {

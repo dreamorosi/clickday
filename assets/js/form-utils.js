@@ -111,7 +111,7 @@ window.FormUtils = function (methodOrOptions) {
     let validations = this.settings.extendValidation
     if (validations.length > 0) {
       let isValid = true
-      validations.forEach(fn => (isValid = fn(inputs)))
+      validations.forEach(fn => (isValid = fn(inputs, this)))
       return isValid
     } else {
       return true
