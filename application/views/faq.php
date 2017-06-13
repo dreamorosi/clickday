@@ -62,7 +62,7 @@
 						</li>
 						<li>
 							<span class="listFnumber">8</span>
-							<a role="button" data-toggle="collapse" href="#col8" aria-expanded="false">Posso visionare il contratto di collaborazione?</a>
+							<a role="button" data-toggle="collapse" href="#col8" aria-expanded="false">Posso visionare il contratto di prestazione di servizio?</a>
 							<div id="col8" class="collapse">Certo! Lo trovi a questo <a href="<? echo base_url('contratto.pdf'); ?>" target="_blank">link</a>!</div>
 						</li>
 						<li>

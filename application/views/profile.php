@@ -86,7 +86,7 @@
 						</form>
 					</div>
 					<? if($settings[1]['active'] === '1'): ?>
-					<div class="panel-heading">Codice Referral</div>
+					<div class="panel-heading">INVITA UN AMICO</div>
 					<div class="panel-body">
 						<div class="form-group col-md-6">
 							<p>Invita i tuoi amici ad iscriversi utilizzando questo url.</p>
