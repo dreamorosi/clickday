@@ -101,7 +101,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<p>Utenti raccomandati con successo</p>
+							<p>Utenti invitati con successo</p>
 							<p class="lead"><? echo $referredUsers; ?></p>
 						</div>
 					</div>
