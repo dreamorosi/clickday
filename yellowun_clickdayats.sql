@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 13, 2017 at 05:37 PM
+-- Generation Time: Jun 13, 2017 at 05:40 PM
 -- Server version: 5.5.54-cll
 -- PHP Version: 5.6.30
 
@@ -1982,7 +1982,8 @@ INSERT INTO `contracts` (`ID`, `user`, `uploaded`, `filename`, `approved`) VALUE
 (2164, 6760, '2017-06-13 15:13:49', 'a211cc813365c5a5ce89609b52fa66aa.pdf', 0),
 (2165, 6766, '2017-06-13 15:16:05', 'ea2af86f6fd1bf6c19aab14fb898f002.pdf', 0),
 (2166, 33, '2017-06-13 13:21:19', '84c9b6771af1b4c5bb16413b74de7d82.pdf', 0),
-(2167, 6770, '2017-06-13 15:22:11', '4378173a98ff2a2d8e6eec7cd8f2759b.pdf', 0);
+(2167, 6770, '2017-06-13 15:22:11', '4378173a98ff2a2d8e6eec7cd8f2759b.pdf', 0),
+(2168, 6399, '2017-06-13 15:38:52', 'e7bff854233c00178004264d18ce748e.pdf', 0);
 
 -- --------------------------------------------------------
 
@@ -3156,7 +3157,8 @@ INSERT INTO `mails` (`ID`, `mittID`, `title`, `content`, `time`, `destID`, `type
 (1201, 4009, 'Link di invito amici', 'Buongiorno alessandro,\r\nho appena letto la mail \"presentaci un amico\", ma guardando il link nell\'area di modifica dati personali non mi sembra che sia un link personalizzato.\r\nHo provato anche ad aprirlo tramite finestra di navigazione in incognito e non ho notato nessun campo collegato esplicitamente al mio account.\r\nMi sono perso qualche passaggio o è normale che sia così?\r\nAttendo tue notizie.\r\nBuona giornata.\r\nAndrea', '2017-06-13 15:15:00', -1, -1, -1),
 (1202, -1, 'Nuovo Utente Registrato ClickDay 2017', 'Un nuovo utente si è registrato come tuo referral. Il suo nome è Damiano Simoncelli. Adesso hai 1 referral.', '2017-06-13 15:20:00', 631, -27, -1),
 (1203, 33, 'RE: Cosa fare ora che ti sei iscritto a Click Day?', 'salve \r\nho caricato adesso il contratto, sono ancora in tempo?\r\ngrazie', '2017-06-13 15:23:00', 6, -23, 114),
-(1204, -1, 'Nuovo Utente Registrato ClickDay 2017', 'Un nuovo utente si è registrato come tuo referral. Il suo nome è Raffaele Ciuffreda. Adesso hai 1 referral.', '2017-06-13 15:24:00', 6610, -27, -1);
+(1204, -1, 'Nuovo Utente Registrato ClickDay 2017', 'Un nuovo utente si è registrato come tuo referral. Il suo nome è Raffaele Ciuffreda. Adesso hai 1 referral.', '2017-06-13 15:24:00', 6610, -27, -1),
+(1205, -1, 'Nuovo Utente Registrato ClickDay 2017', 'Un nuovo utente si è registrato come tuo referral. Il suo nome è Roberto Marciano. Adesso hai 2 referral.', '2017-06-13 15:38:00', 5377, -27, -1);
 
 -- --------------------------------------------------------
 
@@ -18468,7 +18470,8 @@ INSERT INTO `not_mail` (`ID`, `mailID`, `destID`, `role`) VALUES
 (18715, 1201, 9, 'admin'),
 (18716, 1202, 631, 'user'),
 (18717, 1203, 6, 'admin'),
-(18718, 1204, 6610, 'user');
+(18718, 1204, 6610, 'user'),
+(18719, 1205, 5377, 'user');
 
 -- --------------------------------------------------------
 
@@ -23098,7 +23101,7 @@ INSERT INTO `users` (`ID`, `name`, `surname`, `email`, `phone`, `password`, `dat
 (6396, 'Inti Vincenzo', 'Pizzoni', 'frost4808@gmail.com', '3317867194', 'd37b5c624779c9356283544c556432433c07e0d4', '28/02/1997', 'Via San michele 28', 'PZZNVN97B28D940J', 'Italia', '25074', 'BS', 'Studente', 'XWFKR', 174, 0, '06AC', '2017-06-12 14:21:00', '2017-06-12 15:01:00', 1, 0, 0, 0, 1, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6397, 'IVANA', 'GAROFALO', 'ivag@live.it', '3472595712', '29ed153bd22b1f38a573ab1a9792d05cad943d2b', '17/02/1986', 'VIA A. PALLADIO 22', 'GRFVNI86B57A841I', 'ITALIA', '95031', 'CT', 'MEDIATRICE LINGUISTICA', '012A6', 170, 0, '02MG', '2017-06-12 14:22:00', '2017-06-12 14:26:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6398, 'Damiano', 'Villani', 'damiano.villani85@gmail.com', '3202650834', '0c545adfae9f63c6f3dea885762735833ce8b418', '16/02/1985', 'Via di Novoli 60/D', 'VLLDMN85B16B519F', 'Italia', '50127', 'FI', 'Impiegato', '0FSHR', 170, 0, '03MG', '2017-06-12 14:25:00', '2017-06-12 14:25:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
-(6399, 'Greta', 'Gualdi', 'gualdigreta@gmail.com', '3313826215', '83355782af69d229c52814212b5e857ca84f8015', '7/2/1992', 'Albino, via Madonna della neve 3', 'GLDGRT92B47A246E', 'Italia', '24021', 'BG', 'Studente', '21ZJX', 197, 0, '00AD', '2017-06-12 14:27:00', '2017-06-13 15:37:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
+(6399, 'Greta', 'Gualdi', 'gualdigreta@gmail.com', '3313826215', '83355782af69d229c52814212b5e857ca84f8015', '7/2/1992', 'Albino, via Madonna della neve 3', 'GLDGRT92B47A246E', 'Italia', '24021', 'BG', 'Studente', '21ZJX', 197, 0, '00AD', '2017-06-12 14:27:00', '2017-06-13 15:38:00', 1, 0, 0, 0, 1, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6400, 'Valeria', 'Pennino', 'valeria.pennino@gmail.com', '3456410623', 'a5181fa293f77577cfc30e29f5f8c6defd15dc9b', '01/08/1986', 'Via Sperone 34', 'PNNVLR86M41G273U', 'Italia', '90123', 'PA', 'Graphic designer', 'UQ73I', -1, 0, '', '2017-06-12 14:28:00', '2017-06-12 14:29:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6401, 'Ewelina', 'Blaziak', 'ewelinahelena@outlook.it', '3892459581', 'a7cb9927deb1f54f49a6d8bb8cebf0c6946355a2', '11/01/1990', 'varano san severo 40', 'BLZWNH90A51I127Y', 'Italia', '71016', 'FG', 'Casalinga', 'IRXVT', 174, 0, '06AC', '2017-06-12 14:28:00', '2017-06-12 14:30:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6402, 'Loris', 'Borra', 'borra.loris3@gmail.com', '3890754258', '5bbcb3674e1b3273f45a54d614e90613178d135d', '17/2/1988', 'Strada Castelletto 2', 'BRRLRS88B17B111F', 'Italia', '12042', 'CN', 'Impiegato amministrativo', 'YRCO3', -1, 0, '', '2017-06-12 14:34:00', '2017-06-13 11:32:00', 1, 0, 0, 0, 1, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
@@ -23479,7 +23482,8 @@ INSERT INTO `users` (`ID`, `name`, `surname`, `email`, `phone`, `password`, `dat
 (6778, 'Brenda', 'Rizzo', 'brenda.rizzo86@gmail.com', '3480000134', 'cbbe0b70c0b05d5a48fa1b06091d68e0a65c76fd', '18/04/1986', 'Via Don Orione, 3 ', 'RZZBND86D58B300P', 'Italia', '21012', 'VA', 'Impiegata', '1UQNF', 169, 0, '16PC', '2017-06-13 15:23:00', '2017-06-13 15:30:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6779, 'Raffaele', 'Ciuffreda', 'ciuffreda91@yahoo.it', '3284723076', '89a4031152dfc905aef60c71ca405f18239bf90f', '15/02/1991', 'Via Piave ', 'CFFRFL91B15H926P', 'Italia', '60124', 'AN', 'Studente', 'T4PYK', -1, 6610, 'AOZ56', '2017-06-13 15:24:00', '2017-06-13 15:25:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
 (6780, 'Susanna', 'Vaga', 'susanna.vaga@gmail.com', '+3462700909', 'ea3374e5ea66f5bf845b9b7a32d6ca9067c57e25', '09/07/1989', 'via cantarana  6', 'VGASNN89L49F952F', 'Italia', '27043', 'PV', 'Segretaria', 'NT71Z', -1, 0, '', '2017-06-13 15:30:00', '2017-06-13 15:30:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
-(6781, 'Karim', 'Castagnini', 'karim4gaming@gmail.com', '3482798164', 'eb78b575097b58df57aa3e587b9214f86696be85', '07/08/1993', 'Piazza Marconi 8', 'CSTKRM93M07L407H', 'Italia', '37039', 'VR', 'Studente', 'QURSI', -1, 0, '', '2017-06-13 15:33:00', '2017-06-13 15:35:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00');
+(6781, 'Karim', 'Castagnini', 'karim4gaming@gmail.com', '3482798164', 'eb78b575097b58df57aa3e587b9214f86696be85', '07/08/1993', 'Piazza Marconi 8', 'CSTKRM93M07L407H', 'Italia', '37039', 'VR', 'Studente', 'QURSI', -1, 0, '', '2017-06-13 15:33:00', '2017-06-13 15:35:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00'),
+(6782, 'Roberto', 'Marciano', 'robertomx@gmail.com', '3470720381', '3ed4b237011e66101a5dc361f36e0c341d035555', '6/9/1977', 'Via Nazionale Catona 80', 'MRCRRT77M06H224I', 'Italia', '89135', 'RC', 'Disoccupato', 'Z587O', -1, 5377, 'WMJH8', '2017-06-13 15:38:00', '2017-06-13 15:39:00', 1, 0, 0, 0, 0, NULL, NULL, NULL, '', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -23573,17 +23577,17 @@ ALTER TABLE `clickmasters`
 -- AUTO_INCREMENT for table `contracts`
 --
 ALTER TABLE `contracts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2168;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2169;
 --
 -- AUTO_INCREMENT for table `mails`
 --
 ALTER TABLE `mails`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1205;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1206;
 --
 -- AUTO_INCREMENT for table `not_mail`
 --
 ALTER TABLE `not_mail`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18719;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18720;
 --
 -- AUTO_INCREMENT for table `projects_classic`
 --
@@ -23603,7 +23607,7 @@ ALTER TABLE `screenshots`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6782;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6783;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
