@@ -386,8 +386,18 @@ h3.call{
 #bg02 h4{
 	font-family: 'Montserrat';
 	font-weight: 700;
-	font-size: 15px;
+	font-size: 13px;
 	color:#fff;
+}
+
+#bg02 {
+	padding: 30px 0 100px 0 !important;
+}
+
+@media (max-width: 767px) {
+	#bg02{
+		padding: 0;
+	}
 }
 
 #bg02 .col-md-3 h4{
@@ -1294,4 +1304,3 @@ div.section.fp-section.active.fp-completely, .section:first-child{
 		padding-right: 0;
 	}
 }
-
