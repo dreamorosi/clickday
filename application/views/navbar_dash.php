@@ -36,11 +36,12 @@
               <li data-nav="managecm"><a href="<? echo base_url('dashboard/managecm'); ?>">ClickMasters</a></li>
               <li data-nav="projects"><a href="<? echo base_url('dashboard/projects'); ?>">Elenco Progetti</a></li>
               <li data-nav="codes"><a href="<? echo base_url('dashboard/codes'); ?>">Codici</a/></li>
-              <li data-nav="settings"><a href="<? echo base_url('dashboard/settings'); ?>">Impostazioni</a/></li>  
+              <li data-nav="settings"><a href="<? echo base_url('dashboard/settings'); ?>">Impostazioni</a/></li>
             <? endif; ?>
           <? endif; ?>
         <? else: ?>
           <li data-nav="profile"><a href="<? echo base_url('dashboard/profile'); ?>">Modifica dati personali</a></li>
+          <li class="hidden"><a href="http://google.com">Video Tutorial</a></li>
         <? endif; ?>
         <li><a href="<? echo base_url('dashboard/signout'); ?>">Logout</a></li>
       </ul>

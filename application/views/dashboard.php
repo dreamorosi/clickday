@@ -105,7 +105,7 @@
 					<div class="panel-heading">Scarica contratto</div>
 					<div class="panel-body">
 						<div class="form-group">
-							<button data-userID="<? echo $ID; ?>" class="btn btn-default downloadC">Download</button>
+							<a href="<? echo base_url('contratto.pdf'); ?>" target="_blank" class="btn btn-default">Download</a>
 						</div>
 					</div>
 				</div>

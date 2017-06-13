@@ -162,35 +162,35 @@ $(document).ready(function(){
 		$("#bg06i").css('margin-top', -30);
 	});
 
-	// var decimal_places = 1;
-	// var decimal_factor = decimal_places === 0 ? 1 : Math.pow(10, decimal_places);
-	// var percent_number_step = $.animateNumber.numberStepFactories.append('%')
-	// $('.number1').animateNumber({number: 500}, 2000);
-	// $('.number2').animateNumber({number: 38, numberStep: percent_number_step}, 2000);
-	// $('.number3').animateNumber({
-	// 	number: 3.4 * decimal_factor,
-	// 	numberStep: function(now, tween) {
-	// 		var floored_number = Math.floor(now) / decimal_factor,
-	// 		target = $(tween.elem);
-	// 		if (decimal_places > 0) {
-	// 			floored_number = floored_number.toFixed(decimal_places);
-	// 		}
-	// 		target.text(floored_number);
-	// 	}
-	// }, 2000);
-	// $('.number4').animateNumber({
-	// 	number: 3.2 * decimal_factor,
-	// 	numberStep: function(now, tween) {
-	// 		var floored_number = Math.floor(now) / decimal_factor,
-	// 		target = $(tween.elem);
-	// 		if (decimal_places > 0) {
-	// 			floored_number = floored_number.toFixed(decimal_places);
-	// 		}
-	// 		target.text(floored_number);
-	// 	}
-	// }, 2000);
-	//
-	// $('.yourCountdownContainer').countdown({
-	// 	date: "May 26, 2016 15:55:00"
-	// });
+	var decimal_places = 1;
+	var decimal_factor = decimal_places === 0 ? 1 : Math.pow(10, decimal_places);
+	var percent_number_step = $.animateNumber.numberStepFactories.append('%')
+	$('.number1').animateNumber({number: 500}, 2000);
+	$('.number2').animateNumber({number: 38, numberStep: percent_number_step}, 2000);
+	$('.number3').animateNumber({
+		number: 3.4 * decimal_factor,
+		numberStep: function(now, tween) {
+			var floored_number = Math.floor(now) / decimal_factor,
+			target = $(tween.elem);
+			if (decimal_places > 0) {
+				floored_number = floored_number.toFixed(decimal_places);
+			}
+			target.text(floored_number);
+		}
+	}, 2000);
+	$('.number4').animateNumber({
+		number: 3.2 * decimal_factor,
+		numberStep: function(now, tween) {
+			var floored_number = Math.floor(now) / decimal_factor,
+			target = $(tween.elem);
+			if (decimal_places > 0) {
+				floored_number = floored_number.toFixed(decimal_places);
+			}
+			target.text(floored_number);
+		}
+	}, 2000);
+
+	$('.yourCountdownContainer').countdown({
+		date: "June 19, 2017 15:55:00"
+	});
 });

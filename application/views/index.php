@@ -58,7 +58,7 @@
       </div>
       <div class="modal-body">
 	  		<h3>COME<br>GUADAGNI</h3>
-				<p>Se il tuo click risulterà vincente, ovvero se il progetto da te inviato otterrà l’ammissibilità al finanziamento dell’INAIL, guadagnerai un compenso pari a <b><b>€300,00 netti</b></b> (che si concretizzano in un formale <b><b><a href="<? echo base_url('contratto.pdf'); ?>" target="_blank">Contratto di Collaborazione</a></b></b> da €375,00 lordi con ritenuta d’acconto di legge).</p>
+				<p>Se il tuo click risulterà vincente, ovvero se il progetto da te inviato otterrà l’ammissibilità al finanziamento dell’INAIL, guadagnerai un compenso pari a <b><b>€300,00 netti</b></b> (che si concretizzano in un formale <b><b><a href="<? echo base_url('contratto.pdf'); ?>" target="_blank">Contratto di Prestazione di servizio</a></b></b> da €375,00 lordi con ritenuta d’acconto di legge).</p>
 				<p>Per far si che il progetto da te inviato ottenga l'ammissibilità al finanziamento, <b><b>dovrai fare click nel più breve tempo possibile</b></b>, in quanto solo i progetti inviati per primi sul sito INAIL verranno ammessi al contributo.</p>
 				<p>Il compenso di €300,00 netti sarà erogato a seguito della pubblicazione degli elenchi dei progetti ammessi al contributo sul sito dell’INAIL, presumibilmente una settimana dopo la data del Click Day</p>
 				<p>Sono inoltre previsti dei <b><b>compensi speciali</b></b> per i tre cliccatori più veloci.</p>
@@ -137,9 +137,9 @@
             </div>
           </div>
           <div class="col-md-6 col-xs-12 text-center row1right">
-						<div class="row hidden hide" id="bg02">
+						<div class="row hidden" id="bg02">
 							<div id="bg">
-								<h4 class="text-uppercase">È partito il countdown per clickday giovedì 26 maggio 2016</h4>
+								<h4 class="text-uppercase">È partito il countdown per clickday lunedì 19 giugno 2017 ore 16.00</h4>
 	    					<div class="col-md-12 yourCountdownContainer">
 	    						<h3>500</h3>
 	    					</div>
@@ -192,14 +192,14 @@
         </div>
         <div class="row">
         	<div class="col-md-6 text-justify row1left">
-          	<p class="testo3 hidden">Il giorno del Click Day, i cliccatori che avranno aderito al progetto, dovranno procedere con l’<b>invio delle domande sul sito web dell’INAIL</b>.</p>
-            <p class="testo3 hidden">Una volta connessi al sito, in ora e giorno da definirsi (l’Inail comunicherà la data e l’orario esatto del click day a partire dal 12 giugno 2017), i cliccatori dovranno incollare un codice alfanumerico da noi fornito preventivamente, all’interno di una finestra dedicata ed infine cliccare un pulsante “invia” nel più breve tempo possibile (3-4 secondi).</p>
+          	<p class="testo3 hidden">Il giorno del Click Day, lunedì 19 giugno 2017 alle ore 16.00, i cliccatori che avranno aderito al progetto, dovranno procedere con l’<b>invio delle domande sul sito web dell’INAIL</b>.</p>
+            <p class="testo3 hidden">Una volta connessi al sito i cliccatori dovranno incollare un codice alfanumerico da noi fornito preventivamente, all’interno di una finestra dedicata ed infine cliccare un pulsante “invia” nel più breve tempo possibile (3-4 secondi).</p>
             <img class="center-block scale hidden" id="monitor" data-src="<? echo base_url('assets/img/monitor.png'); ?>" alt="monitor" />
           </div>
           <div class="col-md-6 text-justify row1right">
             <h4 class="text-left hidden">È più facile di ciò che pensi!</h4>
             <p class="testo3 hidden">Ti invieremo via email le semplici istruzioni e un video tutorial che ti illustreranno passo dopo passo cosa dovrai fare precisamente quel giorno e saremo comunque a disposizione, anche telefonicamente al numero 0522 701079, per qualunque dubbio o informazione aggiuntiva.</p>
-            <p class="testo3 hidden">La data esatta del giorno del Click Day verrà comunicata a partire dal 12 giugno 2017. È richiesta la partecipazione dei cliccatori, davanti al proprio pc, mezz’ora prima dell’orario che comunicheremo.</p>
+            <p class="testo3 hidden">La data esatta del Click Day è lunedì 19 giugno alle ore 16.00. È però richiesta la partecipazione dei cliccatori, davanti al proprio pc, mezz’ora prima dell’orario che comunicheremo.</p>
             <p class="testo3 hidden">Ogni cliccatore effettuerà il click <b><b>comodamente da casa propria</b></b>.</p>
           </div>
         </div>
@@ -377,6 +377,8 @@
   </defs>
 </svg>
 
+<script src="<? echo base_url('assets/js/jquery.animateNumber.min.js'); ?>"></script>
+<script src="<? echo base_url('assets/js/jquery.countdown.js'); ?>"></script>
 <script src="<? echo base_url('assets/js/index.js'); ?>"></script>
 </body>
 </html>

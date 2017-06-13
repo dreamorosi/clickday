@@ -89,7 +89,7 @@
 					<div class="panel-heading">INVITA UN AMICO</div>
 					<div class="panel-body">
 						<div class="form-group col-md-6">
-							<p>Invita i tuoi amici ad iscriversi utilizzando questo url.</p>
+							<p>INVITA UN AMICO!</p>
 							<div class="input-group">
 								<input type="text" class="form-control referralCode" placeholder="Referral Url" value="<? echo base_url('signup/' . $referral); ?>">
 								<span class="input-group-btn">

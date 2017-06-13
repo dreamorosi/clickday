@@ -28,7 +28,7 @@
 						<li>
 							<span class="listFnumber">1</span>
 							<a role="button" data-toggle="collapse" href="#col1" aria-expanded="false">Quando ci sarà il Click Day?</a>
-							<div id="col1" class="collapse">Il giorno del Click Day sarà comunicato dall’INAIL a partire dal 12 giugno 2017, plausibilmente in una data compresa nelle due settimane successive. Vi aggiorneremo costantemente.</div>
+							<div id="col1" class="collapse">Il giorno del Click Day sarà lunedì 19 giugno 2017 alle ore 16.00.</div>
 						</li>
 						<li>
 							<span class="listFnumber">2</span>
@@ -58,7 +58,7 @@
 						<li>
 							<span class="listFnumber">7</span>
 							<a role="button" data-toggle="collapse" href="#col7" aria-expanded="false">Posso partecipare anche se ho la partita IVA?</a>
-							<div id="col7" class="collapse">Certo! Anziché un contratto di collaborazione occasionale, il cliccatore in possesso di p.IVA emetterà regolare fattura.</div>
+							<div id="col7" class="collapse">Certo! Anziché un contratto di prestazione di servizio, il cliccatore in possesso di p.IVA emetterà regolare fattura.</div>
 						</li>
 						<li>
 							<span class="listFnumber">8</span>
@@ -68,7 +68,7 @@
 						<li>
 							<span class="listFnumber">9</span>
 							<a role="button" data-toggle="collapse" href="#col9" aria-expanded="false">Cosa devo fare con il contratto?</a>
-							<div id="col9" class="collapse">Scaricalo, avrà già i tuoi dati inseriti, e inoltracelo firmato dall’apposita funzione di upload presente nella tua area personale entro 5 gironi dall’Iscrizione. Ti ricordiamo che è per una tua maggiore tutela.</div>
+							<div id="col9" class="collapse">Scaricalo e inoltralo firmato dall’apposita funzione di upload presente nella tua area personale entro 5 gironi dall’Iscrizione. Ti ricordiamo che è per una tua maggiore tutela.</div>
 						</li>
 						<li>
 							<span class="listFnumber">10</span>
@@ -88,7 +88,7 @@
 						<li>
 							<span class="listFnumber">13</span>
 							<a role="button" data-toggle="collapse" href="#col13" aria-expanded="false">Dopo aver effettuato la registrazione a Click Day cosa devo fare?</a>
-							<div id="col13" class="collapse">Una volta effettuata e confermata l'iscrizione, non dovrai fare altro che aspettare le comunicazioni del nostro Staff.<br>Il giorno e l’orario esatto, infatti, saranno comunicati dall’INAIL a partire dal 12 giugno 2017, plausibilmente in una data compresa nelle due settimane successive. Vi aggiorneremo costantemente.</div>
+							<div id="col13" class="collapse">Una volta effettuata e confermata l'iscrizione, non dovrai fare altro che aspettare le comunicazioni del nostro Staff. Vi aggiorneremo costantemente.</div>
 						</li>
 						<li>
 							<span class="listFnumber">14</span>

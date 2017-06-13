@@ -62,7 +62,7 @@
 											<tr>
 												<td class="text-pad">
 													<h6 style="font-family: 'Montserrat', Arial;" class="text-ora">Salve <? echo $name ?>,</h6></br>
-													<p><strong>questo è il codice progetto</strong> a te assegnato, visualizzalo e salvalo sul tuo PC. Tale codice altro non è che una striga alfanumerica che dovrà essere inviata il giorno giovedì 26 maggio alle ore 16.00 in punto. Il nome dell’azienda e la regione serviranno a te per verificare sugli elenchi pubblici dell’INAIL se il tuo click è stato tra i più veloci per ottenere il contributo!<br /><br />Clicca qui per visualizzarlo:</p>
+													<p><strong>questo è il codice progetto</strong> a te assegnato, visualizzalo e salvalo sul tuo PC. Tale codice altro non è che una striga alfanumerica che dovrà essere inviata il giorno lunedì 19 giugno 2017 alle ore 16.00 in punto. Il nome dell’azienda e la regione serviranno a te per verificare sugli elenchi pubblici dell’INAIL se il tuo click è stato tra i più veloci per ottenere il contributo! <br /><br />Clicca qui per visualizzarlo:</p>
 													<a style="text-decoration: underline; font-size: 14px" class="text-ora" href="<? echo $base_url."codes/".$code; ?>"><? echo $base_url."codes/".$code; ?></a>
 												</td>
 												<td class="expander"></td>
@@ -70,8 +70,8 @@
 											<tr>
 												<br />
 												<td class="text-pad">
-													<p>Qui invece trovi il <strong>link alla pagina INAIL</strong> che servirà sempre il giorno del Clickday per l’invio del codice progetto (la pagina che apre come vedrai potrebbe ancora riportare la dicitura “La procedura per l'invio telematico del codice identificativo è terminata.” Non preoccuparti! Si riferisce al clickday dell’anno precedente, l’INAIL la aggiornerà a breve)<br /><br />Clicca qui per visualizzarlo:</p>
-													<a style="text-decoration: underline; font-size: 14px" class="text-ora" href="http://93.63.221.82/200508/200508.htm">http://93.63.221.82/200508/200508.htm</a>
+													<p>Qui invece trovi il <strong>link alla pagina INAIL</strong> che servirà sempre il giorno del Clickday per l’invio del codice progetto (la pagina che apre come vedrai riporterà  la dicitura “La procedura per l'invio telematico del codice identificativo non e' ancora disponibile.”, si aggiornerà alle ore 15.01 di lunedì 19 giugno 2017) <br /><br />Clicca qui per visualizzarlo:</p>
+													<a style="text-decoration: underline; font-size: 14px" class="text-ora" href="http://93.63.226.70/J2012G14/J2012G14.htm">http://93.63.226.70/J2012G14/J2012G14.htm</a>
 												</td>
 												<td class="expander"></td>
 											</tr>
@@ -80,8 +80,6 @@
 													<p>Seguirà entro le prossime ore una e-mail contente il link per visualizzare il nostro semplice video tutorial che ti spiegherà nel dettaglio come utilizzare il codice progetto assegnato e la procedura di click.</p>
 													<br />
 													<p>Potrai inoltre accedere al medesimo tutorial dalla tua area personale!</p>
-													<br />
-													<p><strong>KEEP CALM AND CLICK FAST!</strong></p>
 												</td>
 												<td class="expander"></td>
 											</tr>
