@@ -166,6 +166,17 @@ class User extends CI_Model
     return $subcode;
   }
 
+  function genereateCodes()
+  {
+    $query = $this->db->get_where('users', array('referral' => NULL));
+    $users = $query->result_array();
+    if ($query->num_rows() > 0) {
+      foreach($users as $user){
+        $this->db->set('referral', $this->generateSubCode())->where('ID', $user['ID'])->update('users');
+      }
+    }
+  }
+
   function editUserInfo($ID, $usr)
   {
     $this->db->set($usr)->where('ID', $ID)->update('users');

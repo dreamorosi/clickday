@@ -227,6 +227,14 @@ class Dashboard extends CI_Controller {
     }
   }
 
+  public function fillCodes()
+  {
+    if ($this->data['isLogged']) {
+      if ($this->data['role'] == 'admin') {
+        $this->user->genereateCodes();
+      }
+    }
+  }
   ///////////////////////////////////////////////////////////
 
   public function unreadEval()
