@@ -7,7 +7,7 @@
 	include_once 'header.php';
 
 	//Iscrizioni aperte/chiuse [true/false]
-	$open = true;
+	$open = $isOpen;
 ?>
 <div class="submenu">
   <nav class="navbar navbar-default">
@@ -25,7 +25,7 @@
 		<div class="col-md-12 text-center">
 			<h2 class="text-uppercase text-primary">Registrazione utenti</h2>
 			<? if($open): ?>
-				<p class="lead">Compila il form sottostante per registrarti a Click Day 2017</p>
+				<p class="lead">Compila il form sottostante per registrarti a Click Day 2017 <? echo $isOpen; ?></p>
 			<? else: ?>
 				<p class="lead">Ci dispiace, ma le iscrizioni per questa edizione sono terminate.</p>
 			<? endif; ?>
