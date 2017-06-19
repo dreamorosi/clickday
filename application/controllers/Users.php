@@ -19,7 +19,8 @@ class Users extends CI_Controller {
 	{
 		$this->data['code'] = $code;
 		$close_signup = strtotime("2017-06-19 11:00:00");
-		$this->data['isOpen'] = strtotime(date('g:i'), $close_signup) < $close_signup;
+		// $this->data['isOpen'] = strtotime(date('g:i'), $close_signup) < $close_signup;
+		$this->data['isOpen'] = false;
 		$this->load->view('signup', $this->data);
 	}
 

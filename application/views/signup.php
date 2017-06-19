@@ -25,7 +25,7 @@
 		<div class="col-md-12 text-center">
 			<h2 class="text-uppercase text-primary">Registrazione utenti</h2>
 			<? if($open): ?>
-				<p class="lead">Compila il form sottostante per registrarti a Click Day 2017 <? echo $isOpen; ?></p>
+				<p class="lead">Compila il form sottostante per registrarti a Click Day 2017</p>
 			<? else: ?>
 				<p class="lead">Ci dispiace, ma le iscrizioni per questa edizione sono terminate.</p>
 			<? endif; ?>
