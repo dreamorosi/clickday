@@ -19227,7 +19227,8 @@ CREATE TABLE `users` (
   `activation` varchar(16) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `region` char(2) NOT NULL,
-  `winnerAgreement` varchar(20) NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `winnerAgreement` varchar(20) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `isWinner` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
