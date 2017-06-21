@@ -98,6 +98,8 @@ class Dashboard_model extends CI_Model
       $obj['approved'] = $user->approved === '1' ? 'Si' : 'No';
       $obj['code_rec'] = $user->code_received === '1' ? 'Si' : 'No';
 			$obj['code_ass'] = $user->code_assigned === '1' ? 'Si' : 'No';
+			$obj['isWinner'] = $user->isWinner === '1' ? 'Si' : 'No';
+      $obj['bankOk'] = $user->bankOk === '1' ? 'Si' : 'No';
       $obj['screen'] = $user->screen_uploaded === '1' ? 'Si' : 'No';
       $obj['contract'] = $user->cont_uploaded === '1' ? 'Si' : 'No';
       $obj['code'] = $user->code !== NULL ? $user->code : '---';
