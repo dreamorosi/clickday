@@ -77,14 +77,19 @@ class Users extends CI_Controller {
 			'prov' => strtoupper($this->input->post('prov')),
 			'cf' =>strtoupper( $this->input->post('cf')),
 			'work' => ucfirst($this->input->post('work')),
-			'phone' => $this->input->post('phone')
+			'phone' => $this->input->post('phone'),
+			'comune' => $this->input->post('comune'),
+			'bank' => $this->input->post('bank'),
+			'account_holder' => $this->input->post('account_holder'),
+			'iban' => $this->input->post('iban')
 		);
 		$data = array();
- 		if ($this->data['ID'] === $ID) {
+ 		if ($this->session->userdata('ID') === $ID) {
 			$data['success'] = $this->user->editUserInfo($ID, $usr);
 		} else {
 			$data['success'] = FALSE;
 		}
+
 		echo json_encode($data);
 	}
 

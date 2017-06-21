@@ -60,6 +60,10 @@
 											<input type="text" class="form-control" name="cap" autocomplete="off" tabindex="10" maxlength="5" title="Inserisci il tuo Codice di avviamento postale" value="<? echo $user->cap ?>" required />
 										</div>
 									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Comune</label>
+										<input type="text" class="form-control" name="comune" autocomplete="off" tabindex="15" maxlength="50" title="Inserisci il tuo codice fiscale" value="<? echo $user->comune ?>" required />
+									</div>
 								</div>
 								<div class="col-lg-5 col-lg-offset-1 col-md-6">
 									<div class="form-group col-lg-9 col-md-12">
@@ -78,6 +82,20 @@
 										<label>Codice Fiscale</label>
 										<input type="text" class="form-control" name="cf" autocomplete="off" tabindex="14" maxlength="16" title="Inserisci il tuo codice fiscale" value="<? echo $user->cf ?>" required />
 									</div>
+									<? if ($this->session->userdata('isWinner')) : ?>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Intestatario Conto</label>
+										<input type="text" class="form-control" name="account_holder" autocomplete="off" tabindex="16" pattern="^[a-zA-Z][ ][a-zA-Z0-9-_\.]+{1,20}$" title="Inserisci il tuo codice fiscale" value="<? echo $user->account_holder ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Istituto Bancario</label>
+										<input type="text" class="form-control" name="bank" autocomplete="off" tabindex="17" maxlength="50" title="Inserisci il tuo codice fiscale" value="<? echo $user->bank ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>IBAN</label>
+										<input type="text" class="form-control" name="iban" autocomplete="off" tabindex="18" maxlength="34" title="Inserisci il tuo IBAN" value="<? echo $user->iban ?>" required />
+									</div>
+									<? endif; ?>
 									<div class="form-group col-lg-9 col-md-12">
 										<button class="btn btn-primary btn-block text-uppercase btn-lg">Salva</button>
 									</div>
@@ -116,6 +134,7 @@
 	<script src="<? echo base_url('assets/js/clipboard.min.js') ?>"></script>
 	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/form-utils.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/iban.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/profile.js'); ?>"></script>
 
 </body>
