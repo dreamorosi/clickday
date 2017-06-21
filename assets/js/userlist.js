@@ -200,6 +200,11 @@ $(document).ready(function () {
         tr += `<td class="sendcode"><button class="btn btn-sm btn-default ${status}"><small>${text}</small></button></td>`
       }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>'
+
+      let $isWinner = usersMnpl[i].isWinner === 'Si' ? '' : '-empty'
+
+      tr += '<td class="makeWinner" title="Contrassegna Utente come vincitore"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-star' + $isWinner + '"></span></button></td>'
+
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>'
       tr += '</tr>'
 			$('.table-striped tbody').append(tr)
@@ -367,7 +372,7 @@ $(document).ready(function () {
 	})
 
 	$('.userListWidget').on('click', '.user-line td', function () {
-		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode') || $(this).hasClass('no-results')) {
+		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode') || $(this).hasClass('no-results') || $(this).hasClass('makeWinner')) {
 			return
 		} else {
 			$.ajax({
@@ -468,6 +473,34 @@ $(document).ready(function () {
 				$('.confirm .modal-footer .btn-primary').button('reset')
 				$(this).find('.modal-body p').html('<span class="text-danger">Si è verificato un errore, riprovare più tardi.</span>')
 			}
+    })
+  })
+
+  $('body').on('click', '.makeWinner', function () {
+    let id = $(this).parent().data('id')
+    let $btn = $(this).find('button')
+    let isWinner = !$(this).find('.glyphicon').hasClass('glyphicon-star-empty')
+
+    $.ajax({
+      method: 'POST',
+      url: `${window.base_url}users/toggleWinnerState/${id}/${!isWinner}`,
+      dataType: 'json',
+      success: (data) => {
+        if (data) {
+          let msg
+          if (isWinner) {
+            $btn.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty')
+            msg = 'Utente rimosso dall\'elenco vincitori!'
+          } else {
+            $btn.find('span').removeClass('glyphicon-star-empty').addClass('glyphicon-star')
+            msg = 'Utente contrassegnato come vincitore!'
+          }
+
+          notify({type: 'success', message: msg})
+        } else {
+          notify({type: 'error', message: 'Si è verificato un errore inaspettato, aggiornare la pagina.'})
+        }
+      }
     })
   })
 })

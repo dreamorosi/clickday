@@ -471,5 +471,9 @@ class User extends CI_Model
       return 'NULL';
     }
   }
+
+  function toggleWinner($ID, $newState) {
+    return $this->db->set('isWinner', $newState)->where('ID', $ID)->update('users');
+  }
 }
 ?>

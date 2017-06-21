@@ -287,6 +287,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -349,6 +350,10 @@
 
                   $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $status . '"><small>' . $text . '</small></button></td>';
 									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+
+									$isWinner = $rawUsers[$k]['isWinner'] === 'Si' ? '' : '-empty';
+
+									$tr .= '<td class="makeWinner" title="Contrassegna Utente come vincitore"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-star' . $isWinner . '"></span></button></td>';
 									$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';
 

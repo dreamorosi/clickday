@@ -182,4 +182,10 @@ class Users extends CI_Controller {
 		}
 	}
 
+	public function toggleWinnerState ($ID, $newState) {
+		$newState = $newState === 'true' ? 1 : 0;
+		$res = $this->user->toggleWinner($ID, $newState);
+		echo json_encode($res);
+	}
+
 }
