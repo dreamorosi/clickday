@@ -119,6 +119,7 @@ class Dashboard_model extends CI_Model
     $data = array();
 		$this->load->helper('date');
     $headers = array(
+      'Referral',
       'Utente',
       'Data registrazione',
       'ClickMaster',
@@ -134,6 +135,7 @@ class Dashboard_model extends CI_Model
     $data[] = $headers;
 		foreach($users as $user){
 		  $obj = array();
+      $obj['referral'] = $user->referral;
       $obj['name'] = $user->name .' '. $user->surname;
       $obj['join'] = date('d/m/Y', strtotime($user->joinDate));
       if($user->clickM != -1)
