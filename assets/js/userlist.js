@@ -12,6 +12,7 @@ $(document).ready(function () {
   var oldFilter = ''
   var assFilter = ''
   var recFilter = ''
+  var vincFilter = ''
   var letterFilters = {}
   var destID
 
@@ -23,7 +24,7 @@ $(document).ready(function () {
     switch (trigger) {
       case 'search':
         if (filter.length <= 3) {
-          if (usersMnpl.length !== window.users) {
+          if (usersMnpl.length !== window.users.length) {
             usersMnpl = window.users
             let pages = Math.ceil(usersMnpl.length / pageSpan)
             maxOffset = pageSpan * (pages - 1)
@@ -36,16 +37,19 @@ $(document).ready(function () {
             return
           }
         }
-        if (filter.length > oldFilter.length) {
-          usersMnpl = jlinq.from(usersMnpl).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
-        } else {
-          usersMnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+        else {
+          if (filter.length > oldFilter.length) {
+            console.log('wat?')
+            usersMnpl = jlinq.from(usersMnpl).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
+          } else {
+            usersMnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
+          }
         }
         break
       case 'select':
       case 'letter':
         if (Object.keys(letterFilters).length === 0) {
-          usersMnpl = jlinq.from(window.users).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+          usersMnpl = jlinq.from(window.users).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
         } else {
           let l = 0
           let usersLetterFiltered
@@ -54,7 +58,7 @@ $(document).ready(function () {
             l++
           }
           usersMnpl = usersLetterFiltered.select()
-          usersMnpl = jlinq.from(usersMnpl).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+          usersMnpl = jlinq.from(usersMnpl).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
         }
         break
     }
@@ -119,6 +123,9 @@ $(document).ready(function () {
     }
     if(select_case == 'code_rec') {
       recFilter = selection
+    }
+    if(select_case == 'vinc') {
+      vincFilter = selection
     }
     filtering('select')
   })

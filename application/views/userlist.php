@@ -209,6 +209,15 @@
 					<div class="row">
 	          <div class="col-md-3">
 					    <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+              <div class="dropdown-filters">
+                <label id="vinc">Vincitore:<br>
+                  <select>
+                    <option value="">Tutti</option>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+              </div>
 	          </div>
 	          <div class="col-md-7">
 	            <div class="letters-filter">
