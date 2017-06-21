@@ -39,13 +39,13 @@ class User extends CI_Model
   {
     $this->load->library('email');
     $this->load->helper('url');
-    // $config['protocol'] = 'sendmail';
-    $config['protocol'] = 'smtp';
-    $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
-    $config['smtp_port'] = '25';
-    $config['smtp_timeout'] = '7';
-    $config['smtp_user'] = 'info@clickdayats.it';
-    $config['smtp_pass'] = 'YUcd_2016!';
+    $config['protocol'] = 'sendmail';
+    // $config['protocol'] = 'smtp';
+    // $config['smtp_host'] = 'emcwhosting.hwgsrl.it';
+    // $config['smtp_port'] = '25';
+    // $config['smtp_timeout'] = '7';
+    // $config['smtp_user'] = 'info@clickdayats.it';
+    // $config['smtp_pass'] = 'YUcd_2016!';
     $config['validate'] = 'FALSE';
     $config['mailtype'] = 'html';
     $this->email->initialize($config);
@@ -475,6 +475,25 @@ class User extends CI_Model
 
   function toggleWinner($ID, $newState) {
     return $this->db->set('isWinner', $newState)->where('ID', $ID)->update('users');
+  }
+
+  function shouldNotifyATS($ID)
+  {
+    $usr = $this->getUserById($ID);
+    if ($usr->bank !== '' && $usr->account_holder !== '' && $usr->iban !== '' && $usr->comune !== '') {
+      $email = 'vecxijjw@sharklasers.com';
+      $subject = 'test';
+      $payload = array(
+        'name' => $usr->name . ' ' . $usr->surname,
+        'base_url' => base_url(),
+        'bank' => $usr->bank,
+        'account_holder' => $usr->account_holder,
+        'iban' => $usr->iban,
+        'comune' => $usr->comune
+      );
+      $template = 'emails/winnerData';
+      $this->user->shotMail($email, $subject, $payload, $template);
+    }
   }
 }
 ?>
