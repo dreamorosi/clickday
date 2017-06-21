@@ -25,7 +25,8 @@ class User extends CI_Model
         'role' => 'user',
         'lastSeen' => $query->row()->lastSeen,
         'subCm' => $query->row()->subCm,
-        'referral' => $query->row()->referral
+        'referral' => $query->row()->referral,
+        'isWinner' => $query->row()->isWinner
       );
       $this->session->set_userdata($newdata);
       return TRUE;
