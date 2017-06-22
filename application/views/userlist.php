@@ -199,8 +199,11 @@
 				<div class="panel-heading text-right">
 					<span class="pull-left">Lista utenti</span>
 					<a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default">
-						<span class="print glyphicon glyphicon-print"></span> Stampa
+						<span class="print glyphicon glyphicon-print"></span> Utenti
 					</a>
+          <a href="<? echo base_url('dashboard/printWinnersList'); ?>" target="_blank" class="btn btn-sm btn-default">
+            <span class="print glyphicon glyphicon-print"></span> Vincitori
+          </a>
 					<a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default">
 						<span class="print glyphicon glyphicon-picture"></span> Screenshots
 					</a>
