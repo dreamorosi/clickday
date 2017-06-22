@@ -479,7 +479,11 @@ $(document).ready(function () {
   $('body').on('click', '.makeWinner', function () {
     let id = $(this).parent().data('id')
     let $btn = $(this).find('button')
+    let pos = $(this).parent().data('pos')
+    let pos_mnpl = $(this).parent().data('pos_mnpl')
     let isWinner = !$(this).find('.glyphicon').hasClass('glyphicon-star-empty')
+
+    console.log(pos)
 
     $.ajax({
       method: 'POST',
@@ -491,9 +495,17 @@ $(document).ready(function () {
           if (isWinner) {
             $btn.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty')
             msg = 'Utente rimosso dall\'elenco vincitori!'
+
+            window.users[pos]['isWinner'] = 'No'
+            usersMnpl[pos_mnpl]['isWinner'] = 'No'
+
           } else {
             $btn.find('span').removeClass('glyphicon-star-empty').addClass('glyphicon-star')
             msg = 'Utente contrassegnato come vincitore!'
+
+            window.users[pos]['isWinner'] = 'Si'
+            usersMnpl[pos_mnpl]['isWinner'] = 'Si'
+
           }
 
           notify({type: 'success', message: msg})
