@@ -202,7 +202,7 @@
 						<span class="print glyphicon glyphicon-print"></span> Utenti
 					</a>
           <a href="<? echo base_url('dashboard/printWinnersList'); ?>" target="_blank" class="btn btn-sm btn-default">
-            <span class="print glyphicon glyphicon-print"></span> Vincitori
+            <span class="print glyphicon glyphicon-print"></span> Vincitori con profilo completo
           </a>
 					<a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default">
 						<span class="print glyphicon glyphicon-picture"></span> Screenshots
