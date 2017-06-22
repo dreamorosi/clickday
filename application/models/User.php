@@ -181,7 +181,7 @@ class User extends CI_Model
   function editUserInfo($ID, $usr)
   {
     $this->db->set($usr)->where('ID', $ID)->update('users');
-    return $this->db->affected_rows() > 0;
+    return TRUE;
   }
 
   function activateUser($code)
@@ -477,22 +477,28 @@ class User extends CI_Model
     return $this->db->set('isWinner', $newState)->where('ID', $ID)->update('users');
   }
 
+  function toggleBankOk($ID) {
+    $this->db->set('bankOk', 1)->where('ID', $ID)->update('users');
+    return $this->db->affected_rows() > 0;
+  }
+
   function shouldNotifyATS($ID)
   {
     $usr = $this->getUserById($ID);
-    if ($usr->bank !== '' && $usr->account_holder !== '' && $usr->iban !== '' && $usr->comune !== '') {
-      $email = 'vecxijjw@sharklasers.com';
-      $subject = 'test';
-      $payload = array(
-        'name' => $usr->name . ' ' . $usr->surname,
-        'base_url' => base_url(),
-        'bank' => $usr->bank,
-        'account_holder' => $usr->account_holder,
-        'iban' => $usr->iban,
-        'comune' => $usr->comune
-      );
-      $template = 'emails/winnerData';
-      $this->user->shotMail($email, $subject, $payload, $template);
+    if ($usr->bank !== '' && $usr->account_holder !== '' && $usr->iban !== '') {
+      if ($this->toggleBankOk($ID)) {
+        $email = 'vecxijjw@sharklasers.com';
+        $subject = 'Compilazione dati bancari';
+        $payload = array(
+          'name' => $usr->name . ' ' . $usr->surname,
+          'base_url' => base_url(),
+          'bank' => $usr->bank,
+          'account_holder' => $usr->account_holder,
+          'iban' => $usr->iban
+        );
+        $template = 'emails/winnerData';
+        $this->user->shotMail($email, $subject, $payload, $template);
+      }
     }
   }
 }

@@ -86,7 +86,7 @@ class Users extends CI_Controller {
 		$data = array();
  		if ($this->session->userdata('ID') === $ID) {
 			$data['success'] = $this->user->editUserInfo($ID, $usr);
-			$this->user->shouldNotifyATS(42);
+			$this->user->shouldNotifyATS($ID);
 		} else {
 			$data['success'] = FALSE;
 		}

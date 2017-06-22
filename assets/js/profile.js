@@ -56,6 +56,7 @@ const prepareDate = () => {
 
 const checkIban = (inputs) => {
   let iban = inputs.find(input => input.name === 'iban')
+  if (iban === undefined) return true
   if (!IBAN.isValid(iban.value)) {
     let $iban = $('input[name="iban"]')
     $iban.addClass('has-error')

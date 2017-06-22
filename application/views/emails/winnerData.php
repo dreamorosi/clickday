@@ -67,7 +67,6 @@
 														<li>Istituto bancario: <? echo $bank; ?></li>
 														<li>Intestatario: <? echo $account_holder; ?></li>
 														<li>IBAN: <? echo $iban; ?></li>
-														<li>Comune: <? echo $comune; ?></li>
 													</ul>
 												</td>
 												<td class="expander"></td>
