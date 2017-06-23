@@ -137,7 +137,7 @@
             </div>
           </div>
           <div class="col-md-6 col-xs-12 text-center row1right">
-						<div class="row hidden" id="bg02">
+						<div class="row hide hidden" id="bg02">
 							<div id="bg">
 								<h4 class="text-uppercase">È partito il countdown per clickday lunedì 19 giugno 2017 ore 16.00</h4>
 	    					<div class="col-md-12 yourCountdownContainer">
