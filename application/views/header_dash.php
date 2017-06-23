@@ -65,7 +65,7 @@
 				</div>
 				<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Rifiuto</button>
-        	<a data-role="<? echo $role; ?>" data-id="<? echo $ID; ?>" target="_blank" href="<? echo base_url('assets/LISTA_PROGETTI_INVIATI_2016.pdf'); ?>" class="btn btn-primary">Accetto</a>
+        	<a target="_blank" href="<? echo base_url('assets/LISTA_PROGETTI_INVIATI_2016.pdf'); ?>" class="btn btn-primary">Accetto</a>
       </div>
 			</div>
 		</div>
