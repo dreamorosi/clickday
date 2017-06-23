@@ -7,7 +7,8 @@ $(document).ready(function () {
 
   let editForm = new FormUtils()
   editForm.init({
-    form: document.querySelector('.editForm')
+    form: document.querySelector('.editForm'),
+    extendValidation: [checkIban]
   })
 
   $('.editForm').on('submit', (e) => {
@@ -51,4 +52,15 @@ const prepareDate = () => {
   const date = label[0].dataset.birthdate.split('/')
   const inputs = Array.from(bday.querySelectorAll('input'))
   inputs.forEach((input, i) => (input.value = parseInt(date[i])))
+}
+
+const checkIban = (inputs) => {
+  let iban = inputs.find(input => input.name === 'iban')
+  if (iban === undefined) return true
+  if (!IBAN.isValid(iban.value)) {
+    let $iban = $('input[name="iban"]')
+    $iban.addClass('has-error')
+    $iban.parent().find('label').addClass('has-error')
+  }
+  return IBAN.isValid(iban.value)
 }

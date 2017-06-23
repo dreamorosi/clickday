@@ -27,6 +27,13 @@ class Dashboard_model extends CI_Model
 		return $query->result();
 	}
 
+  public function getUsersBankOk()
+  {
+    $this->db->order_by('joinDate', "desc");
+    $query = $this->db->get_where('users', array('bankOk' => 1));
+    return $query->result();
+  }
+
 	public function getUser($id)
 	{
 		$query = $this->db->get_where('users', array('ID' => $id));
@@ -98,6 +105,8 @@ class Dashboard_model extends CI_Model
       $obj['approved'] = $user->approved === '1' ? 'Si' : 'No';
       $obj['code_rec'] = $user->code_received === '1' ? 'Si' : 'No';
 			$obj['code_ass'] = $user->code_assigned === '1' ? 'Si' : 'No';
+			$obj['isWinner'] = $user->isWinner === '1' ? 'Si' : 'No';
+      $obj['bankOk'] = $user->bankOk === '1' ? 'Si' : 'No';
       $obj['screen'] = $user->screen_uploaded === '1' ? 'Si' : 'No';
       $obj['contract'] = $user->cont_uploaded === '1' ? 'Si' : 'No';
       $obj['code'] = $user->code !== NULL ? $user->code : '---';
@@ -117,6 +126,7 @@ class Dashboard_model extends CI_Model
     $data = array();
 		$this->load->helper('date');
     $headers = array(
+      'Referral',
       'Utente',
       'Data registrazione',
       'ClickMaster',
@@ -132,6 +142,7 @@ class Dashboard_model extends CI_Model
     $data[] = $headers;
 		foreach($users as $user){
 		  $obj = array();
+      $obj['referral'] = $user->referral;
       $obj['name'] = $user->name .' '. $user->surname;
       $obj['join'] = date('d/m/Y', strtotime($user->joinDate));
       if($user->clickM != -1)
@@ -152,6 +163,57 @@ class Dashboard_model extends CI_Model
 			$data[] = $obj;
 		}
 		return $data;
+  }
+
+  public function prepareWinnersExcel($users)
+  {
+    $data = array();
+    $this->load->helper('date');
+    $headers = array(
+        'Referral',
+        'Utente',
+        'Data registrazione',
+        'ClickMaster',
+        'SubClickMaster',
+        'Codice ClickMaster',
+        'Conferma registrazione',
+        'Codice Progetto',
+        'Screenshot',
+        'Contratto',
+        'Email',
+        'Telefono',
+				'Intestatario Conto',
+				'Istituto Bancario',
+				'IBAN'
+    );
+    $data[] = $headers;
+    foreach($users as $user){
+      $obj = array();
+      $obj['referral'] = $user->referral;
+      $obj['name'] = $user->name .' '. $user->surname;
+      $obj['join'] = date('d/m/Y', strtotime($user->joinDate));
+      if($user->clickM != -1)
+        $obj['clickM'] = $this->clickmaster->getFullName($user->clickM);
+      else
+        $obj['clickM'] = 'No';
+      if($user->subCm != NULL)
+        $obj['subCm'] = $this->user->getFullName($user->subCm);
+      else
+        $obj['subCm'] = 'No';
+      $obj['cmCode'] = $user->clickM_code;
+      if($user->approved == 1) $obj['approved'] = 'Si'; else $obj['approved'] = 'No';
+      ($user->code == NULL) ? $obj['code_rec'] = 'Nessuno' : $obj['code_rec'] = $user->code;
+      if($user->screen_uploaded == 1) $obj['screen'] = 'Si'; else $obj['screen'] = 'No';
+      if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
+      $obj['email'] = $user->email;
+      $obj['phone'] = $user->phone;
+      $obj['holder'] = $user->account_holder;
+      $obj['bank'] = $user->bank;
+      $obj['iban'] = $user->iban;
+
+      $data[] = $obj;
+    }
+    return $data;
   }
 
 	public function paginateCMs($cMs)

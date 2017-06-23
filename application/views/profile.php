@@ -60,24 +60,42 @@
 											<input type="text" class="form-control" name="cap" autocomplete="off" tabindex="10" maxlength="5" title="Inserisci il tuo Codice di avviamento postale" value="<? echo $user->cap ?>" required />
 										</div>
 									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Comune</label>
+										<input type="text" class="form-control" name="comune" autocomplete="off" tabindex="11" maxlength="50" title="Inserisci il tuo comune" value="<? echo $user->comune ?>" />
+									</div>
 								</div>
 								<div class="col-lg-5 col-lg-offset-1 col-md-6">
 									<div class="form-group col-lg-9 col-md-12">
 										<label>Email</label>
-										<input type="email" class="form-control" name="email" autocomplete="off" tabindex="11" title="Inserisci una password" value="<? echo $user->email ?>" required />
+										<input type="email" class="form-control" name="email" autocomplete="off" tabindex="12" title="Inserisci una password" value="<? echo $user->email ?>" required />
 									</div>
 									<div class="form-group col-lg-9 col-md-12">
 										<label>N. Telefono</label>
-										<input type="tel" class="form-control" name="phone" autocomplete="off" tabindex="12" maxlength="11" title="Inserisci il tuo numero di telefono" value="<? echo $user->phone ?>" required />
+										<input type="tel" class="form-control" name="phone" autocomplete="off" tabindex="13" maxlength="11" title="Inserisci il tuo numero di telefono" value="<? echo $user->phone ?>" required />
 									</div>
 									<div class="form-group col-lg-9 col-md-12">
 										<label>Professione</label>
-										<input type="text" class="form-control" name="work" autocomplete="off" tabindex="13" title="Inserisci la tua professione" value="<? echo $user->work ?>" required />
+										<input type="text" class="form-control" name="work" autocomplete="off" tabindex="14" title="Inserisci la tua professione" value="<? echo $user->work ?>" required />
 									</div>
 									<div class="form-group col-lg-9 col-md-12">
 										<label>Codice Fiscale</label>
-										<input type="text" class="form-control" name="cf" autocomplete="off" tabindex="14" maxlength="16" title="Inserisci il tuo codice fiscale" value="<? echo $user->cf ?>" required />
+										<input type="text" class="form-control" name="cf" autocomplete="off" tabindex="15" maxlength="16" title="Inserisci il tuo codice fiscale" value="<? echo $user->cf ?>" required />
 									</div>
+									<? if ($this->session->userdata('isWinner')) : ?>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Intestatario Conto</label>
+										<input type="text" class="form-control" name="account_holder" autocomplete="off" tabindex="16" pattern="^[a-zA-Z][ ][a-zA-Z0-9-_\.]+{1,20}$" title="Inserisci l'intestatario del conto" value="<? echo $user->account_holder ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>Istituto Bancario</label>
+										<input type="text" class="form-control" name="bank" autocomplete="off" tabindex="17" maxlength="50" title="Inserisci il tuo istituto bancario" value="<? echo $user->bank ?>" required />
+									</div>
+									<div class="form-group col-lg-9 col-md-12">
+										<label>IBAN</label>
+										<input type="text" class="form-control" name="iban" autocomplete="off" tabindex="18" maxlength="34" title="Inserisci il tuo IBAN" value="<? echo $user->iban ?>" required />
+									</div>
+									<? endif; ?>
 									<div class="form-group col-lg-9 col-md-12">
 										<button class="btn btn-primary btn-block text-uppercase btn-lg">Salva</button>
 									</div>
@@ -116,6 +134,7 @@
 	<script src="<? echo base_url('assets/js/clipboard.min.js') ?>"></script>
 	<script src="<? echo base_url('assets/js/notifications.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/form-utils.js'); ?>"></script>
+	<script src="<? echo base_url('assets/js/iban.js'); ?>"></script>
 	<script src="<? echo base_url('assets/js/profile.js'); ?>"></script>
 
 </body>

@@ -25,7 +25,8 @@ class User extends CI_Model
         'role' => 'user',
         'lastSeen' => $query->row()->lastSeen,
         'subCm' => $query->row()->subCm,
-        'referral' => $query->row()->referral
+        'referral' => $query->row()->referral,
+        'isWinner' => $query->row()->isWinner
       );
       $this->session->set_userdata($newdata);
       return TRUE;
@@ -180,7 +181,7 @@ class User extends CI_Model
   function editUserInfo($ID, $usr)
   {
     $this->db->set($usr)->where('ID', $ID)->update('users');
-    return $this->db->affected_rows() > 0;
+    return TRUE;
   }
 
   function activateUser($code)
@@ -469,6 +470,35 @@ class User extends CI_Model
       return $query->row()->ID;
     } else {
       return 'NULL';
+    }
+  }
+
+  function toggleWinner($ID, $newState) {
+    return $this->db->set('isWinner', $newState)->where('ID', $ID)->update('users');
+  }
+
+  function toggleBankOk($ID) {
+    $this->db->set('bankOk', 1)->where('ID', $ID)->update('users');
+    return $this->db->affected_rows() > 0;
+  }
+
+  function shouldNotifyATS($ID)
+  {
+    $usr = $this->getUserById($ID);
+    if ($usr->bank !== '' && $usr->account_holder !== '' && $usr->iban !== '') {
+      if ($this->toggleBankOk($ID)) {
+        $email = 'amministrazione@atseco.it';
+        $subject = 'Compilazione dati bancari';
+        $payload = array(
+          'name' => $usr->name . ' ' . $usr->surname,
+          'base_url' => base_url(),
+          'bank' => $usr->bank,
+          'account_holder' => $usr->account_holder,
+          'iban' => $usr->iban
+        );
+        $template = 'emails/winnerData';
+        $this->user->shotMail($email, $subject, $payload, $template);
+      }
     }
   }
 }

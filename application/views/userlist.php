@@ -199,8 +199,11 @@
 				<div class="panel-heading text-right">
 					<span class="pull-left">Lista utenti</span>
 					<a href="<? echo base_url('dashboard/printList'); ?>" target="_blank" class="btn btn-sm btn-default">
-						<span class="print glyphicon glyphicon-print"></span> Stampa
+						<span class="print glyphicon glyphicon-print"></span> Utenti
 					</a>
+          <a href="<? echo base_url('dashboard/printWinnersList'); ?>" target="_blank" class="btn btn-sm btn-default">
+            <span class="print glyphicon glyphicon-print"></span> Vincitori con profilo completo
+          </a>
 					<a href="<? echo base_url('assets/uploads/screenshots/'); ?>" target="_blank" class="btn btn-sm btn-default">
 						<span class="print glyphicon glyphicon-picture"></span> Screenshots
 					</a>
@@ -209,6 +212,15 @@
 					<div class="row">
 	          <div class="col-md-3">
 					    <input type="text" class="form-control" autocomplete="off" placeholder="Cerca" tabindex="1" id="search"/>
+              <div class="dropdown-filters">
+                <label id="vinc">Vincitore:<br>
+                  <select>
+                    <option value="">Tutti</option>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+              </div>
 	          </div>
 	          <div class="col-md-7">
 	            <div class="letters-filter">
@@ -278,6 +290,7 @@
 									<th></th>
 									<th></th>
 									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -340,6 +353,10 @@
 
                   $tr .= '<td class="sendcode"><button class="btn btn-sm btn-default ' . $status . '"><small>' . $text . '</small></button></td>';
 									$tr .= '<td class="setsendmessage2"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>';
+
+									$isWinner = $rawUsers[$k]['isWinner'] === 'Si' ? '' : '-empty';
+
+									$tr .= '<td class="makeWinner" title="Contrassegna Utente come vincitore"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-star' . $isWinner . '"></span></button></td>';
 									$tr .= '<td class="noDet"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>';
 									$tr .= '</tr>';
 

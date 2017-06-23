@@ -12,6 +12,7 @@ $(document).ready(function () {
   var oldFilter = ''
   var assFilter = ''
   var recFilter = ''
+  var vincFilter = ''
   var letterFilters = {}
   var destID
 
@@ -23,7 +24,7 @@ $(document).ready(function () {
     switch (trigger) {
       case 'search':
         if (filter.length <= 3) {
-          if (usersMnpl.length !== window.users) {
+          if (usersMnpl.length !== window.users.length) {
             usersMnpl = window.users
             let pages = Math.ceil(usersMnpl.length / pageSpan)
             maxOffset = pageSpan * (pages - 1)
@@ -36,16 +37,19 @@ $(document).ready(function () {
             return
           }
         }
-        if (filter.length > oldFilter.length) {
-          usersMnpl = jlinq.from(usersMnpl).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
-        } else {
-          usersMnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+        else {
+          if (filter.length > oldFilter.length) {
+            console.log('wat?')
+            usersMnpl = jlinq.from(usersMnpl).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
+          } else {
+            usersMnpl = jlinq.from(window.users).starts('name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).or().starts('inverted_name', filter).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
+          }
         }
         break
       case 'select':
       case 'letter':
         if (Object.keys(letterFilters).length === 0) {
-          usersMnpl = jlinq.from(window.users).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+          usersMnpl = jlinq.from(window.users).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
         } else {
           let l = 0
           let usersLetterFiltered
@@ -54,7 +58,7 @@ $(document).ready(function () {
             l++
           }
           usersMnpl = usersLetterFiltered.select()
-          usersMnpl = jlinq.from(usersMnpl).starts('code_ass', assFilter).starts('code_rec', recFilter).select()
+          usersMnpl = jlinq.from(usersMnpl).starts('code_ass', assFilter).starts('code_rec', recFilter).starts('isWinner', vincFilter).select()
         }
         break
     }
@@ -119,6 +123,9 @@ $(document).ready(function () {
     }
     if(select_case == 'code_rec') {
       recFilter = selection
+    }
+    if(select_case == 'vinc') {
+      vincFilter = selection
     }
     filtering('select')
   })
@@ -193,6 +200,11 @@ $(document).ready(function () {
         tr += `<td class="sendcode"><button class="btn btn-sm btn-default ${status}"><small>${text}</small></button></td>`
       }
       tr += '<td class="setsendmessage2" title="Contatta Utente"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-envelope"></span></button></td>'
+
+      let $isWinner = usersMnpl[i].isWinner === 'Si' ? '' : '-empty'
+
+      tr += '<td class="makeWinner" title="Contrassegna Utente come vincitore"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-star' + $isWinner + '"></span></button></td>'
+
       tr += '<td class="noDet" title="Elimina Utente"><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".confirm" data-action="delete"><span class="glyphicon glyphicon-remove"></span></button></td>'
       tr += '</tr>'
 			$('.table-striped tbody').append(tr)
@@ -360,7 +372,7 @@ $(document).ready(function () {
 	})
 
 	$('.userListWidget').on('click', '.user-line td', function () {
-		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode') || $(this).hasClass('no-results')) {
+		if ( $(this).hasClass('noDet') || $(this).hasClass('setsendmessage2') || $(this).hasClass('select_td') || $(this).hasClass('sendcode') || $(this).hasClass('no-results') || $(this).hasClass('makeWinner')) {
 			return
 		} else {
 			$.ajax({
@@ -461,6 +473,46 @@ $(document).ready(function () {
 				$('.confirm .modal-footer .btn-primary').button('reset')
 				$(this).find('.modal-body p').html('<span class="text-danger">Si è verificato un errore, riprovare più tardi.</span>')
 			}
+    })
+  })
+
+  $('body').on('click', '.makeWinner', function () {
+    let id = $(this).parent().data('id')
+    let $btn = $(this).find('button')
+    let pos = $(this).parent().data('pos')
+    let pos_mnpl = $(this).parent().data('pos_mnpl')
+    let isWinner = !$(this).find('.glyphicon').hasClass('glyphicon-star-empty')
+
+    console.log(pos)
+
+    $.ajax({
+      method: 'POST',
+      url: `${window.base_url}users/toggleWinnerState/${id}/${!isWinner}`,
+      dataType: 'json',
+      success: (data) => {
+        if (data) {
+          let msg
+          if (isWinner) {
+            $btn.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty')
+            msg = 'Utente rimosso dall\'elenco vincitori!'
+
+            window.users[pos]['isWinner'] = 'No'
+            usersMnpl[pos_mnpl]['isWinner'] = 'No'
+
+          } else {
+            $btn.find('span').removeClass('glyphicon-star-empty').addClass('glyphicon-star')
+            msg = 'Utente contrassegnato come vincitore!'
+
+            window.users[pos]['isWinner'] = 'Si'
+            usersMnpl[pos_mnpl]['isWinner'] = 'Si'
+
+          }
+
+          notify({type: 'success', message: msg})
+        } else {
+          notify({type: 'error', message: 'Si è verificato un errore inaspettato, aggiornare la pagina.'})
+        }
+      }
     })
   })
 })

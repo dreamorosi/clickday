@@ -77,14 +77,20 @@ class Users extends CI_Controller {
 			'prov' => strtoupper($this->input->post('prov')),
 			'cf' =>strtoupper( $this->input->post('cf')),
 			'work' => ucfirst($this->input->post('work')),
-			'phone' => $this->input->post('phone')
+			'phone' => $this->input->post('phone'),
+			'comune' => $this->input->post('comune'),
+			'bank' => $this->input->post('bank'),
+			'account_holder' => $this->input->post('account_holder'),
+			'iban' => $this->input->post('iban')
 		);
 		$data = array();
- 		if ($this->data['ID'] === $ID) {
+ 		if ($this->session->userdata('ID') === $ID) {
 			$data['success'] = $this->user->editUserInfo($ID, $usr);
+			$this->user->shouldNotifyATS($ID);
 		} else {
 			$data['success'] = FALSE;
 		}
+
 		echo json_encode($data);
 	}
 
@@ -180,6 +186,12 @@ class Users extends CI_Controller {
 				echo json_encode($filename);
 			}
 		}
+	}
+
+	public function toggleWinnerState ($ID, $newState) {
+		$newState = $newState === 'true' ? 1 : 0;
+		$res = $this->user->toggleWinner($ID, $newState);
+		echo json_encode($res);
 	}
 
 }
