@@ -458,7 +458,7 @@ class Dashboard extends CI_Controller {
     $this->excel->setActiveSheetIndex(0);
     $this->excel->getActiveSheet()->setTitle('Lista utenti');
     $users = $this->dashboard_model->prepareWinnersExcel($users);
-    $this->excel->getActiveSheet()->getStyle('A1:O1')->getFont()->setBold(true);
+    $this->excel->getActiveSheet()->getStyle('A1:W1')->getFont()->setBold(true);
     $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
     $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(22);
     $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(19);
@@ -473,13 +473,15 @@ class Dashboard extends CI_Controller {
     $this->excel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
     $this->excel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
     $this->excel->getActiveSheet()->getColumnDimension('N')->setWidth(20);
-    $this->excel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+    $this->excel->getActiveSheet()->getColumnDimension('O')->setWidth(32);
     $this->excel->getActiveSheet()->getColumnDimension('P')->setWidth(15);
     $this->excel->getActiveSheet()->getColumnDimension('Q')->setWidth(15);
-    $this->excel->getActiveSheet()->getColumnDimension('R')->setWidth(15);  $this->excel->getActiveSheet()->getColumnDimension('S')->setWidth(25);
+    $this->excel->getActiveSheet()->getColumnDimension('R')->setWidth(15);
+    $this->excel->getActiveSheet()->getColumnDimension('S')->setWidth(15);
     $this->excel->getActiveSheet()->getColumnDimension('T')->setWidth(25);
-    $this->excel->getActiveSheet()->getColumnDimension('U')->setWidth(32);
+    $this->excel->getActiveSheet()->getColumnDimension('U')->setWidth(25);
     $this->excel->getActiveSheet()->getColumnDimension('V')->setWidth(32);
+    $this->excel->getActiveSheet()->getColumnDimension('W')->setWidth(32);
     $c = count($users);
     $this->excel->getActiveSheet()->getStyle("I1:I$c")->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
     $this->excel->getActiveSheet()->fromArray($users);

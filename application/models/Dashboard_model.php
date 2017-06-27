@@ -184,6 +184,7 @@ class Dashboard_model extends CI_Model
         'Telefono',
         'Anno di nascita',
         'Codice Fiscale',
+        'Indirizzo',
         'Comune',
         'Provincia',
         'CAP',
@@ -216,6 +217,7 @@ class Dashboard_model extends CI_Model
       $obj['phone'] = $user->phone;
       $obj['dateBirth'] = $user->dateBirth;
       $obj['cf'] = $user->cf;
+      $obj['address'] = $user->address;
       $obj['comune'] = $user->comune;
       $obj['prov'] = $user->prov;
       $obj['cap'] = $user->cap;
