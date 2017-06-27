@@ -182,6 +182,13 @@ class Dashboard_model extends CI_Model
         'Contratto',
         'Email',
         'Telefono',
+        'Anno di nascita',
+        'Codice Fiscale',
+        'Comune',
+        'Provincia',
+        'CAP',
+        'Nazione',
+        'Lavoro',
 				'Intestatario Conto',
 				'Istituto Bancario',
 				'IBAN'
@@ -207,6 +214,13 @@ class Dashboard_model extends CI_Model
       if($user->cont_uploaded == 1) $obj['contract'] = 'Si'; else $obj['contract'] = 'No';
       $obj['email'] = $user->email;
       $obj['phone'] = $user->phone;
+      $obj['dateBirth'] = $user->dateBirth;
+      $obj['cf'] = $user->cf;
+      $obj['comune'] = $user->comune;
+      $obj['prov'] = $user->prov;
+      $obj['cap'] = $user->cap;
+      $obj['country'] = $user->country;
+      $obj['work'] = $user->work;
       $obj['holder'] = $user->account_holder;
       $obj['bank'] = $user->bank;
       $obj['iban'] = $user->iban;
