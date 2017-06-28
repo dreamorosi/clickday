@@ -41,7 +41,7 @@
           <? endif; ?>
         <? else: ?>
           <li data-nav="profile"><a href="<? echo base_url('dashboard/profile'); ?>">Modifica dati personali</a></li>
-          <li><a href="https://vimeo.com/221599363" target="_blank">Video Tutorial</a></li>
+          <li class="hidden"><a href="https://vimeo.com/221599363" target="_blank">Video Tutorial</a></li>
           <li data-toggle="modal" data-target=".winners"><a href="#">Lista Vincitori</a></li>
         <? endif; ?>
         <li><a href="<? echo base_url('dashboard/signout'); ?>">Logout</a></li>
